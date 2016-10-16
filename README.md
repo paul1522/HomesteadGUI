@@ -2,7 +2,7 @@
 
 An ugly little front-end to manage your homestead instance.
 
-![Screenshot]|(screenshot.png)
+![Screenshot](https://www.reslar.com/img/homestead-gui/screenshot.png)
 
 ## Getting Started
 
@@ -40,4 +40,4 @@ Contributions welcome.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
