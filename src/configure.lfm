@@ -1,97 +1,165 @@
 object ConfigDialog: TConfigDialog
-  Left = 633
-  Height = 204
-  Top = 161
-  Width = 529
+  Left = 433
+  Height = 395
+  Top = 143
+  Width = 569
   Caption = 'Configure'
-  ClientHeight = 204
-  ClientWidth = 529
+  ClientHeight = 395
+  ClientWidth = 569
   OnCreate = FormCreate
   OnShow = FormShow
   LCLVersion = '1.6.0.4'
-  object VagrantCmdSelector: TFileNameEdit
-    Left = 17
-    Height = 23
-    Top = 120
-    Width = 495
-    DialogTitle = 'Where is vagrant.exe'
-    Filter = '.exe|*.exe'
-    FilterIndex = 0
-    DefaultExt = 'exe'
-    HideDirectories = False
-    ButtonWidth = 23
-    NumGlyphs = 1
-    MaxLength = 0
-    TabOrder = 1
-  end
-  object Label1: TLabel
-    Left = 16
-    Height = 15
-    Top = 48
-    Width = 215
-    Caption = 'Directory of your Homestead Vagrantfile:'
-    ParentColor = False
-  end
-  object Label2: TLabel
-    Left = 16
-    Height = 15
-    Top = 104
-    Width = 163
-    Caption = 'Path to the Vagrant executable:'
-    ParentColor = False
-  end
-  object HomesteadDirSelector: TDirectoryEdit
-    Left = 16
-    Height = 23
-    Top = 64
-    Width = 496
-    DialogTitle = 'Where is your homestead box?'
-    ShowHidden = False
-    ButtonWidth = 23
-    NumGlyphs = 1
-    MaxLength = 0
-    TabOrder = 0
-  end
   object SaveButton: TButton
-    Left = 192
+    Left = 207
     Height = 25
-    Top = 152
+    Top = 347
     Width = 75
     Caption = 'Save'
     ModalResult = 1
     OnClick = SaveButtonClick
-    TabOrder = 2
+    TabOrder = 0
   end
   object CancelButton: TButton
-    Left = 284
+    Left = 287
     Height = 25
-    Top = 152
+    Top = 347
     Width = 75
     Caption = 'Don''t Save'
     ModalResult = 2
-    TabOrder = 3
+    TabOrder = 1
   end
   object Button1: TButton
-    Left = 18
+    Left = 16
     Height = 25
     Top = 8
     Width = 139
     Action = EditHomesteadYaml
     AutoSize = True
-    TabOrder = 4
+    TabOrder = 2
   end
   object Button2: TButton
-    Left = 208
+    Left = 168
     Height = 25
     Top = 8
     Width = 77
     Action = EditHosts
     AutoSize = True
-    TabOrder = 5
+    TabOrder = 3
+  end
+  object PageControl1: TPageControl
+    Left = 16
+    Height = 280
+    Top = 48
+    Width = 536
+    ActivePage = TabSheet1
+    TabIndex = 0
+    TabOrder = 4
+    object TabSheet1: TTabSheet
+      Caption = 'Paths'
+      ClientHeight = 252
+      ClientWidth = 528
+      object VagrantCmdSelector: TFileNameEdit
+        Left = 16
+        Height = 23
+        Top = 88
+        Width = 495
+        DialogTitle = 'Where is vagrant.exe'
+        Filter = '.exe|*.exe'
+        FilterIndex = 0
+        DefaultExt = 'exe'
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object Label1: TLabel
+        Left = 16
+        Height = 15
+        Top = 16
+        Width = 215
+        Caption = 'Directory of your Homestead Vagrantfile:'
+        ParentColor = False
+      end
+      object Label2: TLabel
+        Left = 16
+        Height = 15
+        Top = 72
+        Width = 163
+        Caption = 'Path to the Vagrant executable:'
+        ParentColor = False
+      end
+      object HomesteadDirSelector: TDirectoryEdit
+        Left = 16
+        Height = 23
+        Top = 32
+        Width = 495
+        DialogTitle = 'Where is your homestead box?'
+        ShowHidden = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object TextEditorCmdSelector: TFileNameEdit
+        Left = 16
+        Height = 23
+        Top = 144
+        Width = 495
+        DialogTitle = 'Where is vagrant.exe'
+        Filter = '.exe|*.exe'
+        FilterIndex = 0
+        DefaultExt = 'exe'
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        MaxLength = 0
+        TabOrder = 2
+      end
+      object Label3: TLabel
+        Left = 16
+        Height = 15
+        Top = 128
+        Width = 176
+        Caption = 'Path to the text editor executable:'
+        ParentColor = False
+      end
+      object HostsFileEditorCmdSelector: TFileNameEdit
+        Left = 16
+        Height = 23
+        Top = 200
+        Width = 495
+        DialogTitle = 'Where is vagrant.exe'
+        Filter = '.exe|*.exe'
+        FilterIndex = 0
+        DefaultExt = 'exe'
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        MaxLength = 0
+        TabOrder = 3
+      end
+      object Label4: TLabel
+        Left = 16
+        Height = 15
+        Top = 184
+        Width = 204
+        Caption = 'Path to the hosts file editor executable:'
+        ParentColor = False
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Folders'
+      TabVisible = False
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'Sites'
+      TabVisible = False
+    end
   end
   object ActionList1: TActionList
-    left = 332
-    top = 25
+    left = 472
+    top = 16
     object EditHomesteadYaml: TAction
       Caption = 'Edit Homestead.yaml'
       OnExecute = EditHomesteadYamlExecute

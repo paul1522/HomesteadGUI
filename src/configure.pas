@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, EditBtn, StdCtrls, ActnList, data, homestead;
+  ExtCtrls, EditBtn, StdCtrls, ActnList, ComCtrls, data, homestead;
 
 type
 
@@ -18,12 +18,20 @@ type
     ActionList1: TActionList;
     Button1: TButton;
     Button2: TButton;
-    SaveButton: TButton;
-    CancelButton: TButton;
     HomesteadDirSelector: TDirectoryEdit;
-    VagrantCmdSelector: TFileNameEdit;
+    HostsFileEditorCmdSelector: TFileNameEdit;
     Label1: TLabel;
     Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    PageControl1: TPageControl;
+    SaveButton: TButton;
+    CancelButton: TButton;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    TextEditorCmdSelector: TFileNameEdit;
+    VagrantCmdSelector: TFileNameEdit;
     procedure EditHomesteadYamlExecute(Sender: TObject);
     procedure EditHostsExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -36,9 +44,6 @@ type
     { public declarations }
   end;
 
-const
-  TextEditorCmd = 'C:\Program Files (x86)\Notepad++\notepad++.exe';
-  HostsFileEditorCmd = 'C:\Program Files (x86)\Hosts File Editor\HostsFileEditor.exe';
 var
   ConfigDialog: TConfigDialog;
 
@@ -51,27 +56,31 @@ implementation
 procedure TConfigDialog.FormShow(Sender: TObject);
 begin
   HomesteadDirSelector.Text := Global.HomesteadDir;
-  VagrantCmdSelector.Text := Global.VagrantCmd
+  VagrantCmdSelector.Text := Global.VagrantCmd;
+  TextEditorCmdSelector.Text := Global.TextEditorCmd;
+  HostsFileEditorCmdSelector.Text := Global.HostsFileEditorCmd
 end;
 
 procedure TConfigDialog.SaveButtonClick(Sender: TObject);
 begin
   Global.HomesteadDir := HomesteadDirSelector.Text;
   Global.VagrantCmd := VagrantCmdSelector.Text;
+  Global.TextEditorCmd := TextEditorCmdSelector.Text;
+  Global.HostsFileEditorCmd := HostsFileEditorCmdSelector.Text;
   Global.SaveIniFile
 end;
 
 procedure TConfigDialog.EditHomesteadYamlExecute(Sender: TObject);
 begin
-  AHomestead.DetatchProcess(TextEditorCmd, YamlFileName)
+  AHomestead.DetatchProcess(Global.TextEditorCmd, YamlFileName)
 end;
 
 procedure TConfigDialog.EditHostsExecute(Sender: TObject);
 begin
   try
-    AHomestead.DetatchProcess(HostsFileEditorCmd)
+    AHomestead.DetatchProcess(Global.HostsFileEditorCmd)
   except
-    ShowMessage(HostsFileEditorCmd + ' failed to launch.')
+    ShowMessage(Global.HostsFileEditorCmd + ' failed to launch.')
   end
 end;
 
