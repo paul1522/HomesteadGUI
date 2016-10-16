@@ -1,0 +1,4 @@
+*.exe
+src/HomesteadGUI.ini
+src/lib/
+src/HomesteadGUI.res
