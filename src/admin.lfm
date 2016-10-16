@@ -1,0 +1,183 @@
+object AdminForm: TAdminForm
+  Left = 630
+  Height = 283
+  Top = 213
+  Width = 491
+  Caption = 'Homestead Control Panel'
+  ClientHeight = 283
+  ClientWidth = 491
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poDefaultPosOnly
+  LCLVersion = '1.6.0.4'
+  object StatusLabel: TLabel
+    Left = 10
+    Height = 15
+    Top = 32
+    Width = 32
+    Caption = 'Status'
+    ParentColor = False
+  end
+  object OutputMemo: TMemo
+    Left = 10
+    Height = 214
+    Top = 56
+    Width = 469
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clBlack
+    Font.Color = 49151
+    Font.Height = -19
+    Font.Name = 'Courier New'
+    Lines.Strings = (
+      'Sample Output.'
+    )
+    ParentFont = False
+    ReadOnly = True
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+  end
+  object ToolBar1: TToolBar
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 491
+    Caption = 'ToolBar1'
+    ShowCaptions = True
+    TabOrder = 1
+    object ToolButton1: TToolButton
+      Left = 1
+      Top = 2
+      Action = UpAction
+    end
+    object ToolButton2: TToolButton
+      Left = 24
+      Top = 2
+      Action = HaltAction
+    end
+    object ToolButton3: TToolButton
+      Left = 54
+      Top = 2
+      Action = SuspendAction
+    end
+    object ToolButton4: TToolButton
+      Left = 107
+      Top = 2
+      Action = ResumeAction
+    end
+    object ToolButton5: TToolButton
+      Left = 157
+      Top = 2
+      Action = ProvisionAction
+    end
+    object ToolButton6: TToolButton
+      Left = 214
+      Top = 2
+      Action = ReloadAction
+    end
+    object ToolButton7: TToolButton
+      Left = 331
+      Top = 2
+      Action = DestroyAction
+    end
+    object ToolButton8: TToolButton
+      Left = 298
+      Top = 2
+      Action = SshAction
+    end
+    object ToolButton9: TToolButton
+      Left = 387
+      Top = 2
+      Action = ConfigureAction
+    end
+    object ToolButton10: TToolButton
+      Left = 323
+      Height = 22
+      Top = 2
+      Width = 8
+      Caption = 'ToolButton10'
+      Style = tbsSeparator
+    end
+    object ToolButton11: TToolButton
+      Left = 258
+      Height = 22
+      Top = 2
+      Width = 8
+      Caption = 'ToolButton11'
+      Style = tbsSeparator
+    end
+    object ToolButton12: TToolButton
+      Left = 379
+      Height = 22
+      Top = 2
+      Width = 8
+      Caption = 'ToolButton12'
+      Style = tbsSeparator
+    end
+    object ToolButton13: TToolButton
+      Left = 266
+      Top = 2
+      Action = CmdAction
+    end
+  end
+  object ActionList1: TActionList
+    left = 312
+    top = 184
+    object UpAction: TAction
+      Category = 'Vagrant'
+      Caption = 'Up'
+      Hint = 'Up'
+      OnExecute = UpActionExecute
+    end
+    object HaltAction: TAction
+      Category = 'Vagrant'
+      Caption = 'Halt'
+      Hint = 'Halt'
+      OnExecute = HaltActionExecute
+    end
+    object SuspendAction: TAction
+      Category = 'Vagrant'
+      Caption = 'Suspend'
+      Hint = 'Suspend'
+      OnExecute = SuspendActionExecute
+    end
+    object ResumeAction: TAction
+      Category = 'Vagrant'
+      Caption = 'Resume'
+      Hint = 'Resume'
+      OnExecute = ResumeActionExecute
+    end
+    object ProvisionAction: TAction
+      Category = 'Vagrant'
+      Caption = 'Provision'
+      Hint = 'Provision'
+      OnExecute = ProvisionActionExecute
+    end
+    object ReloadAction: TAction
+      Category = 'Vagrant'
+      Caption = 'Reload'
+      Hint = 'Reload'
+      OnExecute = ReloadActionExecute
+    end
+    object DestroyAction: TAction
+      Category = 'Vagrant'
+      Caption = 'Destroy'
+      Hint = 'Destroy'
+      OnExecute = DestroyActionExecute
+    end
+    object SshAction: TAction
+      Caption = 'ssh'
+      Hint = 'ssh'
+      OnExecute = SshActionExecute
+    end
+    object ConfigureAction: TAction
+      Caption = 'Configure'
+      Hint = 'Configure'
+      OnExecute = ConfigureActionExecute
+    end
+    object CmdAction: TAction
+      Caption = 'cmd'
+      Hint = 'cmd'
+      OnExecute = CmdActionExecute
+    end
+  end
+end

@@ -1,0 +1,7 @@
+object Global: TGlobal
+  OldCreateOrder = False
+  Height = 412
+  HorizontalOffset = 410
+  VerticalOffset = 162
+  Width = 501
+end

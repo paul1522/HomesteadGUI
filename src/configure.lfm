@@ -1,0 +1,104 @@
+object ConfigDialog: TConfigDialog
+  Left = 633
+  Height = 204
+  Top = 161
+  Width = 529
+  Caption = 'Configure'
+  ClientHeight = 204
+  ClientWidth = 529
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '1.6.0.4'
+  object VagrantCmdSelector: TFileNameEdit
+    Left = 17
+    Height = 23
+    Top = 120
+    Width = 495
+    DialogTitle = 'Where is vagrant.exe'
+    Filter = '.exe|*.exe'
+    FilterIndex = 0
+    DefaultExt = 'exe'
+    HideDirectories = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    MaxLength = 0
+    TabOrder = 1
+  end
+  object Label1: TLabel
+    Left = 16
+    Height = 15
+    Top = 48
+    Width = 215
+    Caption = 'Directory of your Homestead Vagrantfile:'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 16
+    Height = 15
+    Top = 104
+    Width = 163
+    Caption = 'Path to the Vagrant executable:'
+    ParentColor = False
+  end
+  object HomesteadDirSelector: TDirectoryEdit
+    Left = 16
+    Height = 23
+    Top = 64
+    Width = 496
+    DialogTitle = 'Where is your homestead box?'
+    ShowHidden = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    MaxLength = 0
+    TabOrder = 0
+  end
+  object SaveButton: TButton
+    Left = 192
+    Height = 25
+    Top = 152
+    Width = 75
+    Caption = 'Save'
+    ModalResult = 1
+    OnClick = SaveButtonClick
+    TabOrder = 2
+  end
+  object CancelButton: TButton
+    Left = 284
+    Height = 25
+    Top = 152
+    Width = 75
+    Caption = 'Don''t Save'
+    ModalResult = 2
+    TabOrder = 3
+  end
+  object Button1: TButton
+    Left = 18
+    Height = 25
+    Top = 8
+    Width = 139
+    Action = EditHomesteadYaml
+    AutoSize = True
+    TabOrder = 4
+  end
+  object Button2: TButton
+    Left = 208
+    Height = 25
+    Top = 8
+    Width = 77
+    Action = EditHosts
+    AutoSize = True
+    TabOrder = 5
+  end
+  object ActionList1: TActionList
+    left = 332
+    top = 25
+    object EditHomesteadYaml: TAction
+      Caption = 'Edit Homestead.yaml'
+      OnExecute = EditHomesteadYamlExecute
+    end
+    object EditHosts: TAction
+      Caption = 'Edit hosts'
+      OnExecute = EditHostsExecute
+    end
+  end
+end

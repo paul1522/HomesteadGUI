@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="14">
+      <Unit0>
+        <Filename Value="HomesteadGUI.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="29" Y="10"/>
+        <UsageCount Value="110"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="admin.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="AdminForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="165"/>
+        <CursorPos X="9" Y="176"/>
+        <UsageCount Value="110"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="configure.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ConfigDialog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="28"/>
+        <CursorPos X="87" Y="65"/>
+        <UsageCount Value="110"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="homestead.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="31"/>
+        <CursorPos X="6" Y="31"/>
+        <UsageCount Value="110"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="getdosoutput.inc"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="44" Y="12"/>
+        <UsageCount Value="58"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="data.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Global"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="44"/>
+        <CursorPos X="23" Y="56"/>
+        <UsageCount Value="43"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="C:\lazarus\lcl\interfaces\win32\win32callback.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="89"/>
+        <CursorPos Y="100"/>
+        <UsageCount Value="8"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2725"/>
+        <CursorPos Y="2736"/>
+        <UsageCount Value="8"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="C:\lazarus\lcl\include\buttoncontrol.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="42"/>
+        <CursorPos Y="54"/>
+        <UsageCount Value="8"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="C:\lazarus\fpc\3.0.0\source\rtl\inc\objpash.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="181"/>
+        <CursorPos X="23" Y="193"/>
+        <UsageCount Value="8"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="C:\lazarus\fpc\3.0.0\source\rtl\inc\objpas.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="275"/>
+        <CursorPos X="21" Y="276"/>
+        <UsageCount Value="8"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="C:\lazarus\lcl\stdctrls.pp"/>
+        <UnitName Value="StdCtrls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1628"/>
+        <CursorPos X="8" Y="1634"/>
+        <UsageCount Value="9"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="C:\lazarus\lcl\include\custommemo.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="30"/>
+        <CursorPos X="8" Y="42"/>
+        <UsageCount Value="9"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="C:\lazarus\lcl\forms.pp"/>
+        <UnitName Value="Forms"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1750"/>
+        <CursorPos X="3" Y="1762"/>
+        <UsageCount Value="8"/>
+      </Unit13>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="30" Column="17" TopLine="18"/>
+      </Position1>
+      <Position2>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="32" Column="25" TopLine="21"/>
+      </Position2>
+      <Position3>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="31" Column="60" TopLine="18"/>
+      </Position3>
+      <Position4>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="126" Column="34" TopLine="115"/>
+      </Position4>
+      <Position5>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="125" Column="31" TopLine="113"/>
+      </Position5>
+      <Position6>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="159" Column="10" TopLine="144"/>
+      </Position6>
+      <Position7>
+        <Filename Value="admin.pas"/>
+        <Caret Line="101" Column="7" TopLine="84"/>
+      </Position7>
+      <Position8>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="8" Column="42"/>
+      </Position8>
+      <Position9>
+        <Filename Value="admin.pas"/>
+        <Caret Line="113" TopLine="95"/>
+      </Position9>
+      <Position10>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="102" Column="41" TopLine="102"/>
+      </Position10>
+      <Position11>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="34" Column="49" TopLine="23"/>
+      </Position11>
+      <Position12>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="103" Column="71" TopLine="88"/>
+      </Position12>
+      <Position13>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="34" Column="67" TopLine="15"/>
+      </Position13>
+      <Position14>
+        <Filename Value="admin.pas"/>
+        <Caret Line="114" Column="27" TopLine="103"/>
+      </Position14>
+      <Position15>
+        <Filename Value="configure.pas"/>
+        <Caret Line="32" Column="21" TopLine="22"/>
+      </Position15>
+      <Position16>
+        <Filename Value="configure.pas"/>
+        <Caret Line="33" Column="21" TopLine="23"/>
+      </Position16>
+      <Position17>
+        <Filename Value="configure.pas"/>
+        <Caret Line="34" Column="21" TopLine="24"/>
+      </Position17>
+      <Position18>
+        <Filename Value="configure.pas"/>
+        <Caret Line="35" Column="21" TopLine="25"/>
+      </Position18>
+      <Position19>
+        <Filename Value="configure.pas"/>
+        <Caret Line="36" Column="21" TopLine="26"/>
+      </Position19>
+      <Position20>
+        <Filename Value="configure.pas"/>
+        <Caret Line="38" Column="21" TopLine="27"/>
+      </Position20>
+      <Position21>
+        <Filename Value="configure.pas"/>
+        <Caret Line="62" Column="3" TopLine="42"/>
+      </Position21>
+      <Position22>
+        <Filename Value="configure.pas"/>
+        <Caret Line="61" Column="33" TopLine="46"/>
+      </Position22>
+      <Position23>
+        <Filename Value="configure.pas"/>
+        <Caret Line="29" Column="27" TopLine="29"/>
+      </Position23>
+      <Position24>
+        <Filename Value="configure.pas"/>
+        <Caret Line="71" Column="34" TopLine="51"/>
+      </Position24>
+      <Position25>
+        <Filename Value="configure.pas"/>
+        <Caret Line="40" Column="66" TopLine="32"/>
+      </Position25>
+      <Position26>
+        <Filename Value="admin.pas"/>
+        <Caret Line="107" Column="26" TopLine="94"/>
+      </Position26>
+      <Position27>
+        <Filename Value="admin.pas"/>
+        <Caret Line="134" Column="19" TopLine="132"/>
+      </Position27>
+      <Position28>
+        <Filename Value="admin.pas"/>
+        <Caret Line="178" Column="30" TopLine="172"/>
+      </Position28>
+      <Position29>
+        <Filename Value="admin.pas"/>
+        <Caret Line="10" Column="21"/>
+      </Position29>
+      <Position30>
+        <Filename Value="admin.pas"/>
+        <Caret Line="175" Column="11" TopLine="163"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>
