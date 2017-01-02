@@ -4,13 +4,12 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="14">
+    <Units Count="15">
       <Unit0>
         <Filename Value="HomesteadGUI.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="4"/>
-        <CursorPos X="24" Y="7"/>
-        <UsageCount Value="113"/>
+        <CursorPos Y="23"/>
+        <UsageCount Value="207"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -19,10 +18,12 @@
         <ComponentName Value="AdminForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="165"/>
-        <CursorPos X="9" Y="176"/>
-        <UsageCount Value="113"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="181"/>
+        <CursorPos Y="185"/>
+        <UsageCount Value="207"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="configure.pas"/>
@@ -30,229 +31,217 @@
         <ComponentName Value="ConfigDialog"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="43"/>
-        <CursorPos Y="69"/>
-        <UsageCount Value="113"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="108"/>
+        <CursorPos X="23" Y="133"/>
+        <UsageCount Value="207"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="homestead.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="137"/>
-        <CursorPos X="43" Y="156"/>
-        <UsageCount Value="113"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="148"/>
+        <CursorPos Y="168"/>
+        <UsageCount Value="207"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="getdosoutput.inc"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="44" Y="12"/>
-        <UsageCount Value="61"/>
-      </Unit4>
-      <Unit5>
         <Filename Value="data.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Global"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="63"/>
-        <CursorPos Y="80"/>
-        <UsageCount Value="46"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="221"/>
+        <CursorPos X="68" Y="242"/>
+        <UsageCount Value="201"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="folders.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="9"/>
+        <CursorPos X="34" Y="23"/>
+        <UsageCount Value="95"/>
       </Unit5>
       <Unit6>
-        <Filename Value="C:\lazarus\lcl\interfaces\win32\win32callback.inc"/>
+        <Filename Value="sites.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="89"/>
-        <CursorPos Y="100"/>
-        <UsageCount Value="8"/>
+        <TopLine Value="3"/>
+        <CursorPos X="52" Y="3"/>
+        <UsageCount Value="23"/>
       </Unit6>
       <Unit7>
-        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
+        <Filename Value="yaml.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="2725"/>
-        <CursorPos Y="2736"/>
-        <UsageCount Value="8"/>
+        <CursorPos X="3" Y="6"/>
+        <UsageCount Value="29"/>
       </Unit7>
       <Unit8>
-        <Filename Value="C:\lazarus\lcl\include\buttoncontrol.inc"/>
+        <Filename Value="getdosoutput.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="42"/>
-        <CursorPos Y="54"/>
-        <UsageCount Value="8"/>
+        <CursorPos X="44" Y="12"/>
+        <UsageCount Value="59"/>
       </Unit8>
       <Unit9>
-        <Filename Value="C:\lazarus\fpc\3.0.0\source\rtl\inc\objpash.inc"/>
+        <Filename Value="C:\lazarus\lcl\dbgrids.pas"/>
+        <UnitName Value="DBGrids"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="181"/>
-        <CursorPos X="23" Y="193"/>
+        <TopLine Value="1494"/>
+        <CursorPos Y="1512"/>
         <UsageCount Value="8"/>
       </Unit9>
       <Unit10>
-        <Filename Value="C:\lazarus\fpc\3.0.0\source\rtl\inc\objpas.inc"/>
+        <Filename Value="C:\lazarus\fpc\3.0.0\source\packages\fcl-json\src\fpjson.pp"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="275"/>
-        <CursorPos X="21" Y="276"/>
-        <UsageCount Value="8"/>
+        <TopLine Value="654"/>
+        <CursorPos X="9" Y="666"/>
+        <UsageCount Value="13"/>
       </Unit10>
       <Unit11>
-        <Filename Value="C:\lazarus\lcl\stdctrls.pp"/>
-        <UnitName Value="StdCtrls"/>
+        <Filename Value="C:\lazarus\lcl\include\customform.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1628"/>
-        <CursorPos X="8" Y="1634"/>
-        <UsageCount Value="9"/>
+        <TopLine Value="996"/>
+        <CursorPos Y="1009"/>
+        <UsageCount Value="8"/>
       </Unit11>
       <Unit12>
-        <Filename Value="C:\lazarus\lcl\include\custommemo.inc"/>
+        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="30"/>
-        <CursorPos X="8" Y="42"/>
-        <UsageCount Value="9"/>
+        <TopLine Value="2726"/>
+        <CursorPos Y="2738"/>
+        <UsageCount Value="2"/>
       </Unit12>
       <Unit13>
-        <Filename Value="C:\lazarus\lcl\forms.pp"/>
-        <UnitName Value="Forms"/>
+        <Filename Value="C:\lazarus\fpc\3.0.0\source\packages\fcl-db\src\memds\memds.pp"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1750"/>
-        <CursorPos X="3" Y="1762"/>
-        <UsageCount Value="8"/>
+        <TopLine Value="994"/>
+        <CursorPos X="18" Y="994"/>
+        <UsageCount Value="10"/>
       </Unit13>
+      <Unit14>
+        <Filename Value="C:\lazarus\fpc\3.0.0\source\rtl\objpas\classes\lists.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="34"/>
+        <CursorPos X="90" Y="36"/>
+        <UsageCount Value="5"/>
+      </Unit14>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="25" HistoryIndex="24">
       <Position1>
-        <Filename Value="data.pas"/>
-        <Caret Line="81" TopLine="59"/>
+        <Filename Value="homestead.pas"/>
+        <Caret Line="168" TopLine="148"/>
       </Position1>
       <Position2>
         <Filename Value="data.pas"/>
-        <Caret Line="82" TopLine="59"/>
+        <Caret Line="27" Column="44" TopLine="27"/>
       </Position2>
       <Position3>
         <Filename Value="data.pas"/>
-        <Caret Line="83" TopLine="59"/>
+        <Caret Line="101" Column="4" TopLine="99"/>
       </Position3>
       <Position4>
         <Filename Value="data.pas"/>
-        <Caret Line="85" TopLine="59"/>
+        <Caret Line="151" TopLine="145"/>
       </Position4>
       <Position5>
         <Filename Value="data.pas"/>
-        <Caret Line="86" TopLine="59"/>
+        <Caret Line="153" TopLine="142"/>
       </Position5>
       <Position6>
         <Filename Value="data.pas"/>
-        <Caret Line="87" TopLine="59"/>
+        <Caret Line="151" TopLine="142"/>
       </Position6>
       <Position7>
         <Filename Value="data.pas"/>
-        <Caret Line="88" TopLine="60"/>
+        <Caret Line="158" Column="8" TopLine="143"/>
       </Position7>
       <Position8>
         <Filename Value="data.pas"/>
-        <Caret Line="89" TopLine="61"/>
+        <Caret Line="156" Column="11" TopLine="143"/>
       </Position8>
       <Position9>
         <Filename Value="data.pas"/>
-        <Caret Line="90" TopLine="62"/>
+        <Caret Line="151" TopLine="143"/>
       </Position9>
       <Position10>
         <Filename Value="data.pas"/>
-        <Caret Line="18" Column="16"/>
+        <Caret Line="152" TopLine="143"/>
       </Position10>
       <Position11>
         <Filename Value="data.pas"/>
-        <Caret Line="22" Column="28"/>
+        <Caret Line="151" TopLine="141"/>
       </Position11>
       <Position12>
         <Filename Value="data.pas"/>
-        <Caret Line="29" Column="70"/>
+        <Caret Line="155" TopLine="141"/>
       </Position12>
       <Position13>
         <Filename Value="data.pas"/>
-        <Caret Line="55" Column="32" TopLine="27"/>
+        <Caret Line="157" TopLine="141"/>
       </Position13>
       <Position14>
         <Filename Value="data.pas"/>
-        <Caret Line="58" Column="48" TopLine="30"/>
       </Position14>
       <Position15>
         <Filename Value="data.pas"/>
-        <Caret Line="59" Column="15" TopLine="31"/>
+        <Caret Line="38" Column="23" TopLine="19"/>
       </Position15>
       <Position16>
         <Filename Value="data.pas"/>
-        <Caret Line="73" Column="23" TopLine="45"/>
+        <Caret Line="39" Column="23" TopLine="19"/>
       </Position16>
       <Position17>
-        <Filename Value="configure.pas"/>
-        <Caret Line="65" TopLine="39"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="40" Column="23" TopLine="20"/>
       </Position17>
       <Position18>
-        <Filename Value="configure.pas"/>
-        <Caret Line="66" TopLine="40"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="41" Column="23" TopLine="21"/>
       </Position18>
       <Position19>
-        <Filename Value="configure.pas"/>
-        <Caret Line="67" TopLine="41"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="109" Column="12" TopLine="88"/>
       </Position19>
       <Position20>
         <Filename Value="configure.pas"/>
-        <Caret Line="68" TopLine="42"/>
+        <Caret Line="56" Column="29" TopLine="42"/>
       </Position20>
       <Position21>
         <Filename Value="configure.pas"/>
-        <Caret Line="69" TopLine="43"/>
+        <Caret Line="78" Column="25" TopLine="64"/>
       </Position21>
       <Position22>
-        <Filename Value="configure.pas"/>
-        <Caret Line="68" TopLine="42"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="48" Column="52" TopLine="34"/>
       </Position22>
       <Position23>
         <Filename Value="configure.pas"/>
-        <Caret Line="67" TopLine="41"/>
+        <Caret Line="40" Column="12" TopLine="27"/>
       </Position23>
       <Position24>
         <Filename Value="configure.pas"/>
-        <Caret Line="66" TopLine="40"/>
+        <Caret Line="79" Column="23" TopLine="70"/>
       </Position24>
       <Position25>
-        <Filename Value="configure.pas"/>
-        <Caret Line="65" TopLine="39"/>
+        <Filename Value="data.pas"/>
+        <Caret Line="241" Column="22" TopLine="221"/>
       </Position25>
-      <Position26>
-        <Filename Value="configure.pas"/>
-        <Caret Line="64" TopLine="38"/>
-      </Position26>
-      <Position27>
-        <Filename Value="configure.pas"/>
-        <Caret Line="63" TopLine="37"/>
-      </Position27>
-      <Position28>
-        <Filename Value="configure.pas"/>
-        <Caret Line="62" TopLine="36"/>
-      </Position28>
-      <Position29>
-        <Filename Value="configure.pas"/>
-        <Caret Line="61" TopLine="35"/>
-      </Position29>
-      <Position30>
-        <Filename Value="configure.pas"/>
-        <Caret Line="69" TopLine="43"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
-    <Watches Count="1">
+    <BreakPoints Count="1">
       <Item1>
-        <Expression Value="Global.VagrantCmd"/>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="yaml.pas"/>
+        <Line Value="46"/>
       </Item1>
-    </Watches>
+    </BreakPoints>
   </Debugging>
 </CONFIG>

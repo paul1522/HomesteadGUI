@@ -7,12 +7,13 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, admin, configure, homestead, data
+  Forms, runtimetypeinfocontrols, memdslaz, admin, configure, homestead, data
   { you can add units after this };
 
 {$R *.res}
 
 begin
+  Application.Title:='Homestead GUI';
   RequireDerivedFormResource:=True;
   Application.Initialize;
   Application.CreateForm(TAdminForm, AdminForm);
