@@ -1,14 +1,14 @@
 object ConfigDialog: TConfigDialog
-  Left = 433
+  Left = 347
   Height = 395
-  Top = 143
+  Top = 124
   Width = 569
   Caption = 'Configure'
   ClientHeight = 395
   ClientWidth = 569
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '1.6.2.0'
   object SaveButton: TButton
     Left = 207
     Height = 25
@@ -24,7 +24,7 @@ object ConfigDialog: TConfigDialog
     Height = 25
     Top = 347
     Width = 75
-    Caption = 'Don''t Save'
+    Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 1
   end
@@ -51,8 +51,8 @@ object ConfigDialog: TConfigDialog
     Height = 280
     Top = 48
     Width = 536
-    ActivePage = TabSheet1
-    TabIndex = 0
+    ActivePage = TabSheet3
+    TabIndex = 2
     TabOrder = 4
     object TabSheet1: TTabSheet
       Caption = 'Paths'
@@ -150,16 +150,110 @@ object ConfigDialog: TConfigDialog
     end
     object TabSheet2: TTabSheet
       Caption = 'Folders'
-      TabVisible = False
+      ClientHeight = 252
+      ClientWidth = 528
+      object FolderGrid: TDBGrid
+        Left = 0
+        Height = 228
+        Top = 0
+        Width = 528
+        Align = alTop
+        Color = clWindow
+        Columns = <        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'Enabled'
+            Width = 50
+            FieldName = 'Enabled'
+          end        
+          item
+            Title.Caption = 'Map'
+            Width = 200
+            FieldName = 'Map'
+          end        
+          item
+            Title.Caption = 'To'
+            Width = 200
+            FieldName = 'To'
+          end>
+        DataSource = FolderSource
+        TabOrder = 0
+      end
+      object FolderNavigator: TDBNavigator
+        Left = 0
+        Height = 25
+        Top = 227
+        Width = 528
+        Align = alBottom
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsScaleChilds
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 100
+        ClientHeight = 25
+        ClientWidth = 528
+        DataSource = FolderSource
+        Options = []
+        TabOrder = 1
+      end
     end
     object TabSheet3: TTabSheet
       Caption = 'Sites'
-      TabVisible = False
+      ClientHeight = 252
+      ClientWidth = 528
+      object SiteNavigator: TDBNavigator
+        Left = 0
+        Height = 25
+        Top = 227
+        Width = 528
+        Align = alBottom
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsScaleChilds
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 100
+        ClientHeight = 25
+        ClientWidth = 528
+        DataSource = SiteSource
+        Options = []
+        TabOrder = 0
+      end
+      object SiteGrid: TDBGrid
+        Left = 0
+        Height = 228
+        Top = 0
+        Width = 528
+        Align = alTop
+        Color = clWindow
+        Columns = <        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            Title.Caption = 'Enabled'
+            Width = 50
+            FieldName = 'Enabled'
+          end        
+          item
+            Title.Caption = 'Map'
+            Width = 200
+            FieldName = 'Map'
+          end        
+          item
+            Title.Caption = 'To'
+            Width = 200
+            FieldName = 'To'
+          end>
+        DataSource = SiteSource
+        TabOrder = 1
+      end
     end
   end
   object ActionList1: TActionList
-    left = 472
-    top = 16
+    left = 512
+    top = 8
     object EditHomesteadYaml: TAction
       Caption = 'Edit Homestead.yaml'
       OnExecute = EditHomesteadYamlExecute
@@ -168,5 +262,61 @@ object ConfigDialog: TConfigDialog
       Caption = 'Edit hosts'
       OnExecute = EditHostsExecute
     end
+  end
+  object FolderData: TMemDataset
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'Enabled'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'Map'
+        Attributes = [faRequired]
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'To'
+        Attributes = [faRequired]
+        DataType = ftString
+        Size = 100
+      end>
+    OnNewRecord = FolderDataNewRecord
+    left = 256
+    top = 8
+  end
+  object FolderSource: TDataSource
+    DataSet = FolderData
+    left = 376
+    top = 8
+  end
+  object SiteData: TMemDataset
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'Enabled'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'Map'
+        Attributes = [faRequired]
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'To'
+        Attributes = [faRequired]
+        DataType = ftString
+        Size = 100
+      end>
+    OnNewRecord = FolderDataNewRecord
+    left = 312
+    top = 8
+  end
+  object SiteSource: TDataSource
+    DataSet = SiteData
+    left = 448
+    top = 8
   end
 end
