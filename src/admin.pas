@@ -10,6 +10,11 @@ uses
   LazFileUtils, data;
 
 type
+  TTrafficLightColor = (
+    GreenLight = 0,
+    YellowLight = 1,
+    RedLight = 2
+  );
 
   TVagrantAction = (
     vaUp,
@@ -26,6 +31,8 @@ type
   TAdminForm = class(TForm)
     CmdAction: TAction;
     ConfigureAction: TAction;
+    Image1: TImage;
+    ImageList1: TImageList;
     ToolButton1: TToolButton;
     ToolButton10: TToolButton;
     ToolButton11: TToolButton;
@@ -70,8 +77,10 @@ type
     procedure StateIsHalted;
     procedure StateIsSuspended;
     procedure VagrantActionExecute(VagrantAction : TVagrantAction);
+    procedure SetTrafficLight(LightColor : TTrafficLightColor);
   public
     { public declarations }
+    property TrafficLight : TTrafficLightColor write SetTrafficLight;
   end;
 
 var
@@ -175,7 +184,7 @@ begin
     Global.Load
   except
     if ConfigDialog.ShowModal <> mrOK then
-       Application.Terminate;
+       Application.Terminate
   end;
   RefreshStatus
 end;
@@ -205,7 +214,8 @@ begin
   ResumeAction.Enabled := false;
   ProvisionAction.Enabled := true;
   ReloadAction.Enabled := true;
-  SshAction.Enabled := true
+  SshAction.Enabled := true;
+  TrafficLight := GreenLight
 end;
 
 procedure TAdminForm.StateIsHalted;
@@ -217,7 +227,8 @@ begin
   ResumeAction.Enabled := false;
   ProvisionAction.Enabled := false;
   ReloadAction.Enabled := false;
-  SshAction.Enabled := false
+  SshAction.Enabled := false;
+  TrafficLight := RedLight
 end;
 
 
@@ -230,7 +241,16 @@ begin
   ResumeAction.Enabled := true;
   ProvisionAction.Enabled := false;
   ReloadAction.Enabled := false;
-  SshAction.Enabled := false
+  SshAction.Enabled := false;
+  TrafficLight := YellowLight
+end;
+
+procedure TAdminForm.SetTrafficLight(LightColor : TTrafficLightColor);
+begin
+  Image1.Picture.Bitmap := nil;
+  Image1.Picture.Bitmap.TransparentMode := tmFixed;
+  Image1.Picture.Bitmap.TransparentColor := clWhite;
+  ImageList1.GetBitmap(ord(LightColor), Image1.Picture.Bitmap)
 end;
 
 end.
