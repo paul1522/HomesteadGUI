@@ -1,0 +1,25 @@
+{
+    "ip" : "192.168.10.10",
+    "memory" : 2048,
+    "cpus" : 1,
+    "provider" : "virtualbox",
+    "authorize" : "C:/Users/me/.ssh/id_rsa.pub",
+    "keys" : [
+        "C:/Users/me/.ssh/id_rsa"
+    ],
+    "databases" : [
+        "homestead"
+    ],
+    "folders" : [
+        {
+            "map" : "C:/Users/me/Sites",
+            "to" : "/home/vagrant/Sites"
+        }
+    ],
+    "sites" : [
+        {
+            "map" : "hello.dev",
+            "to" : "/home/vagrant/Sites/Laravel/Hello/public"
+        }
+    ]
+}
