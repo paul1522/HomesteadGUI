@@ -2,7 +2,7 @@
 
 An ugly little front-end to manage your homestead instance.
 
-![Screenshot](https://www.reslar.com/img/homestead-gui/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/paulgeneres/HomesteadGUI/master/screenshot.png)
 
 ## Getting Started
 
