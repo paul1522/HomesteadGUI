@@ -7,14 +7,15 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Menus, ActnList, ComCtrls, configure, homestead, ComObj,
-  LazFileUtils, data;
+  LazFileUtils, data, Windows;
 
 type
   TTrafficLightColor = (
-    GreenLight = 0,
-    YellowLight = 1,
-    RedLight = 2
-  );
+    GreenLight,
+    YellowLight,
+    RedLight,
+    BlueLight
+    );
 
   TVagrantAction = (
     vaUp,
@@ -24,11 +25,13 @@ type
     vaResume,
     vaProvision,
     vaReload
-  );
+    );
 
   { TAdminForm }
 
   TAdminForm = class(TForm)
+    BackupAction: TAction;
+    RestoreAction: TAction;
     CmdAction: TAction;
     ConfigureAction: TAction;
     Image1: TImage;
@@ -46,6 +49,7 @@ type
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
     ToolButton9: TToolButton;
+    TrayIcon1: TTrayIcon;
     UpAction: TAction;
     HaltAction: TAction;
     SuspendAction: TAction;
@@ -58,6 +62,7 @@ type
     OutputMemo: TMemo;
     ToolBar1: TToolBar;
     StatusLabel: TLabel;
+    procedure BackupActionExecute(Sender: TObject);
     procedure CmdActionExecute(Sender: TObject);
     procedure ConfigureActionExecute(Sender: TObject);
     procedure DestroyActionExecute(Sender: TObject);
@@ -65,22 +70,26 @@ type
     procedure HaltActionExecute(Sender: TObject);
     procedure ProvisionActionExecute(Sender: TObject);
     procedure ReloadActionExecute(Sender: TObject);
+    procedure RestoreActionExecute(Sender: TObject);
     procedure ResumeActionExecute(Sender: TObject);
     procedure SshActionExecute(Sender: TObject);
     procedure SuspendActionExecute(Sender: TObject);
+    procedure TrayIcon1Click(Sender: TObject);
     procedure UpActionExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
+    FHidden: boolean;
+    FShown: boolean;
     procedure RefreshStatus;
     procedure StateIsUp;
     procedure StateIsHalted;
     procedure StateIsSuspended;
-    procedure VagrantActionExecute(VagrantAction : TVagrantAction);
-    procedure SetTrafficLight(LightColor : TTrafficLightColor);
+    procedure VagrantActionExecute(VagrantAction: TVagrantAction);
+    procedure SetTrafficLight(LightColor: TTrafficLightColor);
   public
     { public declarations }
-    property TrafficLight : TTrafficLightColor write SetTrafficLight;
+    property TrafficLight: TTrafficLightColor write SetTrafficLight;
   end;
 
 var
@@ -94,164 +103,202 @@ implementation
 
 procedure TAdminForm.ConfigureActionExecute(Sender: TObject);
 begin
-  ConfigDialog.ShowModal
+  ConfigDialog.ShowModal;
 end;
 
 procedure TAdminForm.CmdActionExecute(Sender: TObject);
 begin
-  AHomestead.cmd
+  AHomestead.cmd;
 end;
 
-procedure TAdminForm.VagrantActionExecute(VagrantAction : TVagrantAction);
-var
-  Output : String;
+procedure TAdminForm.BackupActionExecute(Sender: TObject);
 begin
-  Toolbar1.Enabled := false;
-  Cursor := crHourGlass;
+  //AHomestead.Backup
+end;
+
+procedure TAdminForm.VagrantActionExecute(VagrantAction: TVagrantAction);
+var
+  Output: string;
+begin
+  TrafficLight := BlueLight;
+  Toolbar1.Enabled := False;
+  Toolbar1.Visible := False;
+  OutputMemo.Cursor := crHourGlass;
   StatusLabel.Caption := 'Vagrant is running. Please wait...';
   Application.ProcessMessages;
   case VagrantAction of
-    vaUp : AHomestead.Up(Output, OutputMemo.Lines);
-    vaDestroy : AHomestead.DestroyBox(Output, OutputMemo.Lines);
-    vaHalt : AHomestead.Halt(Output, OutputMemo.Lines);
-    vaSuspend : AHomestead.Suspend(Output, OutputMemo.Lines);
-    vaResume : AHomestead.Resume(Output, OutputMemo.Lines);
-    vaProvision : AHomestead.Provision(Output, OutputMemo.Lines);
-    vaReload : AHomestead.Reload(Output, OutputMemo.Lines)
+    vaUp: AHomestead.Up(Output, OutputMemo);
+    vaDestroy: AHomestead.DestroyBox(Output, OutputMemo);
+    vaHalt: AHomestead.Halt(Output, OutputMemo);
+    vaSuspend: AHomestead.Suspend(Output, OutputMemo);
+    vaResume: AHomestead.Resume(Output, OutputMemo);
+    vaProvision: AHomestead.Provision(Output, OutputMemo);
+    vaReload: AHomestead.Reload(Output, OutputMemo)
   end;
-  Cursor := crDefault;
+  OutputMemo.Cursor := crDefault;
+  Toolbar1.Visible := True;
+  Toolbar1.Enabled := True;
   RefreshStatus;
-  Toolbar1.Enabled := true
 end;
 
 procedure TAdminForm.DestroyActionExecute(Sender: TObject);
 begin
-  if MessageDlg(
-    'CONFIRM',
-    'DO YOU REALLY WANT TO DESTROY THE HOMESTEAD INSTANCE',
-    mtConfirmation,
-    [mbYes, mbNo],
-    0
-  ) = mrYes then
+  if MessageDlg('CONFIRM', 'DO YOU REALLY WANT TO DESTROY THE HOMESTEAD INSTANCE',
+    mtConfirmation, [mbYes, mbNo], 0) = mrYes then
   begin
-    VagrantActionExecute(vaDestroy)
-  end
+    VagrantActionExecute(vaDestroy);
+  end;
 end;
 
 procedure TAdminForm.FormCreate(Sender: TObject);
 begin
   OutputMemo.Text := '';
+  OutputMemo.ScrollBars := ssAutoBoth;
+  FHidden := False;
+  FShown := False;
+  TrayIcon1.Show;
+  SetEnvironmentVariable('VAGRANT_NO_COLOR', 'YES')
 end;
 
 procedure TAdminForm.SshActionExecute(Sender: TObject);
 begin
-  AHomestead.ssh
+  AHomestead.ssh;
 end;
 
 procedure TAdminForm.UpActionExecute(Sender: TObject);
 begin
-  VagrantActionExecute(vaUp)
+  VagrantActionExecute(vaUp);
 end;
 
 procedure TAdminForm.HaltActionExecute(Sender: TObject);
 begin
-  VagrantActionExecute(vaHalt)
+  VagrantActionExecute(vaHalt);
 end;
 
 procedure TAdminForm.SuspendActionExecute(Sender: TObject);
 begin
-  VagrantActionExecute(vaSuspend)
+  VagrantActionExecute(vaSuspend);
+end;
+
+procedure TAdminForm.TrayIcon1Click(Sender: TObject);
+begin
+  if FHidden then
+  begin
+    Show;
+    FHidden := False;
+  end
+  else
+  begin
+    Hide;
+    FHidden := True;
+  end;
 end;
 
 procedure TAdminForm.ResumeActionExecute(Sender: TObject);
 begin
-  VagrantActionExecute(vaResume)
+  VagrantActionExecute(vaResume);
 end;
 
 procedure TAdminForm.ProvisionActionExecute(Sender: TObject);
 begin
-  VagrantActionExecute(vaProvision)
+  VagrantActionExecute(vaProvision);
 end;
 
 procedure TAdminForm.ReloadActionExecute(Sender: TObject);
 begin
-  VagrantActionExecute(vaReload)
+  VagrantActionExecute(vaReload);
+end;
+
+procedure TAdminForm.RestoreActionExecute(Sender: TObject);
+begin
+  //AHomestead.Restore
 end;
 
 procedure TAdminForm.FormShow(Sender: TObject);
+var
+  t: longint;
 begin
-  try
-    Global.Load
-  except
-    if ConfigDialog.ShowModal <> mrOK then
-       Application.Terminate
+  if not FShown then
+  begin
+    t := mrOk;
+    while (t = mrOk) and (not Global.LoadValidConfig) do
+    begin
+      t := ConfigDialog.ShowModal;
+    end;
+    if t <> mrOk then
+    begin
+      Application.Terminate;
+    end
+    else
+    begin
+      RefreshStatus;
+      FShown := True;
+    end;
   end;
-  RefreshStatus
 end;
 
 procedure TAdminForm.RefreshStatus;
 var
-  Output : String;
+  Output: string;
 begin
   Cursor := crHourglass;
   StatusLabel.Caption := 'Checking Homestead status. Please wait...';
   Application.ProcessMessages;
   case AHomestead.Status(Output) of
-    HomesteadUp : StateIsUp;
-    HomesteadHalted : StateIsHalted;
-    HomesteadSuspended : StateIsSuspended;
-    HomesteadDestroyed : StateIsHalted
+    HomesteadUp: StateIsUp;
+    HomesteadHalted: StateIsHalted;
+    HomesteadSuspended: StateIsSuspended;
+    HomesteadDestroyed: StateIsHalted
   end;
-  Cursor := crDefault
+  Cursor := crDefault;
 end;
 
 procedure TAdminForm.StateIsUp;
 begin
-  StatusLabel.Caption:= 'Homestead is running.';
-  UpAction.Enabled := false;
-  HaltAction.Enabled := true;
-  SuspendAction.Enabled := true;
-  ResumeAction.Enabled := false;
-  ProvisionAction.Enabled := true;
-  ReloadAction.Enabled := true;
-  SshAction.Enabled := true;
-  TrafficLight := GreenLight
+  StatusLabel.Caption := 'Homestead is running.';
+  UpAction.Enabled := False;
+  HaltAction.Enabled := True;
+  SuspendAction.Enabled := True;
+  ResumeAction.Enabled := False;
+  ProvisionAction.Enabled := True;
+  ReloadAction.Enabled := True;
+  SshAction.Enabled := True;
+  TrafficLight := GreenLight;
 end;
 
 procedure TAdminForm.StateIsHalted;
 begin
-  StatusLabel.Caption:= 'Homestead is halted.';
-  UpAction.Enabled := true;
-  HaltAction.Enabled := false;
-  SuspendAction.Enabled := false;
-  ResumeAction.Enabled := false;
-  ProvisionAction.Enabled := false;
-  ReloadAction.Enabled := false;
-  SshAction.Enabled := false;
-  TrafficLight := RedLight
+  StatusLabel.Caption := 'Homestead is halted.';
+  UpAction.Enabled := True;
+  HaltAction.Enabled := False;
+  SuspendAction.Enabled := False;
+  ResumeAction.Enabled := False;
+  ProvisionAction.Enabled := False;
+  ReloadAction.Enabled := False;
+  SshAction.Enabled := False;
+  TrafficLight := RedLight;
 end;
 
 
 procedure TAdminForm.StateIsSuspended;
 begin
-  StatusLabel.Caption:= 'Homestead is suspended.';
-  UpAction.Enabled := false;
-  HaltAction.Enabled := false;
-  SuspendAction.Enabled := false;
-  ResumeAction.Enabled := true;
-  ProvisionAction.Enabled := false;
-  ReloadAction.Enabled := false;
-  SshAction.Enabled := false;
-  TrafficLight := YellowLight
+  StatusLabel.Caption := 'Homestead is suspended.';
+  UpAction.Enabled := False;
+  HaltAction.Enabled := False;
+  SuspendAction.Enabled := False;
+  ResumeAction.Enabled := True;
+  ProvisionAction.Enabled := False;
+  ReloadAction.Enabled := False;
+  SshAction.Enabled := False;
+  TrafficLight := YellowLight;
 end;
 
-procedure TAdminForm.SetTrafficLight(LightColor : TTrafficLightColor);
+procedure TAdminForm.SetTrafficLight(LightColor: TTrafficLightColor);
 begin
   Image1.Picture.Bitmap := nil;
   Image1.Picture.Bitmap.TransparentMode := tmFixed;
   Image1.Picture.Bitmap.TransparentColor := clWhite;
-  ImageList1.GetBitmap(ord(LightColor), Image1.Picture.Bitmap)
+  ImageList1.GetBitmap(Ord(LightColor), Image1.Picture.Bitmap);
 end;
 
 end.
-
