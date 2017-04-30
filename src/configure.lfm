@@ -1,20 +1,22 @@
 object ConfigDialog: TConfigDialog
-  Left = 347
+  Left = 518
   Height = 395
-  Top = 124
+  Top = 145
   Width = 569
   Caption = 'Configure'
   ClientHeight = 395
   ClientWidth = 569
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '1.6.2.0'
+  LCLVersion = '1.6.4.0'
   object SaveButton: TButton
     Left = 207
     Height = 25
     Top = 347
     Width = 75
+    Anchors = [akLeft, akBottom]
     Caption = 'Save'
+    Default = True
     ModalResult = 1
     OnClick = SaveButtonClick
     TabOrder = 0
@@ -24,6 +26,8 @@ object ConfigDialog: TConfigDialog
     Height = 25
     Top = 347
     Width = 75
+    Anchors = [akLeft, akBottom]
+    Cancel = True
     Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 1
@@ -38,7 +42,7 @@ object ConfigDialog: TConfigDialog
     TabOrder = 2
   end
   object Button2: TButton
-    Left = 168
+    Left = 162
     Height = 25
     Top = 8
     Width = 77
@@ -51,9 +55,10 @@ object ConfigDialog: TConfigDialog
     Height = 280
     Top = 48
     Width = 536
-    ActivePage = TabSheet3
-    TabIndex = 2
-    TabOrder = 4
+    ActivePage = TabSheet1
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabIndex = 0
+    TabOrder = 6
     object TabSheet1: TTabSheet
       Caption = 'Paths'
       ClientHeight = 252
@@ -70,24 +75,40 @@ object ConfigDialog: TConfigDialog
         HideDirectories = False
         ButtonWidth = 23
         NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
-        TabOrder = 0
+        TabOrder = 1
+        OnExit = VagrantCmdSelectorExit
       end
       object Label1: TLabel
+        Cursor = crHandPoint
         Left = 16
         Height = 15
         Top = 16
         Width = 215
         Caption = 'Directory of your Homestead Vagrantfile:'
+        Font.Color = clHotLight
+        Font.Style = [fsUnderline]
         ParentColor = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = Label1Click
       end
       object Label2: TLabel
+        Cursor = crHandPoint
         Left = 16
         Height = 15
         Top = 72
         Width = 163
         Caption = 'Path to the Vagrant executable:'
+        Font.Color = clHotLight
+        Font.Style = [fsUnderline]
         ParentColor = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = Label2Click
       end
       object HomesteadDirSelector: TDirectoryEdit
         Left = 16
@@ -98,8 +119,10 @@ object ConfigDialog: TConfigDialog
         ShowHidden = False
         ButtonWidth = 23
         NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
-        TabOrder = 1
+        TabOrder = 0
+        OnExit = HomesteadDirSelectorExit
       end
       object TextEditorCmdSelector: TFileNameEdit
         Left = 16
@@ -113,16 +136,25 @@ object ConfigDialog: TConfigDialog
         HideDirectories = False
         ButtonWidth = 23
         NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
         TabOrder = 2
+        OnExit = TextEditorCmdSelectorExit
       end
       object Label3: TLabel
+        Cursor = crHandPoint
         Left = 16
         Height = 15
         Top = 128
         Width = 176
         Caption = 'Path to the text editor executable:'
+        Font.Color = clHotLight
+        Font.Style = [fsUnderline]
         ParentColor = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = Label3Click
       end
       object HostsFileEditorCmdSelector: TFileNameEdit
         Left = 16
@@ -136,16 +168,25 @@ object ConfigDialog: TConfigDialog
         HideDirectories = False
         ButtonWidth = 23
         NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
         TabOrder = 3
+        OnExit = HostsFileEditorCmdSelectorExit
       end
       object Label4: TLabel
+        Cursor = crHandPoint
         Left = 16
         Height = 15
         Top = 184
         Width = 204
         Caption = 'Path to the hosts file editor executable:'
+        Font.Color = clHotLight
+        Font.Style = [fsUnderline]
         ParentColor = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = Label4Click
       end
     end
     object TabSheet2: TTabSheet
@@ -154,29 +195,31 @@ object ConfigDialog: TConfigDialog
       ClientWidth = 528
       object FolderGrid: TDBGrid
         Left = 0
-        Height = 228
+        Height = 227
         Top = 0
         Width = 528
-        Align = alTop
+        Align = alClient
+        AutoFillColumns = True
         Color = clWindow
         Columns = <        
           item
             ButtonStyle = cbsCheckboxColumn
             Title.Caption = 'Enabled'
-            Width = 50
+            Width = 170
             FieldName = 'Enabled'
           end        
           item
             Title.Caption = 'Map'
-            Width = 200
+            Width = 170
             FieldName = 'Map'
           end        
           item
             Title.Caption = 'To'
-            Width = 200
+            Width = 172
             FieldName = 'To'
           end>
         DataSource = FolderSource
+        Scrollbars = ssAutoBoth
         TabOrder = 0
       end
       object FolderNavigator: TDBNavigator
@@ -224,35 +267,60 @@ object ConfigDialog: TConfigDialog
       end
       object SiteGrid: TDBGrid
         Left = 0
-        Height = 228
+        Height = 227
         Top = 0
         Width = 528
-        Align = alTop
+        Align = alClient
+        AutoFillColumns = True
         Color = clWindow
         Columns = <        
           item
             ButtonStyle = cbsCheckboxColumn
+            MaxSize = 10
             Title.Caption = 'Enabled'
-            Width = 50
+            Width = 170
             FieldName = 'Enabled'
           end        
           item
+            MinSize = 300
+            MaxSize = 2000
             Title.Caption = 'Map'
-            Width = 200
+            Width = 170
             FieldName = 'Map'
           end        
           item
+            MinSize = 300
+            MaxSize = 2000
             Title.Caption = 'To'
-            Width = 200
+            Width = 172
             FieldName = 'To'
           end>
         DataSource = SiteSource
+        Scrollbars = ssAutoBoth
         TabOrder = 1
       end
     end
   end
+  object Button3: TButton
+    Left = 246
+    Height = 25
+    Top = 8
+    Width = 88
+    Action = EditAfterSh
+    AutoSize = True
+    TabOrder = 4
+  end
+  object Button4: TButton
+    Left = 341
+    Height = 25
+    Top = 8
+    Width = 83
+    Action = EditAliases
+    AutoSize = True
+    TabOrder = 5
+  end
   object ActionList1: TActionList
-    left = 512
+    left = 528
     top = 8
     object EditHomesteadYaml: TAction
       Caption = 'Edit Homestead.yaml'
@@ -261,6 +329,14 @@ object ConfigDialog: TConfigDialog
     object EditHosts: TAction
       Caption = 'Edit hosts'
       OnExecute = EditHostsExecute
+    end
+    object EditAfterSh: TAction
+      Caption = 'Edit after.sh'
+      OnExecute = EditAfterShExecute
+    end
+    object EditAliases: TAction
+      Caption = 'Edit aliases'
+      OnExecute = EditAliasesExecute
     end
   end
   object FolderData: TMemDataset
@@ -283,13 +359,13 @@ object ConfigDialog: TConfigDialog
         Size = 100
       end>
     OnNewRecord = FolderDataNewRecord
-    left = 256
-    top = 8
+    left = 16
+    top = 336
   end
   object FolderSource: TDataSource
     DataSet = FolderData
-    left = 376
-    top = 8
+    left = 448
+    top = 336
   end
   object SiteData: TMemDataset
     Active = True
@@ -311,12 +387,12 @@ object ConfigDialog: TConfigDialog
         Size = 100
       end>
     OnNewRecord = FolderDataNewRecord
-    left = 312
-    top = 8
+    left = 72
+    top = 336
   end
   object SiteSource: TDataSource
     DataSet = SiteData
-    left = 448
-    top = 8
+    left = 520
+    top = 336
   end
 end
