@@ -22,24 +22,28 @@ type
     FJSONData: TJSONData;
     FYamlIsJson: boolean;
     FConfigFileName, IpAddr: string;
-    FConfigDir: string;
+    FConfigDir : string;
 
     procedure SetHomesteadDir(Val: string);
     procedure SetVagrantCmd(Val: string);
     procedure SetTextEditorCmd(Val: string);
     procedure SetHostsFileEditorCmd(Val: string);
-    procedure LoadIni;
     procedure LoadJson;
     procedure LoadEnabledFolders(Folders: TMemDataset);
     procedure LoadDisabledFolders(Folders: TMemDataset);
     procedure LoadEnabledSites(Sites: TMemDataset);
     procedure LoadDisabledSites(Sites: TMemDataset);
+    procedure LoadEnabledDatabases(Databases: TMemDataset);
+    procedure LoadDisabledDatabases(Databases: TMemDataset);
     procedure LoadPaths(Folders: TMemDataset; Path: TJSONStringType; e: boolean);
+    procedure LoadStrings(Dataset: TMemDataset; Path: TJSONStringType; e: boolean);
     procedure SaveIni;
-    procedure SaveJson(FolderData: TMemDataset; SiteData: TMemDataset);
+    procedure SaveJson(FolderData: TMemDataset; SiteData: TMemDataset; DatabaseData: TMemDataset);
     procedure SaveJsonFolders(FolderData: TMemDataset);
     procedure SaveJsonSites(SiteData: TMemDataset);
+    procedure SaveJsonDatabases(DatabaseData: TMemDataset);
     procedure SaveJsonPaths(PathData: TMemDataset; EnabledPath, DisabledPath: string);
+    procedure SaveJsonStrings(StringData: TMemDataset; EnabledPath, DisabledPath: string);
     procedure UpdateHostsFile(SiteData: TMemDataset; Addr: string);
   public
     { public declarations }
@@ -50,11 +54,14 @@ type
       write SetHostsFileEditorCmd;
     property ConfigIsJson: boolean read FYamlIsJson;
     property ConfigFileName: string read FConfigFileName;
+    property ConfigDir : string read FConfigDir;
 
+    procedure LoadIni;
     function LoadValidConfig: boolean;
     procedure LoadFolders(Folders: TMemDataset);
     procedure LoadSites(Sites: TMemDataset);
-    procedure Save(FolderData: TMemDataset; SiteData: TMemDataset);
+    procedure LoadDatabases(Databases: TMemDataset);
+    procedure Save(FolderData: TMemDataset; SiteData: TMemDataset; DatabaseData: TMemDataset);
   end;
 
 const
@@ -163,11 +170,12 @@ begin
   LoadValidConfig := Valid;
 end;
 
-procedure TGlobal.Save(FolderData: TMemDataset; SiteData: TMemDataset);
+procedure TGlobal.Save(FolderData: TMemDataset; SiteData: TMemDataset; DatabaseData: TMemDataset);
 begin
   SaveIni;
-  SaveJson(FolderData, SiteData);
+  SaveJson(FolderData, SiteData, DatabaseData);
   UpdateHostsFile(SiteData, IpAddr);
+  LoadIni;
 end;
 
 procedure TGLobal.LoadIni;
@@ -184,11 +192,19 @@ begin
   finally
     Ini.Free
   end;
+
   FConfigDir := GetEnvironmentVariable('USERPROFILE') + '\.homestead';
   FConfigFileName := FConfigDir + '\Homestead.yaml';
   if FileExists(FConfigFileName) then exit;
   FConfigFileName := FConfigDir + '\Homestead.json';
   if FileExists(FConfigFileName) then exit;
+
+  FConfigDir := FHomesteadDir;
+  FConfigFileName := FConfigDir + '\Homestead.yaml';
+  if FileExists(FConfigFileName) then exit;
+  FConfigFileName := FConfigDir + '\Homestead.json';
+  if FileExists(FConfigFileName) then exit;
+
   FConfigFileName := '';
 end;
 
@@ -224,6 +240,12 @@ begin
   LoadDisabledSites(Sites);
 end;
 
+procedure TGlobal.LoadDatabases(Databases: TMemDataset);
+begin
+  LoadEnabledDatabases(Databases);
+  LoadDisabledDatabases(Databases);
+end;
+
 procedure TGlobal.LoadEnabledFolders(Folders: TMemDataset);
 begin
   LoadPaths(Folders, 'folders', True);
@@ -244,12 +266,24 @@ begin
   LoadPaths(Sites, 'disabled-sites', False);
 end;
 
+procedure TGlobal.LoadEnabledDatabases(Databases: TMemDataset);
+begin
+  LoadStrings(Databases, 'databases', True);
+end;
+
+procedure TGlobal.LoadDisabledDatabases(Databases: TMemDataset);
+begin
+  LoadStrings(Databases, 'disabled-databases', False);
+end;
+
 procedure TGlobal.LoadPaths(Folders: TMemDataset; Path: TJSONStringType; e: boolean);
 var
   JFolders: TJSONArray;
   JFolder: TJSONEnum;
   mp, tp: string;
 begin
+  //Folders.Clear(FALSE);
+  //Folders.Open;
   JFolders := TJSONArray(FJSONData.FindPath(Path));
   if JFolders = nil then
     exit;
@@ -262,6 +296,25 @@ begin
     Folders.FieldByName('Map').Value := mp;
     Folders.FieldByName('To').Value := tp;
     Folders.Post;
+  end;
+end;
+
+procedure TGlobal.LoadStrings(Dataset: TMemDataset; Path: TJSONStringType; e: boolean);
+var
+  JFolders: TJSONArray;
+  JFolder: TJSONEnum;
+  s: string;
+begin
+  JFolders := TJSONArray(FJSONData.FindPath(Path));
+  if JFolders = nil then
+    exit;
+  for JFolder in JFolders do
+  begin
+    s := JFolder.Value.AsString;
+    Dataset.Append;
+    Dataset.FieldByName('Enabled').Value := e;
+    Dataset.FieldByName('Database').Value := s;
+    Dataset.Post;
   end;
 end;
 
@@ -280,7 +333,7 @@ begin
   end;
 end;
 
-procedure TGlobal.SaveJson(FolderData: TMemDataset; SiteData: TMemDataset);
+procedure TGlobal.SaveJson(FolderData: TMemDataset; SiteData: TMemDataset; DatabaseData: TMemDataset);
 var
   Stream: TStream;
   s: UTF8String;
@@ -290,6 +343,7 @@ begin
   LoadJson;
   SaveJsonFolders(FolderData);
   SaveJsonSites(SiteData);
+  SaveJsonDatabases(DatabaseData);
   Stream := TFileStream.Create(FConfigFileName, fmCreate);
   try
     s := FJSONData.FormatJSON([], 4);
@@ -307,7 +361,6 @@ var
   JEnabledFolders, JDisabledFolders: TJSONArray;
   JMap: TJSONObject;
 begin
-
   JEnabledFolders := TJSONArray(FJSONData.FindPath(EnabledPath));
   if JEnabledFolders <> nil then
     JEnabledFolders.Clear
@@ -346,6 +399,48 @@ begin
 
 end;
 
+procedure TGlobal.SaveJsonStrings(StringData: TMemDataset;
+  EnabledPath, DisabledPath: string);
+var
+  JEnabledFolders, JDisabledFolders: TJSONArray;
+  JMap: TJSONString;
+begin
+  JEnabledFolders := TJSONArray(FJSONData.FindPath(EnabledPath));
+  if JEnabledFolders <> nil then
+    JEnabledFolders.Clear
+  else
+  begin
+    JEnabledFolders := TJSONArray.Create;
+    TJSONObject(FJSONData).Add(EnabledPath, JEnabledFolders);
+  end;
+
+  JDisabledFolders := TJSONArray(FJSONData.FindPath(DisabledPath));
+  if JDisabledFolders <> nil then
+    JDisabledFolders.Clear
+  else
+  begin
+    JDisabledFolders := TJSONArray.Create;
+    TJSONObject(FJSONData).Add(DisabledPath, JDisabledFolders);
+  end;
+
+  StringData.First;
+  while not StringData.EOF do
+  begin
+    JMap := TJSONString.Create(StringData.FieldByName('Database').AsString);
+    if StringData.FieldByName('Enabled').AsBoolean then
+      JEnabledFolders.Add(JMap)
+    else
+      JDisabledFolders.Add(JMap);
+    StringData.Next;
+  end;
+
+  if JEnabledFolders.Count = 0 then
+    TJSONObject(FJSONData).Delete(EnabledPath);
+  if JDisabledFolders.Count = 0 then
+    TJSONObject(FJSONData).Delete(DisabledPath);
+
+end;
+
 procedure TGlobal.SaveJsonFolders(FolderData: TMemDataset);
 begin
   SaveJsonPaths(FolderData, 'folders', 'disabled-folders');
@@ -354,6 +449,11 @@ end;
 procedure TGlobal.SaveJsonSites(SiteData: TMemDataset);
 begin
   SaveJsonPaths(SiteData, 'sites', 'disabled-sites');
+end;
+
+procedure TGlobal.SaveJsonDatabases(DatabaseData: TMemDataset);
+begin
+  SaveJsonStrings(DatabaseData, 'databases', 'disabled-databases');
 end;
 
 procedure TGlobal.UpdateHostsFile(SiteData: TMemDataset; Addr: string);

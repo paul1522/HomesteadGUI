@@ -18,6 +18,9 @@ type
     EditAfterSh: TAction;
     EditAliases: TAction;
     Button3: TButton;
+    DatabaseGrid: TDBGrid;
+    DatabaseNavigator: TDBNavigator;
+    DatabaseData: TMemDataset;
     SiteSource: TDataSource;
     SiteNavigator: TDBNavigator;
     SiteGrid: TDBGrid;
@@ -40,9 +43,11 @@ type
     PageControl1: TPageControl;
     SaveButton: TButton;
     CancelButton: TButton;
+    DatabaseSource: TDataSource;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
     TextEditorCmdSelector: TFileNameEdit;
     VagrantCmdSelector: TFileNameEdit;
     procedure EditAfterShExecute(Sender: TObject);
@@ -50,7 +55,7 @@ type
     procedure EditHomesteadYamlExecute(Sender: TObject);
     procedure EditHostsExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure FolderDataNewRecord(DataSet: TDataSet);
+    procedure NewRecord(DataSet: TDataSet);
     procedure HomesteadDirSelectorExit(Sender: TObject);
     procedure HostsFileEditorCmdSelectorExit(Sender: TObject);
     procedure Label1Click(Sender: TObject);
@@ -63,10 +68,10 @@ type
     procedure VagrantCmdSelectorExit(Sender: TObject);
   private
     { private declarations }
-    AfterShFileName, AliasesFileName: string;
     PathsLoaded: boolean;
     procedure LoadFolders;
     procedure LoadSites;
+    procedure LoadDatabases;
     procedure ValidateHomesteadDir;
     procedure ValidateVagrantCmd;
     procedure ValidateTextEditorCmd;
@@ -92,9 +97,10 @@ URL_HOSTS_FILE_EDITOR = 'https://scottlerch.github.io/HostsFileEditor/';
 
 procedure TConfigDialog.FormShow(Sender: TObject);
 begin
+  Global.LoadIni;
   if Global.ConfigFileName = '' then begin
-    ShowMessage('Cannot find the Homestead configuration file in any of the usual places.');
-    Application.Terminate;
+    ShowMessage('Cannot find the Homestead configuration file in any of the usual places. Make sure homstead is properly installed.');
+    //Application.Terminate;
   end;
   HomesteadDirSelector.Text := Global.HomesteadDir;
   VagrantCmdSelector.Text := Global.VagrantCmd;
@@ -107,6 +113,7 @@ begin
   begin
     LoadFolders;
     LoadSites;
+    LoadDatabases;
     PathsLoaded := True;
   end;
 end;
@@ -118,7 +125,7 @@ begin
     Global.VagrantCmd := VagrantCmdSelector.Text;
     Global.TextEditorCmd := TextEditorCmdSelector.Text;
     Global.HostsFileEditorCmd := HostsFileEditorCmdSelector.Text;
-    Global.Save(FolderData, SiteData)
+    Global.Save(FolderData, SiteData, DatabaseData)
   except
     ModalResult := mrNone
   end;
@@ -134,7 +141,10 @@ begin
 end;
 
 procedure TConfigDialog.EditAfterShExecute(Sender: TObject);
+var
+  AfterShFileName : String;
 begin
+  AfterShFileName := Global.ConfigDir + '/after.sh';
   try
     AHomestead.DetatchProcess(Global.TextEditorCmd, AfterShFileName)
   except
@@ -143,7 +153,10 @@ begin
 end;
 
 procedure TConfigDialog.EditAliasesExecute(Sender: TObject);
+var
+  AliasesFileName : String;
 begin
+  AliasesFileName := Global.ConfigDir + '/aliases';
   try
     AHomestead.DetatchProcess(Global.TextEditorCmd, AliasesFileName)
   except
@@ -162,14 +175,14 @@ end;
 
 procedure TConfigDialog.FormCreate(Sender: TObject);
 begin
-  AfterShFileName := GetEnvironmentVariable('USERPROFILE') + '/.homestead/after.sh';
-  AliasesFileName := GetEnvironmentVariable('USERPROFILE') + '/.homestead/aliases';
   PageControl1.ActivePageIndex := 0;
   PathsLoaded := False;
   FolderGrid.Columns[0].SizePriority := 0;
   FolderGrid.Columns[0].Width := 50;
   SiteGrid.Columns[0].SizePriority := 0;
   SiteGrid.Columns[0].Width := 50;
+  DatabaseGrid.Columns[0].SizePriority := 0;
+  DatabaseGrid.Columns[0].Width := 50;
   Label1.Hint := URL_HOMESTEAD;
   Label2.Hint := URL_VAGRANT;
   Label3.Hint := URL_NOTEPAD;
@@ -177,7 +190,7 @@ begin
 
 end;
 
-procedure TConfigDialog.FolderDataNewRecord(DataSet: TDataSet);
+procedure TConfigDialog.NewRecord(DataSet: TDataSet);
 begin
   DataSet.FieldByName('Enabled').Value := True;
 end;
@@ -210,6 +223,11 @@ end;
 procedure TConfigDialog.LoadSites;
 begin
   Global.LoadSites(SiteData);
+end;
+
+procedure TConfigDialog.LoadDatabases;
+begin
+  Global.LoadDatabases(DatabaseData);
 end;
 
 procedure TConfigDialog.HomesteadDirSelectorExit(Sender: TObject);

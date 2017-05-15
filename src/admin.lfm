@@ -1,7 +1,7 @@
 object AdminForm: TAdminForm
-  Left = 1799
+  Left = 445
   Height = 283
-  Top = 799
+  Top = 225
   Width = 491
   Caption = 'Homestead Control Panel'
   ClientHeight = 283
