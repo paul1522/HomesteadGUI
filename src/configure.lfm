@@ -55,9 +55,9 @@ object ConfigDialog: TConfigDialog
     Height = 280
     Top = 48
     Width = 536
-    ActivePage = TabSheet1
+    ActivePage = TabSheet4
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 6
     object TabSheet1: TTabSheet
       Caption = 'Paths'
@@ -300,6 +300,57 @@ object ConfigDialog: TConfigDialog
         TabOrder = 1
       end
     end
+    object TabSheet4: TTabSheet
+      Caption = 'Databases'
+      ClientHeight = 252
+      ClientWidth = 528
+      object DatabaseGrid: TDBGrid
+        Left = 0
+        Height = 227
+        Top = 0
+        Width = 528
+        Align = alClient
+        AutoFillColumns = True
+        Color = clWindow
+        Columns = <        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            MaxSize = 10
+            Title.Caption = 'Enabled'
+            Width = 256
+            FieldName = 'Enabled'
+          end        
+          item
+            MinSize = 300
+            MaxSize = 2000
+            Title.Caption = 'Database'
+            Width = 256
+            FieldName = 'Database'
+          end>
+        DataSource = DatabaseSource
+        Scrollbars = ssAutoBoth
+        TabOrder = 0
+      end
+      object DatabaseNavigator: TDBNavigator
+        Left = 0
+        Height = 25
+        Top = 227
+        Width = 528
+        Align = alBottom
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsScaleChilds
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 100
+        ClientHeight = 25
+        ClientWidth = 528
+        DataSource = DatabaseSource
+        Options = []
+        TabOrder = 1
+      end
+    end
   end
   object Button3: TButton
     Left = 246
@@ -358,13 +409,13 @@ object ConfigDialog: TConfigDialog
         DataType = ftString
         Size = 100
       end>
-    OnNewRecord = FolderDataNewRecord
+    OnNewRecord = NewRecord
     left = 16
     top = 336
   end
   object FolderSource: TDataSource
     DataSet = FolderData
-    left = 448
+    left = 392
     top = 336
   end
   object SiteData: TMemDataset
@@ -386,12 +437,34 @@ object ConfigDialog: TConfigDialog
         DataType = ftString
         Size = 100
       end>
-    OnNewRecord = FolderDataNewRecord
+    OnNewRecord = NewRecord
     left = 72
     top = 336
   end
   object SiteSource: TDataSource
     DataSet = SiteData
+    left = 464
+    top = 336
+  end
+  object DatabaseData: TMemDataset
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'Enabled'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'Database'
+        Attributes = [faRequired]
+        DataType = ftString
+        Size = 100
+      end>
+    OnNewRecord = NewRecord
+    left = 144
+    top = 336
+  end
+  object DatabaseSource: TDataSource
+    DataSet = DatabaseData
     left = 520
     top = 336
   end
