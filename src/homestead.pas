@@ -178,7 +178,7 @@ begin
     VagrantProcess.Parameters.Add('--machine-readable');
   if Arg = 'destroy' then
     VagrantProcess.Parameters.Add('--force');
-  VagrantProcess.Options := VagrantProcess.Options + [poUsePipes];
+  VagrantProcess.Options := VagrantProcess.Options + [poUsePipes, poStderrToOutPut];
   VagrantProcess.ShowWindow := swoHIDE;
   VagrantProcess.Execute;
   OutputStream := TMemoryStream.Create;
