@@ -28,7 +28,6 @@ type
     procedure SetVagrantCmd(Val: string);
     procedure SetTextEditorCmd(Val: string);
     procedure SetHostsFileEditorCmd(Val: string);
-    procedure LoadJson;
     procedure LoadEnabledFolders(Folders: TMemDataset);
     procedure LoadDisabledFolders(Folders: TMemDataset);
     procedure LoadEnabledSites(Sites: TMemDataset);
@@ -57,6 +56,7 @@ type
     property ConfigDir : string read FConfigDir;
 
     procedure LoadIni;
+    procedure LoadJson;
     function LoadValidConfig: boolean;
     procedure LoadFolders(Folders: TMemDataset);
     procedure LoadSites(Sites: TMemDataset);

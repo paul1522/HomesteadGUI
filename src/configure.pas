@@ -112,10 +112,11 @@ begin
   EditHomesteadYaml.Caption := 'Edit Homestead' + ExtractFileExt(Global.ConfigFileName);
   if Global.ConfigIsJson and not PathsLoaded then
   begin
+    Global.LoadJson;
     LoadFolders;
     LoadSites;
     LoadDatabases;
-    PathsLoaded := True;
+    //PathsLoaded := True;
   end;
 end;
 
@@ -218,16 +219,19 @@ end;
 
 procedure TConfigDialog.LoadFolders;
 begin
+  FolderData.Clear(FALSE);
   Global.LoadFolders(FolderData);
 end;
 
 procedure TConfigDialog.LoadSites;
 begin
+  SiteData.Clear(FALSE);
   Global.LoadSites(SiteData);
 end;
 
 procedure TConfigDialog.LoadDatabases;
 begin
+  DatabaseData.Clear(FALSE);
   Global.LoadDatabases(DatabaseData);
 end;
 
