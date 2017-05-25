@@ -11,7 +11,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   admin,
   configure,
   homestead,
-  data { you can add units after this };
+  data, about { you can add units after this };
 
 {$R *.res}
 
@@ -22,5 +22,6 @@ begin
   Application.CreateForm(TAdminForm, AdminForm);
   Application.CreateForm(TConfigDialog, ConfigDialog);
   Application.CreateForm(TGlobal, Global);
+    Application.CreateForm(TAboutDialog, AboutDialog);
   Application.Run;
 end.

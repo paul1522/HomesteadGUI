@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Menus, ActnList, ComCtrls, configure, homestead, ComObj,
-  LazFileUtils, data, Windows;
+  LazFileUtils, data, Windows, about;
 
 type
   TTrafficLightColor = (
@@ -30,6 +30,7 @@ type
   { TAdminForm }
 
   TAdminForm = class(TForm)
+      AboutAction: TAction;
     BackupAction: TAction;
     RestoreAction: TAction;
     CmdAction: TAction;
@@ -41,6 +42,8 @@ type
     ToolButton11: TToolButton;
     ToolButton12: TToolButton;
     ToolButton13: TToolButton;
+    ToolButton14: TToolButton;
+    ToolButton15: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
@@ -62,6 +65,7 @@ type
     OutputMemo: TMemo;
     ToolBar1: TToolBar;
     StatusLabel: TLabel;
+    procedure AboutActionExecute(Sender: TObject);
     procedure BackupActionExecute(Sender: TObject);
     procedure CmdActionExecute(Sender: TObject);
     procedure ConfigureActionExecute(Sender: TObject);
@@ -114,6 +118,11 @@ end;
 procedure TAdminForm.BackupActionExecute(Sender: TObject);
 begin
   //AHomestead.Backup
+end;
+
+procedure TAdminForm.AboutActionExecute(Sender: TObject);
+begin
+  AboutDialog.ShowModal;
 end;
 
 procedure TAdminForm.VagrantActionExecute(VagrantAction: TVagrantAction);

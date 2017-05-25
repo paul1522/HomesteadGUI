@@ -55,9 +55,9 @@ object ConfigDialog: TConfigDialog
     Height = 280
     Top = 48
     Width = 536
-    ActivePage = TabSheet4
+    ActivePage = TabSheet1
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 6
     object TabSheet1: TTabSheet
       Caption = 'Paths'

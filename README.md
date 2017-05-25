@@ -1,6 +1,6 @@
 # HomesteadGUI
 
-An ugly little front-end to manage your homestead instance.
+An graphical manager for your homestead instances.
 
 ![Screenshot](https://raw.githubusercontent.com/paulgeneres/HomesteadGUI/master/screenshot.png)
 
@@ -12,14 +12,20 @@ An ugly little front-end to manage your homestead instance.
 * [VirtualBox](https://www.virtualbox.org)
 * [Vagrant](https://www.vagrantup.com)
 * [Laravel Homestead](https://github.com/laravel/homestead)
+
+#### Development Requirements (to build HomesteadGUI yourself)
+
 * [Lazarus](http://www.lazarus-ide.org)
 
 #### Optional
 
-* [Hosts File Editor](https://hostsfileeditor.codeplex.com/)
+* [Hosts File Editor](https://scottlerch.github.io/HostsFileEditor/)
 
 ### Installing
 
+You can download the latest binary from the [releases](https://github.com/paulgeneres/HomesteadGUI/releases) page.
+
+Or you can build it yourself...
 * `git clone https://github.com/paulgeneres/HomesteadGUI.git`
 * `cd src`
 * Open `HomesteadGUI.lpr`
@@ -27,9 +33,11 @@ An ugly little front-end to manage your homestead instance.
 
 ### Usage Notes
 
-To launch *Hosts File Editor* from the GUI you must run with administrator permissions.
+You should first get an instance of **homestead** working on your development machine, if you don't already have one.  For convenience, I recommended that you place a copy of `HomesteadGUI.exe` in your `homestead` directory and launch it from there.
 
-No usable YAML library bindings exist for Free-Pascal at this time. Free-Pascal does however have fairly robust support for reading and writing JSON. I take advantage of the fact that valid JSON is also valid YAML.  If `.homestead\Homestead.yaml` is in JSON format then you will be able to edit the **folders** and **sites** sections using the configuration dialog. An example `Homestead.yaml` file in JSON format is included in the repository.
+To launch **Hosts File Editor** from the GUI you must run with administrator permissions.
+
+No usable YAML library bindings exist for Free-Pascal at this time. Free-Pascal does however have fairly robust support for reading and writing JSON files. I take advantage of the fact that valid JSON is also valid YAML.  If `Homestead.yaml` is in JSON format then you will be able to edit the **folders**, **sites** and **databases** sections using the configuration dialog. An example `Homestead.yaml` file in JSON format is included in the repository.  Homestead v5.0.0 and later officially supports JSON configuration files.
 
 ## Contributing
 
@@ -39,9 +47,6 @@ Contributions welcome.
 
 * Linux support
 * Mac support
-* YAML file reading/writing
-* Support multiple instances of *Homestead*.
-* Update `hosts` based on the content of `Homestead.yaml`
 
 ## Author
 
