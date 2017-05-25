@@ -1,6 +1,6 @@
 # HomesteadGUI
 
-An graphical manager for your homestead instances.
+A graphical manager for your homestead instances.
 
 ![Screenshot](https://raw.githubusercontent.com/paulgeneres/HomesteadGUI/master/screenshot.png)
 
