@@ -2,15 +2,16 @@ object ConfigDialog: TConfigDialog
   Left = 518
   Height = 395
   Top = 145
-  Width = 569
+  Width = 800
   Caption = 'Configure'
   ClientHeight = 395
-  ClientWidth = 569
+  ClientWidth = 800
   OnCreate = FormCreate
   OnShow = FormShow
+  SessionProperties = 'Top;Left;Height;Width'
   LCLVersion = '1.6.4.0'
   object SaveButton: TButton
-    Left = 207
+    Left = 323
     Height = 25
     Top = 347
     Width = 75
@@ -22,7 +23,7 @@ object ConfigDialog: TConfigDialog
     TabOrder = 0
   end
   object CancelButton: TButton
-    Left = 287
+    Left = 403
     Height = 25
     Top = 347
     Width = 75
@@ -54,10 +55,10 @@ object ConfigDialog: TConfigDialog
     Left = 16
     Height = 280
     Top = 48
-    Width = 536
-    ActivePage = TabSheet1
+    Width = 767
+    ActivePage = TabSheet4
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 6
     object TabSheet1: TTabSheet
       Caption = 'Paths'
@@ -303,12 +304,12 @@ object ConfigDialog: TConfigDialog
     object TabSheet4: TTabSheet
       Caption = 'Databases'
       ClientHeight = 252
-      ClientWidth = 528
+      ClientWidth = 759
       object DatabaseGrid: TDBGrid
         Left = 0
         Height = 227
         Top = 0
-        Width = 528
+        Width = 759
         Align = alClient
         AutoFillColumns = True
         Color = clWindow
@@ -317,14 +318,14 @@ object ConfigDialog: TConfigDialog
             ButtonStyle = cbsCheckboxColumn
             MaxSize = 10
             Title.Caption = 'Enabled'
-            Width = 256
+            Width = 371
             FieldName = 'Enabled'
           end        
           item
             MinSize = 300
             MaxSize = 2000
             Title.Caption = 'Database'
-            Width = 256
+            Width = 372
             FieldName = 'Database'
           end>
         DataSource = DatabaseSource
@@ -335,7 +336,7 @@ object ConfigDialog: TConfigDialog
         Left = 0
         Height = 25
         Top = 227
-        Width = 528
+        Width = 759
         Align = alBottom
         BevelOuter = bvNone
         ChildSizing.EnlargeHorizontal = crsScaleChilds
@@ -345,7 +346,7 @@ object ConfigDialog: TConfigDialog
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 100
         ClientHeight = 25
-        ClientWidth = 528
+        ClientWidth = 759
         DataSource = DatabaseSource
         Options = []
         TabOrder = 1
@@ -415,7 +416,7 @@ object ConfigDialog: TConfigDialog
   end
   object FolderSource: TDataSource
     DataSet = FolderData
-    left = 392
+    left = 616
     top = 336
   end
   object SiteData: TMemDataset
@@ -443,7 +444,7 @@ object ConfigDialog: TConfigDialog
   end
   object SiteSource: TDataSource
     DataSet = SiteData
-    left = 464
+    left = 688
     top = 336
   end
   object DatabaseData: TMemDataset
@@ -465,6 +466,13 @@ object ConfigDialog: TConfigDialog
   end
   object DatabaseSource: TDataSource
     DataSet = DatabaseData
+    left = 744
+    top = 336
+  end
+  object IniPropStorage1: TIniPropStorage
+    StoredValues = <>
+    IniFileName = 'HomesteadGUI.ini'
+    IniSection = 'ConfigDialog'
     left = 520
     top = 336
   end

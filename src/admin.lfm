@@ -1,14 +1,14 @@
 object AdminForm: TAdminForm
-  Left = 445
+  Left = 642
   Height = 283
-  Top = 225
+  Top = 333
   Width = 515
   Caption = 'Homestead Control Panel'
   ClientHeight = 283
   ClientWidth = 515
   OnCreate = FormCreate
   OnShow = FormShow
-  Position = poDefaultPosOnly
+  SessionProperties = 'Height;Left;Top;Width'
   LCLVersion = '1.6.4.0'
   object StatusLabel: TLabel
     Left = 48
@@ -621,5 +621,12 @@ object AdminForm: TAdminForm
     OnClick = TrayIcon1Click
     left = 176
     top = 184
+  end
+  object IniPropStorage1: TIniPropStorage
+    StoredValues = <>
+    IniFileName = 'HomesteadGUI.ini'
+    IniSection = 'AdminForm'
+    left = 72
+    top = 176
   end
 end

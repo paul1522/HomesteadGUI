@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, Menus, ActnList, ComCtrls, configure, homestead, ComObj,
-  LazFileUtils, data, Windows, about;
+  ExtCtrls, Menus, ActnList, ComCtrls, IniPropStorage, configure, homestead,
+  ComObj, LazFileUtils, data, Windows, about;
 
 type
   TTrafficLightColor = (
@@ -30,8 +30,9 @@ type
   { TAdminForm }
 
   TAdminForm = class(TForm)
-      AboutAction: TAction;
+    AboutAction: TAction;
     BackupAction: TAction;
+    IniPropStorage1: TIniPropStorage;
     RestoreAction: TAction;
     CmdAction: TAction;
     ConfigureAction: TAction;
@@ -166,7 +167,7 @@ begin
   FHidden := False;
   FShown := False;
   TrayIcon1.Show;
-  SetEnvironmentVariable('VAGRANT_NO_COLOR', 'YES')
+  SetEnvironmentVariable('VAGRANT_NO_COLOR', 'YES');
 end;
 
 procedure TAdminForm.SshActionExecute(Sender: TObject);

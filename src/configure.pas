@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, memds, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, EditBtn, StdCtrls, ActnList, ComCtrls, DBGrids, Menus, DBCtrls,
-  data, homestead, lclintf;
+  data, homestead, lclintf, IniPropStorage;
 
 type
 
@@ -21,6 +21,7 @@ type
     DatabaseGrid: TDBGrid;
     DatabaseNavigator: TDBNavigator;
     DatabaseData: TMemDataset;
+    IniPropStorage1: TIniPropStorage;
     SiteSource: TDataSource;
     SiteNavigator: TDBNavigator;
     SiteGrid: TDBGrid;
@@ -189,7 +190,6 @@ begin
   Label2.Hint := URL_VAGRANT;
   Label3.Hint := URL_NOTEPAD;
   Label4.Hint := URL_HOSTS_FILE_EDITOR;
-
 end;
 
 procedure TConfigDialog.NewRecord(DataSet: TDataSet);
