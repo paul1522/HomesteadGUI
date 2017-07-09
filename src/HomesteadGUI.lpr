@@ -11,7 +11,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   admin,
   configure,
   homestead,
-  data, about { you can add units after this };
+  data, about, splash { you can add units after this };
 
 {$R *.res}
 
@@ -23,5 +23,6 @@ begin
   Application.CreateForm(TConfigDialog, ConfigDialog);
   Application.CreateForm(TGlobal, Global);
     Application.CreateForm(TAboutDialog, AboutDialog);
+    Application.CreateForm(TSplashScreen, SplashScreen);
   Application.Run;
 end.

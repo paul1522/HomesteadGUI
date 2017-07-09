@@ -1,11 +1,11 @@
 object AdminForm: TAdminForm
-  Left = 642
-  Height = 283
-  Top = 333
-  Width = 515
+  Left = 500
+  Height = 600
+  Top = 94
+  Width = 800
   Caption = 'Homestead Control Panel'
-  ClientHeight = 283
-  ClientWidth = 515
+  ClientHeight = 600
+  ClientWidth = 800
   OnCreate = FormCreate
   OnShow = FormShow
   SessionProperties = 'Height;Left;Top;Width'
@@ -20,9 +20,9 @@ object AdminForm: TAdminForm
   end
   object OutputMemo: TMemo
     Left = 10
-    Height = 214
+    Height = 531
     Top = 56
-    Width = 493
+    Width = 778
     Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clBlack
     Font.Color = 49151
@@ -40,9 +40,11 @@ object AdminForm: TAdminForm
     Left = 0
     Height = 24
     Top = 0
-    Width = 515
+    Width = 800
     Caption = 'ToolBar1'
+    ParentShowHint = False
     ShowCaptions = True
+    ShowHint = True
     TabOrder = 1
     object ToolButton1: TToolButton
       Left = 1
@@ -75,22 +77,22 @@ object AdminForm: TAdminForm
       Action = ReloadAction
     end
     object ToolButton7: TToolButton
-      Left = 328
+      Left = 351
       Top = 2
       Action = DestroyAction
     end
     object ToolButton8: TToolButton
-      Left = 298
+      Left = 321
       Top = 2
       Action = SshAction
     end
     object ToolButton9: TToolButton
-      Left = 384
+      Left = 407
       Top = 2
       Action = ConfigureAction
     end
     object ToolButton10: TToolButton
-      Left = 376
+      Left = 399
       Height = 22
       Top = 2
       Width = 8
@@ -106,7 +108,7 @@ object AdminForm: TAdminForm
       Style = tbsSeparator
     end
     object ToolButton12: TToolButton
-      Left = 445
+      Left = 468
       Height = 22
       Top = 2
       Width = 8
@@ -114,12 +116,12 @@ object AdminForm: TAdminForm
       Style = tbsSeparator
     end
     object ToolButton13: TToolButton
-      Left = 266
+      Left = 289
       Top = 2
       Action = CmdAction
     end
     object ToolButton14: TToolButton
-      Left = 323
+      Left = 346
       Height = 22
       Top = 2
       Width = 5
@@ -127,9 +129,14 @@ object AdminForm: TAdminForm
       Style = tbsDivider
     end
     object ToolButton15: TToolButton
-      Left = 453
+      Left = 476
       Top = 2
       Action = AboutAction
+    end
+    object ToolButton16: TToolButton
+      Left = 266
+      Top = 2
+      Action = WindowsPowerShellAction
     end
   end
   object Image1: TImage
@@ -145,73 +152,83 @@ object AdminForm: TAdminForm
     object UpAction: TAction
       Category = 'Vagrant'
       Caption = 'Up'
-      Hint = 'Up'
+      Hint = 'vagrant up'
       OnExecute = UpActionExecute
     end
     object HaltAction: TAction
       Category = 'Vagrant'
       Caption = 'Halt'
-      Hint = 'Halt'
+      Hint = 'vagrant halt'
       OnExecute = HaltActionExecute
     end
     object SuspendAction: TAction
       Category = 'Vagrant'
       Caption = 'Suspend'
-      Hint = 'Suspend'
+      Hint = 'vagrant suspend'
       OnExecute = SuspendActionExecute
     end
     object ResumeAction: TAction
       Category = 'Vagrant'
       Caption = 'Resume'
-      Hint = 'Resume'
+      Hint = 'vagrant resume'
       OnExecute = ResumeActionExecute
     end
     object ProvisionAction: TAction
       Category = 'Vagrant'
       Caption = 'Provision'
-      Hint = 'Provision'
+      Hint = 'vagrant provision'
       OnExecute = ProvisionActionExecute
     end
     object ReloadAction: TAction
       Category = 'Vagrant'
       Caption = 'Reload'
-      Hint = 'Reload'
+      Hint = 'vagrant reload'
       OnExecute = ReloadActionExecute
     end
     object DestroyAction: TAction
       Category = 'Vagrant'
       Caption = 'Destroy'
-      Hint = 'Destroy'
+      Hint = 'vagrant destroy'
       OnExecute = DestroyActionExecute
     end
     object SshAction: TAction
+      Category = 'Shells'
       Caption = 'ssh'
-      Hint = 'ssh'
+      Hint = 'vagrant ssh'
       OnExecute = SshActionExecute
     end
     object ConfigureAction: TAction
       Caption = 'Configure'
-      Hint = 'Configure'
+      Hint = 'Configure Homestead Control Panel'
       OnExecute = ConfigureActionExecute
     end
     object CmdAction: TAction
+      Category = 'Shells'
       Caption = 'cmd'
-      Hint = 'cmd'
+      Hint = 'Command Prompt'
       OnExecute = CmdActionExecute
     end
     object BackupAction: TAction
       Category = 'Database'
       Caption = 'BackupAction'
+      Hint = 'Backup Mysql Databases'
       OnExecute = BackupActionExecute
     end
     object RestoreAction: TAction
       Category = 'Database'
       Caption = 'RestoreAction'
+      Hint = 'Restore Mysql Databases'
       OnExecute = RestoreActionExecute
     end
     object AboutAction: TAction
       Caption = 'About'
       OnExecute = AboutActionExecute
+    end
+    object WindowsPowerShellAction: TAction
+      Category = 'Shells'
+      Caption = 'PS'
+      Hint = 'Windows PowerShell'
+      OnExecute = WindowsPowerShellActionExecute
     end
   end
   object ImageList1: TImageList

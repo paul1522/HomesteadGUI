@@ -1,4 +1,4 @@
-# HomesteadGUI
+# Homestead Control Panel (aka Homestead GUI)
 
 A graphical manager for your homestead instances.
 
@@ -13,7 +13,7 @@ A graphical manager for your homestead instances.
 * [Vagrant](https://www.vagrantup.com)
 * [Laravel Homestead](https://github.com/laravel/homestead)
 
-#### Development Requirements (to build HomesteadGUI yourself)
+#### Development Requirements (to build Homestead GUI yourself)
 
 * [Lazarus](http://www.lazarus-ide.org)
 
@@ -33,6 +33,9 @@ Or you can build it yourself...
 
 ### Usage Notes
 
+Vagrant version 1.9.7 is not currently working with Homestead GUI. You will need to roll back
+to Vagrant version 1.9.6.
+
 You should first get an instance of **homestead** working on your development machine, if you don't already have one.  For convenience, I recommended that you place a copy of `HomesteadGUI.exe` in your `homestead` directory and launch it from there.
 
 To launch **Hosts File Editor** from the GUI you must run with administrator permissions.
@@ -47,6 +50,8 @@ Contributions welcome.
 
 * Linux support
 * Mac support
+* Database backup/restore
+* Yaris (Lambo work-a-like)
 
 ## Author
 

@@ -112,7 +112,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="7">
       <Unit0>
         <Filename Value="HomesteadGUI.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -149,6 +149,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="splash.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="SplashScreen"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

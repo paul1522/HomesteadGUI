@@ -1,0 +1,40 @@
+object SplashScreen: TSplashScreen
+  Left = 669
+  Height = 149
+  Top = 340
+  Width = 363
+  BorderStyle = bsNone
+  Caption = 'SplashScreen'
+  ClientHeight = 149
+  ClientWidth = 363
+  FormStyle = fsSplash
+  LCLVersion = '1.6.4.0'
+  object Label1: TLabel
+    Left = 32
+    Height = 37
+    Top = 10
+    Width = 303
+    Caption = 'Homestead Control Panel'
+    Font.Height = -27
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 32
+    Height = 45
+    Top = 86
+    Width = 124
+    Caption = 'Version 1.2.0'#13#10'Copyright Paul Generes'#13#10'MIT License'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 32
+    Height = 25
+    Top = 48
+    Width = 165
+    Caption = 'aka Homestead GUI'
+    Font.Height = -19
+    ParentColor = False
+    ParentFont = False
+  end
+end

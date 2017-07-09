@@ -31,6 +31,7 @@ type
 
   TAdminForm = class(TForm)
     AboutAction: TAction;
+    WindowsPowerShellAction: TAction;
     BackupAction: TAction;
     IniPropStorage1: TIniPropStorage;
     RestoreAction: TAction;
@@ -45,6 +46,7 @@ type
     ToolButton13: TToolButton;
     ToolButton14: TToolButton;
     ToolButton15: TToolButton;
+    ToolButton16: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
@@ -82,6 +84,7 @@ type
     procedure TrayIcon1Click(Sender: TObject);
     procedure UpActionExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure WindowsPowerShellActionExecute(Sender: TObject);
   private
     { private declarations }
     FHidden: boolean;
@@ -245,6 +248,11 @@ begin
       FShown := True;
     end;
   end;
+end;
+
+procedure TAdminForm.WindowsPowerShellActionExecute(Sender: TObject);
+begin
+  AHomestead.PowerShell;
 end;
 
 procedure TAdminForm.RefreshStatus;

@@ -26,6 +26,7 @@ type
     procedure DestroyBox(var Output: string; Console: TMemo);
     procedure ssh;
     procedure cmd;
+    procedure PowerShell;
     procedure Backup(var Output: string; Console: TMemo);
     procedure Restore(var Output: string; Console: TMemo);
     procedure DetatchProcess(ExeFile: string; Arg: string = '');
@@ -89,6 +90,11 @@ end;
 procedure THomestead.cmd;
 begin
   DetatchProcess('cmd');
+end;
+
+procedure THomestead.PowerShell;
+begin
+  DetatchProcess('powershell');
 end;
 
 procedure THomestead.Backup(var Output: string; Console: TMemo);

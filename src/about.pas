@@ -16,8 +16,9 @@ type
         Button1: TButton;
         Label1: TLabel;
         Label2: TLabel;
-        Label4: TLabel;
-        procedure Label4Click(Sender: TObject);
+        Label3: TLabel;
+        UrlLabel: TLabel;
+        procedure UrlLabelClick(Sender: TObject);
     private
         { private declarations }
     public
@@ -36,7 +37,7 @@ URL_HOMESTEADGUI = 'https://github.com/paulgeneres/HomesteadGUI';
 
 { TAboutDialog }
 
-procedure TAboutDialog.Label4Click(Sender: TObject);
+procedure TAboutDialog.UrlLabelClick(Sender: TObject);
 begin
     OpenURL(URL_HOMESTEADGUI);
 end;
