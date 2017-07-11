@@ -112,7 +112,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="7">
+    <Units Count="9">
       <Unit0>
         <Filename Value="HomesteadGUI.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -141,6 +141,7 @@
         <ComponentName Value="Global"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="Data"/>
       </Unit4>
       <Unit5>
         <Filename Value="about.pas"/>
@@ -153,8 +154,20 @@
         <Filename Value="splash.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="SplashScreen"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit6>
+      <Unit7>
+        <Filename Value="yaris.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="YarisDialog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="yaris_options.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit8>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

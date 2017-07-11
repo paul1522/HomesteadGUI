@@ -11,7 +11,12 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   admin,
   configure,
   homestead,
-  data, about, splash { you can add units after this };
+  Data,
+  about,
+  splash,
+  yaris,
+  yaris_options
+  { you can add units after this };
 
 {$R *.res}
 
@@ -22,7 +27,8 @@ begin
   Application.CreateForm(TAdminForm, AdminForm);
   Application.CreateForm(TConfigDialog, ConfigDialog);
   Application.CreateForm(TGlobal, Global);
-    Application.CreateForm(TAboutDialog, AboutDialog);
-    Application.CreateForm(TSplashScreen, SplashScreen);
+  Application.CreateForm(TAboutDialog, AboutDialog);
+  Application.CreateForm(TSplashScreen, SplashScreen);
+  Application.CreateForm(TYarisDialog, YarisDialog);
   Application.Run;
 end.

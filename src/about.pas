@@ -5,33 +5,33 @@ unit about;
 interface
 
 uses
-    Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-    lclintf;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  lclintf;
 
 type
 
-    { TAboutDialog }
+  { TAboutDialog }
 
-    TAboutDialog = class(TForm)
-        Button1: TButton;
-        Label1: TLabel;
-        Label2: TLabel;
-        Label3: TLabel;
-        UrlLabel: TLabel;
-        procedure UrlLabelClick(Sender: TObject);
-    private
-        { private declarations }
-    public
-        { public declarations }
-    end;
+  TAboutDialog = class(TForm)
+    Button1: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    UrlLabel: TLabel;
+    procedure UrlLabelClick(Sender: TObject);
+  private
+    { private declarations }
+  public
+    { public declarations }
+  end;
 
 var
-    AboutDialog: TAboutDialog;
+  AboutDialog: TAboutDialog;
 
 implementation
 
 const
-URL_HOMESTEADGUI = 'https://github.com/paulgeneres/HomesteadGUI';
+  URL_HOMESTEADGUI = 'https://github.com/paulgeneres/HomesteadGUI';
 
 {$R *.lfm}
 
@@ -39,8 +39,7 @@ URL_HOMESTEADGUI = 'https://github.com/paulgeneres/HomesteadGUI';
 
 procedure TAboutDialog.UrlLabelClick(Sender: TObject);
 begin
-    OpenURL(URL_HOMESTEADGUI);
+  OpenURL(URL_HOMESTEADGUI);
 end;
 
 end.
-

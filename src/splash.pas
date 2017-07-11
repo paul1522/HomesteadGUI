@@ -5,28 +5,27 @@ unit splash;
 interface
 
 uses
-    Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls;
 
 type
 
-    { TSplashScreen }
+  { TSplashScreen }
 
-    TSplashScreen = class(TForm)
-        Label1: TLabel;
-        Label2: TLabel;
-        Label3: TLabel;
-    private
-        { private declarations }
-    public
-        { public declarations }
-    end;
+  TSplashScreen = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+  private
+    { private declarations }
+  public
+    { public declarations }
+  end;
 
 var
-    SplashScreen: TSplashScreen;
+  SplashScreen: TSplashScreen;
 
 implementation
 
 {$R *.lfm}
 
 end.
-

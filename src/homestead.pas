@@ -5,7 +5,7 @@ unit homestead;
 interface
 
 uses
-  Classes, SysUtils, process, data, Forms, StdCtrls, jwawinuser;
+  Classes, SysUtils, process, Data, Forms, StdCtrls, jwawinuser, yaris_options;
 
 type
   THomesteadStatus = (
@@ -17,6 +17,10 @@ type
 
   THomestead = class(TObject)
   public
+    procedure ssh;
+    procedure cmd;
+    procedure PowerShell;
+    procedure Yaris(Y: YarisOptions; Console: TMemo);
     procedure Up(var Output: string; Console: TMemo);
     procedure Halt(var Output: string; Console: TMemo);
     procedure Suspend(var Output: string; Console: TMemo);
@@ -24,19 +28,16 @@ type
     procedure Provision(var Output: string; Console: TMemo);
     procedure Reload(var Output: string; Console: TMemo);
     procedure DestroyBox(var Output: string; Console: TMemo);
-    procedure ssh;
-    procedure cmd;
-    procedure PowerShell;
     procedure Backup(var Output: string; Console: TMemo);
     procedure Restore(var Output: string; Console: TMemo);
     procedure DetatchProcess(ExeFile: string; Arg: string = '');
     function Status(var Output: string): THomesteadStatus;
   private
     procedure Vagrant(Arg: string; var Output: string);
-    procedure Vagrant(Arg: string; var Output: string; Console: TMemo);
     procedure Vagrant(Arg: string; Async: boolean);
-    //procedure Vagrant(Args : TStrings; Console : TMemo);
-    //procedure Vagrant(Args : TStrings; var Output : string; Console : TMemo);
+    procedure Vagrant(Arg: string; var Output: string; Console: TMemo);
+    procedure Vagrant(Args: TStrings; var Output: string; Console: TMemo);
+    procedure VagrantSsh(Arg: string; Console: TMemo);
   end;
 
 const
@@ -46,6 +47,27 @@ var
   AHomestead: THomestead;
 
 implementation
+
+procedure THomestead.Yaris(Y: YarisOptions; Console: TMemo);
+var
+  Command: string;
+begin
+  Command := 'yaris';
+  if ysDev in Y.Switches then
+    Command := Command + ' --dev';
+  if ysAuth in Y.Switches then
+    Command := Command + ' --auth';
+  if ysNode in Y.Switches then
+    Command := Command + ' --node';
+  if ysBranch in Y.Switches then
+    Command := Command + ' --branch ' + Y.BranchName;
+  if ysStorm in Y.Switches then
+    Command := Command + ' --jetbrains';
+  if ysVoyager in Y.Switches then
+    Command := Command + ' --voyager';
+  Command := Command + ' ' + Y.ProjectName;
+  VagrantSsh(Command, Console);
+end;
 
 procedure THomestead.Up(var Output: string; Console: TMemo);
 begin
@@ -82,6 +104,16 @@ begin
   Vagrant('destroy', Output, Console);
 end;
 
+procedure THomestead.Backup(var Output: string; Console: TMemo);
+begin
+  VagrantSsh('dbexport', Console);
+end;
+
+procedure THomestead.Restore(var Output: string; Console: TMemo);
+begin
+  VagrantSsh('dbimport', Console);
+end;
+
 procedure THomestead.ssh;
 begin
   Vagrant('ssh', True);
@@ -97,31 +129,17 @@ begin
   DetatchProcess('powershell');
 end;
 
-procedure THomestead.Backup(var Output: string; Console: TMemo);
-var
-  BackupCommand: TStrings;
-begin
-  //Vagrant(BackupCommand, Console);
-end;
-
-procedure THomestead.Restore(var Output: string; Console: TMemo);
-var
-  RestoreCommand: TStrings;
-begin
-  //Vagrant(RestoreCommand, Console);
-end;
-
 function THomestead.Status(var Output: string): THomesteadStatus;
 begin
   Vagrant('status', Output);
   if Pos(',state,running', Output) <> 0 then
-    Status := HomesteadUp
+    Result := HomesteadUp
   else if Pos(',state,saved', Output) <> 0 then
-    Status := HomesteadSuspended
+    Result := HomesteadSuspended
   else if Pos(',state,not_created', Output) <> 0 then
-    Status := HomesteadDestroyed
+    Result := HomesteadDestroyed
   else
-    Status := HomesteadHalted;
+    Result := HomesteadHalted;
 end;
 
 procedure THomestead.DetatchProcess(ExeFile: string; Arg: string = '');
@@ -166,7 +184,37 @@ begin
   end;
 end;
 
+procedure THomestead.VagrantSsh(Arg: string; Console: TMemo);
+var
+  Args: TStrings;
+  Output: string;
+begin
+  Args := TStringList.Create;
+  Args.Add('ssh');
+  Args.Add('--');
+  Args.Add('bash');
+  Args.Add('-l');
+  Args.Add('-i');
+  Args.Add('-c');
+  Args.Add('''' + Arg + '''');
+  Vagrant(Args, Output, Console);
+end;
+
 procedure THomestead.Vagrant(Arg: string; var Output: string; Console: TMemo);
+var
+  Args: TStrings;
+begin
+  Args := TStringList.Create;
+  Args.Add(Arg);
+  if Arg = 'status' then
+    Args.Add('--machine-readable');
+  if Arg = 'destroy' then
+    Args.Add('--force');
+  Vagrant(Args, Output, Console);
+end;
+
+
+procedure THomestead.Vagrant(Args: TStrings; var Output: string; Console: TMemo);
 const
   BUF_SIZE = 2048;
 var
@@ -179,11 +227,7 @@ begin
   VagrantProcess := TProcess.Create(nil);
   VagrantProcess.Executable := Global.VagrantCmd;
   VagrantProcess.CurrentDirectory := Global.HomesteadDir;
-  VagrantProcess.Parameters.Add(Arg);
-  if Arg = 'status' then
-    VagrantProcess.Parameters.Add('--machine-readable');
-  if Arg = 'destroy' then
-    VagrantProcess.Parameters.Add('--force');
+  VagrantProcess.Parameters := Args;
   VagrantProcess.Options := VagrantProcess.Options + [poUsePipes, poStderrToOutPut];
   VagrantProcess.ShowWindow := swoHIDE;
   VagrantProcess.Execute;
@@ -207,11 +251,6 @@ begin
   Output := Console.Text;
 end;
 
-(*
-procedure THomestead.Vagrant(Args : TStrings; var Output : string; Console : TStrings);
-*)
-
 begin
   AHomestead := THomestead.Create
-
 end.

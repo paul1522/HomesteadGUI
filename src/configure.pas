@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, memds, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, EditBtn, StdCtrls, ActnList, ComCtrls, DBGrids, Menus, DBCtrls,
-  data, homestead, lclintf, IniPropStorage;
+  Data, homestead, lclintf, IniPropStorage;
 
 type
 
@@ -87,10 +87,10 @@ var
 implementation
 
 const
-URL_HOMESTEAD = 'https://github.com/laravel/homestead';
-URL_VAGRANT = 'https://vagrantup.com';
-URL_NOTEPAD = 'https://notepad-plus-plus.org';
-URL_HOSTS_FILE_EDITOR = 'https://scottlerch.github.io/HostsFileEditor/';
+  URL_HOMESTEAD = 'https://github.com/laravel/homestead';
+  URL_VAGRANT = 'https://vagrantup.com';
+  URL_NOTEPAD = 'https://notepad-plus-plus.org';
+  URL_HOSTS_FILE_EDITOR = 'https://scottlerch.github.io/HostsFileEditor/';
 
 {$R *.lfm}
 
@@ -99,8 +99,10 @@ URL_HOSTS_FILE_EDITOR = 'https://scottlerch.github.io/HostsFileEditor/';
 procedure TConfigDialog.FormShow(Sender: TObject);
 begin
   Global.LoadIni;
-  if Global.ConfigFileName = '' then begin
-    ShowMessage('Cannot find the Homestead configuration file in any of the usual places. Make sure homstead is properly installed.');
+  if Global.ConfigFileName = '' then
+  begin
+    ShowMessage(
+      'Cannot find the Homestead configuration file in any of the usual places. Make sure homstead is properly installed.');
     //Application.Terminate;
   end;
   HomesteadDirSelector.Text := Global.HomesteadDir;
@@ -145,7 +147,7 @@ end;
 
 procedure TConfigDialog.EditAfterShExecute(Sender: TObject);
 var
-  AfterShFileName : String;
+  AfterShFileName: string;
 begin
   AfterShFileName := Global.ConfigDir + '/after.sh';
   try
@@ -157,7 +159,7 @@ end;
 
 procedure TConfigDialog.EditAliasesExecute(Sender: TObject);
 var
-  AliasesFileName : String;
+  AliasesFileName: string;
 begin
   AliasesFileName := Global.ConfigDir + '/aliases';
   try
@@ -219,40 +221,40 @@ end;
 
 procedure TConfigDialog.LoadFolders;
 begin
-  FolderData.Clear(FALSE);
+  FolderData.Clear(False);
   Global.LoadFolders(FolderData);
 end;
 
 procedure TConfigDialog.LoadSites;
 begin
-  SiteData.Clear(FALSE);
+  SiteData.Clear(False);
   Global.LoadSites(SiteData);
 end;
 
 procedure TConfigDialog.LoadDatabases;
 begin
-  DatabaseData.Clear(FALSE);
+  DatabaseData.Clear(False);
   Global.LoadDatabases(DatabaseData);
 end;
 
 procedure TConfigDialog.HomesteadDirSelectorExit(Sender: TObject);
 begin
-  ValidateHomesteadDir
+  ValidateHomesteadDir;
 end;
 
 procedure TConfigDialog.VagrantCmdSelectorExit(Sender: TObject);
 begin
-  ValidateVagrantCmd
+  ValidateVagrantCmd;
 end;
 
 procedure TConfigDialog.TextEditorCmdSelectorExit(Sender: TObject);
 begin
-  ValidateTextEditorCmd
+  ValidateTextEditorCmd;
 end;
 
 procedure TConfigDialog.HostsFileEditorCmdSelectorExit(Sender: TObject);
 begin
-  ValidateHostsFileEditorCmd
+  ValidateHostsFileEditorCmd;
 end;
 
 procedure TConfigDialog.ValidateHomesteadDir;

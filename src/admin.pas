@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Menus, ActnList, ComCtrls, IniPropStorage, configure, homestead,
-  ComObj, LazFileUtils, data, Windows, about;
+  ComObj, LazFileUtils, Data, Windows, about, yaris, yaris_options;
 
 type
   TTrafficLightColor = (
@@ -24,13 +24,21 @@ type
     vaSuspend,
     vaResume,
     vaProvision,
-    vaReload
+    vaReload,
+    vaBackup,
+    vaRestore
     );
 
   { TAdminForm }
 
   TAdminForm = class(TForm)
     AboutAction: TAction;
+    ToolButton14: TToolButton;
+    YarisAction: TAction;
+    ToolButton17: TToolButton;
+    ToolButton18: TToolButton;
+    ToolButton19: TToolButton;
+    ToolButton20: TToolButton;
     WindowsPowerShellAction: TAction;
     BackupAction: TAction;
     IniPropStorage1: TIniPropStorage;
@@ -44,7 +52,6 @@ type
     ToolButton11: TToolButton;
     ToolButton12: TToolButton;
     ToolButton13: TToolButton;
-    ToolButton14: TToolButton;
     ToolButton15: TToolButton;
     ToolButton16: TToolButton;
     ToolButton2: TToolButton;
@@ -85,6 +92,7 @@ type
     procedure UpActionExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure WindowsPowerShellActionExecute(Sender: TObject);
+    procedure YarisActionExecute(Sender: TObject);
   private
     { private declarations }
     FHidden: boolean;
@@ -121,7 +129,7 @@ end;
 
 procedure TAdminForm.BackupActionExecute(Sender: TObject);
 begin
-  //AHomestead.Backup
+  VagrantActionExecute(vaBackup);
 end;
 
 procedure TAdminForm.AboutActionExecute(Sender: TObject);
@@ -146,7 +154,9 @@ begin
     vaSuspend: AHomestead.Suspend(Output, OutputMemo);
     vaResume: AHomestead.Resume(Output, OutputMemo);
     vaProvision: AHomestead.Provision(Output, OutputMemo);
-    vaReload: AHomestead.Reload(Output, OutputMemo)
+    vaReload: AHomestead.Reload(Output, OutputMemo);
+    vaBackup: AHomestead.Backup(Output, OutputMemo);
+    vaRestore: AHomestead.Restore(Output, OutputMemo)
   end;
   OutputMemo.Cursor := crDefault;
   Toolbar1.Visible := True;
@@ -224,7 +234,7 @@ end;
 
 procedure TAdminForm.RestoreActionExecute(Sender: TObject);
 begin
-  //AHomestead.Restore
+  VagrantActionExecute(vaRestore);
 end;
 
 procedure TAdminForm.FormShow(Sender: TObject);
@@ -255,6 +265,31 @@ begin
   AHomestead.PowerShell;
 end;
 
+procedure TAdminForm.YarisActionExecute(Sender: TObject);
+var
+  YO: YarisOptions;
+begin
+  if YarisDialog.ShowModal = mrOk then
+  begin
+    YO.ProjectName := YarisDialog.NameField.Text;
+    YO.BranchName := YarisDialog.BranchField.Text;
+    YO.Switches := [];
+    if YarisDialog.DevBox.Checked then
+      YO.Switches := YO.Switches + [ysDev];
+    if YarisDialog.AuthBox.Checked then
+      YO.Switches := YO.Switches + [ysAuth];
+    if YarisDialog.NodeBox.Checked then
+      YO.Switches := YO.Switches + [ysNode];
+    if YarisDialog.BranchBox.Checked then
+      YO.Switches := YO.Switches + [ysBranch];
+    if YarisDialog.StormBox.Checked then
+      YO.Switches := YO.Switches + [ysStorm];
+    if YarisDialog.VoyagerBox.Checked then
+      YO.Switches := YO.Switches + [ysVoyager];
+    AHomestead.Yaris(YO, OutputMemo);
+  end;
+end;
+
 procedure TAdminForm.RefreshStatus;
 var
   Output: string;
@@ -266,7 +301,7 @@ begin
     HomesteadUp: StateIsUp;
     HomesteadHalted: StateIsHalted;
     HomesteadSuspended: StateIsSuspended;
-    HomesteadDestroyed: StateIsHalted
+    HomesteadDestroyed: StateIsHalted;
   end;
   Cursor := crDefault;
 end;
@@ -280,6 +315,8 @@ begin
   ResumeAction.Enabled := False;
   ProvisionAction.Enabled := True;
   ReloadAction.Enabled := True;
+  BackupAction.Enabled := True;
+  RestoreAction.Enabled := True;
   SshAction.Enabled := True;
   TrafficLight := GreenLight;
 end;
@@ -293,6 +330,8 @@ begin
   ResumeAction.Enabled := False;
   ProvisionAction.Enabled := False;
   ReloadAction.Enabled := False;
+  BackupAction.Enabled := False;
+  RestoreAction.Enabled := False;
   SshAction.Enabled := False;
   TrafficLight := RedLight;
 end;
@@ -307,6 +346,8 @@ begin
   ResumeAction.Enabled := True;
   ProvisionAction.Enabled := False;
   ReloadAction.Enabled := False;
+  BackupAction.Enabled := False;
+  RestoreAction.Enabled := False;
   SshAction.Enabled := False;
   TrafficLight := YellowLight;
 end;

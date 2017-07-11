@@ -1,4 +1,4 @@
-unit data;
+unit Data;
 
 {$mode objfpc}{$H+}
 
@@ -22,7 +22,7 @@ type
     FJSONData: TJSONData;
     FYamlIsJson: boolean;
     FConfigFileName, IpAddr: string;
-    FConfigDir : string;
+    FConfigDir: string;
 
     procedure SetHomesteadDir(Val: string);
     procedure SetVagrantCmd(Val: string);
@@ -37,12 +37,14 @@ type
     procedure LoadPaths(Folders: TMemDataset; Path: TJSONStringType; e: boolean);
     procedure LoadStrings(Dataset: TMemDataset; Path: TJSONStringType; e: boolean);
     procedure SaveIni;
-    procedure SaveJson(FolderData: TMemDataset; SiteData: TMemDataset; DatabaseData: TMemDataset);
+    procedure SaveJson(FolderData: TMemDataset; SiteData: TMemDataset;
+      DatabaseData: TMemDataset);
     procedure SaveJsonFolders(FolderData: TMemDataset);
     procedure SaveJsonSites(SiteData: TMemDataset);
     procedure SaveJsonDatabases(DatabaseData: TMemDataset);
     procedure SaveJsonPaths(PathData: TMemDataset; EnabledPath, DisabledPath: string);
-    procedure SaveJsonStrings(StringData: TMemDataset; EnabledPath, DisabledPath: string);
+    procedure SaveJsonStrings(StringData: TMemDataset;
+      EnabledPath, DisabledPath: string);
     procedure UpdateHostsFile(SiteData: TMemDataset; Addr: string);
   public
     { public declarations }
@@ -53,7 +55,7 @@ type
       write SetHostsFileEditorCmd;
     property ConfigIsJson: boolean read FYamlIsJson;
     property ConfigFileName: string read FConfigFileName;
-    property ConfigDir : string read FConfigDir;
+    property ConfigDir: string read FConfigDir;
 
     procedure LoadIni;
     procedure LoadJson;
@@ -61,7 +63,8 @@ type
     procedure LoadFolders(Folders: TMemDataset);
     procedure LoadSites(Sites: TMemDataset);
     procedure LoadDatabases(Databases: TMemDataset);
-    procedure Save(FolderData: TMemDataset; SiteData: TMemDataset; DatabaseData: TMemDataset);
+    procedure Save(FolderData: TMemDataset; SiteData: TMemDataset;
+      DatabaseData: TMemDataset);
   end;
 
 const
@@ -163,14 +166,16 @@ begin
     Valid := False
   end;
 
-  if ConfigFileName = '' then Valid := False;
+  if ConfigFileName = '' then
+    Valid := False;
 
   LoadJson;
 
-  LoadValidConfig := Valid;
+  Result := Valid;
 end;
 
-procedure TGlobal.Save(FolderData: TMemDataset; SiteData: TMemDataset; DatabaseData: TMemDataset);
+procedure TGlobal.Save(FolderData: TMemDataset; SiteData: TMemDataset;
+  DatabaseData: TMemDataset);
 begin
   SaveIni;
   SaveJson(FolderData, SiteData, DatabaseData);
@@ -195,15 +200,19 @@ begin
 
   FConfigDir := GetEnvironmentVariable('USERPROFILE') + '\.homestead';
   FConfigFileName := FConfigDir + '\Homestead.yaml';
-  if FileExists(FConfigFileName) then exit;
+  if FileExists(FConfigFileName) then
+    exit;
   FConfigFileName := FConfigDir + '\Homestead.json';
-  if FileExists(FConfigFileName) then exit;
+  if FileExists(FConfigFileName) then
+    exit;
 
   FConfigDir := FHomesteadDir;
   FConfigFileName := FConfigDir + '\Homestead.yaml';
-  if FileExists(FConfigFileName) then exit;
+  if FileExists(FConfigFileName) then
+    exit;
   FConfigFileName := FConfigDir + '\Homestead.json';
-  if FileExists(FConfigFileName) then exit;
+  if FileExists(FConfigFileName) then
+    exit;
 
   FConfigFileName := '';
 end;
@@ -213,7 +222,8 @@ var
   Stream: TStream;
 begin
   FYamlIsJson := False;
-  if not FileExists(FConfigFileName) then exit;
+  if not FileExists(FConfigFileName) then
+    exit;
   FYamlIsJson := True;
   Stream := TFileStream.Create(FConfigFileName, fmOpenRead);
   try
@@ -333,7 +343,8 @@ begin
   end;
 end;
 
-procedure TGlobal.SaveJson(FolderData: TMemDataset; SiteData: TMemDataset; DatabaseData: TMemDataset);
+procedure TGlobal.SaveJson(FolderData: TMemDataset; SiteData: TMemDataset;
+  DatabaseData: TMemDataset);
 var
   Stream: TStream;
   s: UTF8String;

@@ -1,7 +1,7 @@
 object AdminForm: TAdminForm
-  Left = 500
+  Left = 455
   Height = 600
-  Top = 94
+  Top = 210
   Width = 800
   Caption = 'Homestead Control Panel'
   ClientHeight = 600
@@ -77,22 +77,22 @@ object AdminForm: TAdminForm
       Action = ReloadAction
     end
     object ToolButton7: TToolButton
-      Left = 351
+      Left = 558
       Top = 2
       Action = DestroyAction
     end
     object ToolButton8: TToolButton
-      Left = 321
+      Left = 423
       Top = 2
       Action = SshAction
     end
     object ToolButton9: TToolButton
-      Left = 407
+      Left = 456
       Top = 2
       Action = ConfigureAction
     end
     object ToolButton10: TToolButton
-      Left = 399
+      Left = 448
       Height = 22
       Top = 2
       Width = 8
@@ -108,7 +108,7 @@ object AdminForm: TAdminForm
       Style = tbsSeparator
     end
     object ToolButton12: TToolButton
-      Left = 468
+      Left = 606
       Height = 22
       Top = 2
       Width = 8
@@ -116,27 +116,50 @@ object AdminForm: TAdminForm
       Style = tbsSeparator
     end
     object ToolButton13: TToolButton
-      Left = 289
+      Left = 391
       Top = 2
       Action = CmdAction
     end
-    object ToolButton14: TToolButton
-      Left = 346
-      Height = 22
-      Top = 2
-      Width = 5
-      Caption = 'ToolButton14'
-      Style = tbsDivider
-    end
     object ToolButton15: TToolButton
-      Left = 476
+      Left = 614
       Top = 2
       Action = AboutAction
     end
     object ToolButton16: TToolButton
-      Left = 266
+      Left = 368
       Top = 2
       Action = WindowsPowerShellAction
+    end
+    object ToolButton17: TToolButton
+      Left = 360
+      Height = 22
+      Top = 2
+      Width = 8
+      Caption = 'ToolButton17'
+      Style = tbsSeparator
+    end
+    object ToolButton18: TToolButton
+      Left = 266
+      Top = 2
+      Action = BackupAction
+    end
+    object ToolButton19: TToolButton
+      Left = 313
+      Top = 2
+      Action = RestoreAction
+    end
+    object ToolButton20: TToolButton
+      Left = 550
+      Height = 22
+      Top = 2
+      Width = 8
+      Caption = 'ToolButton20'
+      Style = tbsSeparator
+    end
+    object ToolButton14: TToolButton
+      Left = 517
+      Top = 2
+      Action = YarisAction
     end
   end
   object Image1: TImage
@@ -148,7 +171,7 @@ object AdminForm: TAdminForm
   end
   object ActionList1: TActionList
     left = 312
-    top = 184
+    top = 176
     object UpAction: TAction
       Category = 'Vagrant'
       Caption = 'Up'
@@ -210,13 +233,13 @@ object AdminForm: TAdminForm
     end
     object BackupAction: TAction
       Category = 'Database'
-      Caption = 'BackupAction'
+      Caption = 'Backup'
       Hint = 'Backup Mysql Databases'
       OnExecute = BackupActionExecute
     end
     object RestoreAction: TAction
       Category = 'Database'
-      Caption = 'RestoreAction'
+      Caption = 'Restore'
       Hint = 'Restore Mysql Databases'
       OnExecute = RestoreActionExecute
     end
@@ -230,12 +253,17 @@ object AdminForm: TAdminForm
       Hint = 'Windows PowerShell'
       OnExecute = WindowsPowerShellActionExecute
     end
+    object YarisAction: TAction
+      Caption = 'Yaris'
+      Hint = 'Make something amazing'
+      OnExecute = YarisActionExecute
+    end
   end
   object ImageList1: TImageList
     Height = 24
     Width = 24
     left = 392
-    top = 184
+    top = 176
     Bitmap = {
       4C69040000001800000018000000000000000000000000000000000000000000
       0000000000000000000000A2004F00A2009F07A407CF0CA60CFF0CA60CFF0CA6
@@ -636,8 +664,8 @@ object AdminForm: TAdminForm
     }
     Hint = 'Homestead GUI'
     OnClick = TrayIcon1Click
-    left = 176
-    top = 184
+    left = 153
+    top = 176
   end
   object IniPropStorage1: TIniPropStorage
     StoredValues = <>
