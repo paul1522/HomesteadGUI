@@ -24,6 +24,7 @@ type
     NameField: TEdit;
     Label1: TLabel;
     procedure BranchBoxChange(Sender: TObject);
+    procedure BranchFieldExit(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
@@ -61,9 +62,11 @@ begin
     Button1.ModalResult := mrOk
   else
   begin
+    Button1.ModalResult := mrNone;
     NameField.Color := clRed;
     ShowMessage('The project name cannot be left blank.');
   end;
+  ModalResult := Button1.ModalResult
 end;
 
 procedure TYarisDialog.BranchBoxChange(Sender: TObject);
@@ -72,6 +75,12 @@ begin
     BranchField.Enabled := True
   else
     BranchField.Enabled := False;
+end;
+
+procedure TYarisDialog.BranchFieldExit(Sender: TObject);
+begin
+  BranchField.Text := Trim(TrimLeft(BranchField.Text));
+  if BranchField.Text = '' then BranchField.Text := 'dev';
 end;
 
 end.

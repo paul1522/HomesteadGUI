@@ -11,11 +11,11 @@ object ConfigDialog: TConfigDialog
   SessionProperties = 'Top;Left;Height;Width'
   LCLVersion = '1.6.4.0'
   object SaveButton: TButton
-    Left = 323
+    Left = 628
     Height = 25
-    Top = 347
+    Top = 344
     Width = 75
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
     Caption = 'Save'
     Default = True
     ModalResult = 1
@@ -23,11 +23,11 @@ object ConfigDialog: TConfigDialog
     TabOrder = 0
   end
   object CancelButton: TButton
-    Left = 403
+    Left = 708
     Height = 25
-    Top = 347
+    Top = 344
     Width = 75
-    Anchors = [akLeft, akBottom]
+    Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Cancel'
     ModalResult = 2
@@ -411,13 +411,13 @@ object ConfigDialog: TConfigDialog
         Size = 100
       end>
     OnNewRecord = NewRecord
-    left = 16
-    top = 336
+    left = 464
+    top = 224
   end
   object FolderSource: TDataSource
     DataSet = FolderData
-    left = 616
-    top = 336
+    left = 488
+    top = 168
   end
   object SiteData: TMemDataset
     Active = True
@@ -439,13 +439,13 @@ object ConfigDialog: TConfigDialog
         Size = 100
       end>
     OnNewRecord = NewRecord
-    left = 72
-    top = 336
+    left = 520
+    top = 224
   end
   object SiteSource: TDataSource
     DataSet = SiteData
-    left = 688
-    top = 336
+    left = 560
+    top = 168
   end
   object DatabaseData: TMemDataset
     Active = True
@@ -461,19 +461,19 @@ object ConfigDialog: TConfigDialog
         Size = 100
       end>
     OnNewRecord = NewRecord
-    left = 144
-    top = 336
+    left = 592
+    top = 224
   end
   object DatabaseSource: TDataSource
     DataSet = DatabaseData
-    left = 744
-    top = 336
+    left = 616
+    top = 168
   end
   object IniPropStorage1: TIniPropStorage
     StoredValues = <>
     IniFileName = 'HomesteadGUI.ini'
     IniSection = 'ConfigDialog'
-    left = 520
-    top = 336
+    left = 392
+    top = 168
   end
 end

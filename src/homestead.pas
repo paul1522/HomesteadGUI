@@ -60,7 +60,7 @@ begin
   if ysNode in Y.Switches then
     Command := Command + ' --node';
   if ysBranch in Y.Switches then
-    Command := Command + ' --branch ' + Y.BranchName;
+    Command := Command + ' --branch=' + Y.BranchName;
   if ysStorm in Y.Switches then
     Command := Command + ' --jetbrains';
   if ysVoyager in Y.Switches then

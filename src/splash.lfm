@@ -8,6 +8,7 @@ object SplashScreen: TSplashScreen
   ClientHeight = 149
   ClientWidth = 363
   FormStyle = fsSplash
+  Position = poDesktopCenter
   LCLVersion = '1.6.4.0'
   object Label1: TLabel
     Left = 32

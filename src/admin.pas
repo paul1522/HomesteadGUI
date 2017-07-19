@@ -318,6 +318,7 @@ begin
   BackupAction.Enabled := True;
   RestoreAction.Enabled := True;
   SshAction.Enabled := True;
+  YarisAction.Enabled := True;
   TrafficLight := GreenLight;
 end;
 
@@ -333,6 +334,7 @@ begin
   BackupAction.Enabled := False;
   RestoreAction.Enabled := False;
   SshAction.Enabled := False;
+  YarisAction.Enabled := False;
   TrafficLight := RedLight;
 end;
 
@@ -349,6 +351,7 @@ begin
   BackupAction.Enabled := False;
   RestoreAction.Enabled := False;
   SshAction.Enabled := False;
+  YarisAction.Enabled := False;
   TrafficLight := YellowLight;
 end;
 
