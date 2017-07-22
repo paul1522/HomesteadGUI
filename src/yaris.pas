@@ -66,7 +66,7 @@ begin
     NameField.Color := clRed;
     ShowMessage('The project name cannot be left blank.');
   end;
-  ModalResult := Button1.ModalResult
+  ModalResult := Button1.ModalResult;
 end;
 
 procedure TYarisDialog.BranchBoxChange(Sender: TObject);
@@ -80,7 +80,8 @@ end;
 procedure TYarisDialog.BranchFieldExit(Sender: TObject);
 begin
   BranchField.Text := Trim(TrimLeft(BranchField.Text));
-  if BranchField.Text = '' then BranchField.Text := 'dev';
+  if BranchField.Text = '' then
+    BranchField.Text := 'dev';
 end;
 
 end.

@@ -19,6 +19,7 @@ type
     FVagrantCmd: string;
     FTextEditorCmd: string;
     FHostsFileEditorCmd: string;
+    FNewProjectPath: string;
     FJSONData: TJSONData;
     FYamlIsJson: boolean;
     FConfigFileName, IpAddr: string;
@@ -53,6 +54,7 @@ type
     property TextEditorCmd: string read FTextEditorCmd write SetTextEditorCmd;
     property HostsFileEditorCmd: string read FHostsFileEditorCmd
       write SetHostsFileEditorCmd;
+    property NewProjectPath: string read FNewProjectPath write FNewProjectPath;
     property ConfigIsJson: boolean read FYamlIsJson;
     property ConfigFileName: string read FConfigFileName;
     property ConfigDir: string read FConfigDir;
@@ -69,6 +71,7 @@ type
 
 const
   INI_FILE_NAME = 'HomesteadGUI.ini';
+  APP_VERSION = '1.4.0';
 
 var
   Global: TGlobal;
@@ -143,6 +146,12 @@ begin
   end;
 
   try
+    NewProjectPath := FNewProjectPath
+  except
+    FNewProjectPath := '/home/vagrant/Code'
+  end;
+
+  try
     HomesteadDir := FHomesteadDir
   except
     Valid := False
@@ -162,6 +171,12 @@ begin
 
   try
     HostsFileEditorCmd := FHostsFileEditorCmd
+  except
+    Valid := False
+  end;
+
+  try
+    NewProjectPath := FNewProjectPath
   except
     Valid := False
   end;
@@ -193,7 +208,8 @@ begin
     FVagrantCmd := Ini.ReadString('General', 'vagrant_cmd', FVagrantCmd);
     FTextEditorCmd := Ini.ReadString('General', 'text_editor_cmd', FTextEditorCmd);
     FHostsFileEditorCmd := Ini.ReadString('General', 'hosts_file_editor_cmd',
-      FHostsFileEditorCmd)
+      FHostsFileEditorCmd);
+    FNewProjectPath := Ini.ReadString('General', 'new_project_path', FNewProjectPath);
   finally
     Ini.Free
   end;
@@ -337,7 +353,8 @@ begin
     Ini.WriteString('General', 'homestead_dir', HomesteadDir);
     Ini.WriteString('General', 'vagrant_cmd', VagrantCmd);
     Ini.WriteString('General', 'text_editor_cmd', TextEditorCmd);
-    Ini.WriteString('General', 'hosts_file_editor_cmd', HostsFileEditorCmd)
+    Ini.WriteString('General', 'hosts_file_editor_cmd', HostsFileEditorCmd);
+    Ini.WriteString('General', 'new_project_path', NewProjectPath);
   finally
     Ini.Free
   end;

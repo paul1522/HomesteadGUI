@@ -9,6 +9,7 @@ object AboutDialog: TAboutDialog
   ClientHeight = 248
   ClientWidth = 363
   FormStyle = fsStayOnTop
+  OnShow = FormShow
   Position = poOwnerFormCenter
   LCLVersion = '1.6.4.0'
   object Label1: TLabel
@@ -21,12 +22,12 @@ object AboutDialog: TAboutDialog
     ParentColor = False
     ParentFont = False
   end
-  object Label2: TLabel
+  object VersionLabel: TLabel
     Left = 32
     Height = 45
     Top = 86
     Width = 124
-    Caption = 'Version 1.3.0'#13#10'Copyright Paul Generes'#13#10'MIT License'
+    Caption = 'Version $version'#13#10'Copyright Paul Generes'#13#10'MIT License'
     ParentColor = False
   end
   object UrlLabel: TLabel

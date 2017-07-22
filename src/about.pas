@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  lclintf;
+  lclintf, Data;
 
 type
 
@@ -15,9 +15,10 @@ type
   TAboutDialog = class(TForm)
     Button1: TButton;
     Label1: TLabel;
-    Label2: TLabel;
+    VersionLabel: TLabel;
     Label3: TLabel;
     UrlLabel: TLabel;
+    procedure FormShow(Sender: TObject);
     procedure UrlLabelClick(Sender: TObject);
   private
     { private declarations }
@@ -40,6 +41,12 @@ const
 procedure TAboutDialog.UrlLabelClick(Sender: TObject);
 begin
   OpenURL(URL_HOMESTEADGUI);
+end;
+
+procedure TAboutDialog.FormShow(Sender: TObject);
+begin
+  VersionLabel.Caption := stringreplace(VersionLabel.Caption, '$version',
+    APP_VERSION, []);
 end;
 
 end.

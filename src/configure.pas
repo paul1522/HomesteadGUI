@@ -15,6 +15,7 @@ type
 
   TConfigDialog = class(TForm)
     Button4: TButton;
+    NewProjectPath: TEdit;
     EditAfterSh: TAction;
     EditAliases: TAction;
     Button3: TButton;
@@ -22,6 +23,7 @@ type
     DatabaseNavigator: TDBNavigator;
     DatabaseData: TMemDataset;
     IniPropStorage1: TIniPropStorage;
+    Label5: TLabel;
     SiteSource: TDataSource;
     SiteNavigator: TDBNavigator;
     SiteGrid: TDBGrid;
@@ -109,6 +111,7 @@ begin
   VagrantCmdSelector.Text := Global.VagrantCmd;
   TextEditorCmdSelector.Text := Global.TextEditorCmd;
   HostsFileEditorCmdSelector.Text := Global.HostsFileEditorCmd;
+  NewProjectPath.Text := Global.NewProjectPath;
   TabSheet2.TabVisible := Global.ConfigIsJson;
   TabSheet3.TabVisible := Global.ConfigIsJson;
   TabSheet4.TabVisible := Global.ConfigIsJson;
@@ -130,6 +133,7 @@ begin
     Global.VagrantCmd := VagrantCmdSelector.Text;
     Global.TextEditorCmd := TextEditorCmdSelector.Text;
     Global.HostsFileEditorCmd := HostsFileEditorCmdSelector.Text;
+    Global.NewProjectPath := NewProjectPath.Text;
     Global.Save(FolderData, SiteData, DatabaseData)
   except
     ModalResult := mrNone

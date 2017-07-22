@@ -1,10 +1,10 @@
 object ConfigDialog: TConfigDialog
   Left = 518
-  Height = 395
+  Height = 442
   Top = 145
   Width = 800
   Caption = 'Configure'
-  ClientHeight = 395
+  ClientHeight = 442
   ClientWidth = 800
   OnCreate = FormCreate
   OnShow = FormShow
@@ -13,7 +13,7 @@ object ConfigDialog: TConfigDialog
   object SaveButton: TButton
     Left = 628
     Height = 25
-    Top = 344
+    Top = 391
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Save'
@@ -25,7 +25,7 @@ object ConfigDialog: TConfigDialog
   object CancelButton: TButton
     Left = 708
     Height = 25
-    Top = 344
+    Top = 391
     Width = 75
     Anchors = [akRight, akBottom]
     Cancel = True
@@ -53,22 +53,22 @@ object ConfigDialog: TConfigDialog
   end
   object PageControl1: TPageControl
     Left = 16
-    Height = 280
+    Height = 327
     Top = 48
     Width = 767
-    ActivePage = TabSheet4
+    ActivePage = TabSheet1
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 6
     object TabSheet1: TTabSheet
       Caption = 'Paths'
-      ClientHeight = 252
-      ClientWidth = 528
+      ClientHeight = 299
+      ClientWidth = 759
       object VagrantCmdSelector: TFileNameEdit
         Left = 16
         Height = 23
         Top = 88
-        Width = 495
+        Width = 726
         DialogTitle = 'Where is vagrant.exe'
         Filter = '.exe|*.exe'
         FilterIndex = 0
@@ -115,7 +115,7 @@ object ConfigDialog: TConfigDialog
         Left = 16
         Height = 23
         Top = 32
-        Width = 495
+        Width = 726
         DialogTitle = 'Where is your homestead box?'
         ShowHidden = False
         ButtonWidth = 23
@@ -129,7 +129,7 @@ object ConfigDialog: TConfigDialog
         Left = 16
         Height = 23
         Top = 144
-        Width = 495
+        Width = 726
         DialogTitle = 'Where is vagrant.exe'
         Filter = '.exe|*.exe'
         FilterIndex = 0
@@ -161,7 +161,7 @@ object ConfigDialog: TConfigDialog
         Left = 16
         Height = 23
         Top = 200
-        Width = 495
+        Width = 726
         DialogTitle = 'Where is vagrant.exe'
         Filter = '.exe|*.exe'
         FilterIndex = 0
@@ -188,6 +188,22 @@ object ConfigDialog: TConfigDialog
         ParentShowHint = False
         ShowHint = True
         OnClick = Label4Click
+      end
+      object NewProjectPath: TEdit
+        Left = 16
+        Height = 23
+        Top = 256
+        Width = 726
+        Anchors = [akTop, akLeft, akRight]
+        TabOrder = 4
+      end
+      object Label5: TLabel
+        Left = 16
+        Height = 15
+        Top = 240
+        Width = 91
+        Caption = 'New Project Path'
+        ParentColor = False
       end
     end
     object TabSheet2: TTabSheet

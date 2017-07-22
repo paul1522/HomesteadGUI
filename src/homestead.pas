@@ -65,6 +65,8 @@ begin
     Command := Command + ' --jetbrains';
   if ysVoyager in Y.Switches then
     Command := Command + ' --voyager';
+  if Global.NewProjectPath <> '' then
+    Command := Command + ' --path=' + Global.NewProjectPath;
   Command := Command + ' ' + Y.ProjectName;
   VagrantSsh(Command, Console);
 end;
@@ -192,11 +194,15 @@ begin
   Args := TStringList.Create;
   Args.Add('ssh');
   Args.Add('--');
-  Args.Add('bash');
-  Args.Add('-l');
-  Args.Add('-i');
-  Args.Add('-c');
-  Args.Add('''' + Arg + '''');
+
+  Args.Add('source ./.profile && source ./.bash_aliases && ' + Arg);
+
+  //Args.Add('bash');
+  //Args.Add('-l');
+  //Args.Add('-i');
+  //Args.Add('-c');
+  //Args.Add('''' + Arg + '''');
+
   Vagrant(Args, Output, Console);
 end;
 

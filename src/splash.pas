@@ -5,7 +5,7 @@ unit splash;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls, Data;
 
 type
 
@@ -13,8 +13,9 @@ type
 
   TSplashScreen = class(TForm)
     Label1: TLabel;
-    Label2: TLabel;
+    VersionLabel: TLabel;
     Label3: TLabel;
+    procedure FormShow(Sender: TObject);
   private
     { private declarations }
   public
@@ -27,5 +28,13 @@ var
 implementation
 
 {$R *.lfm}
+
+{ TSplashScreen }
+
+procedure TSplashScreen.FormShow(Sender: TObject);
+begin
+  VersionLabel.Caption := stringreplace(VersionLabel.Caption, '$version',
+    APP_VERSION, []);
+end;
 
 end.
