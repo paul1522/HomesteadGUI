@@ -35,9 +35,6 @@ Or you can build it yourself...
 
 ### Usage Notes
 
-Vagrant version 1.9.7 is not currently working with Homestead GUI. You will need
-to roll back to Vagrant version 1.9.6.
-
 You should first get an instance of **homestead** working on your development machine.
 For convenience, I recommended that you place a copy of `HomesteadGUI.exe` in your
 `homestead` directory and launch it from there.

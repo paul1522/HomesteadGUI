@@ -181,6 +181,9 @@ begin
   FShown := False;
   TrayIcon1.Show;
   SetEnvironmentVariable('VAGRANT_NO_COLOR', 'YES');
+
+  // Workaround for "stdin is not a tty" bug present in Vagrant since version 1.9.7.
+  SetEnvironmentVariable('VAGRANT_DETECTED_OS', 'DUMMY');
 end;
 
 procedure TAdminForm.SshActionExecute(Sender: TObject);

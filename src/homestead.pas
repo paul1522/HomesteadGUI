@@ -5,7 +5,8 @@ unit homestead;
 interface
 
 uses
-  Classes, SysUtils, process, Data, Forms, StdCtrls, jwawinuser, yaris_options;
+  Classes, SysUtils, process, VagrantProcess, Data, Forms,
+  StdCtrls, jwawinuser, yaris_options;
 
 type
   THomesteadStatus = (
@@ -224,13 +225,13 @@ procedure THomestead.Vagrant(Args: TStrings; var Output: string; Console: TMemo)
 const
   BUF_SIZE = 2048;
 var
-  VagrantProcess: TProcess;
+  VagrantProcess: TVagrantProcess;
   OutputStream: TMemoryStream;
   BytesRead: longint;
   Buffer: array[1..BUF_SIZE] of byte;
   p: int64;
 begin
-  VagrantProcess := TProcess.Create(nil);
+  VagrantProcess := TVagrantProcess.Create(nil);
   VagrantProcess.Executable := Global.VagrantCmd;
   VagrantProcess.CurrentDirectory := Global.HomesteadDir;
   VagrantProcess.Parameters := Args;
