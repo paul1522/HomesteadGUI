@@ -166,7 +166,7 @@ end;
 
 procedure TAdminForm.DestroyActionExecute(Sender: TObject);
 begin
-  if MessageDlg('CONFIRM', 'DO YOU REALLY WANT TO DESTROY THE HOMESTEAD INSTANCE',
+  if MessageDlg('CONFIRM', 'DO YOU REALLY WANT TO DESTROY THE HOMESTEAD INSTANCE?',
     mtConfirmation, [mbYes, mbNo], 0) = mrYes then
   begin
     VagrantActionExecute(vaDestroy);
