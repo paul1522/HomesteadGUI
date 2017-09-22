@@ -15,6 +15,10 @@ type
 
   TConfigDialog = class(TForm)
     Button4: TButton;
+    PortData: TMemDataset;
+    DatabaseNavigator1: TDBNavigator;
+    PortSource: TDataSource;
+    PortGrid: TDBGrid;
     NewProjectPath: TEdit;
     EditAfterSh: TAction;
     EditAliases: TAction;
@@ -51,6 +55,7 @@ type
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
     TabSheet4: TTabSheet;
+    TabSheet5: TTabSheet;
     TextEditorCmdSelector: TFileNameEdit;
     VagrantCmdSelector: TFileNameEdit;
     procedure EditAfterShExecute(Sender: TObject);
@@ -75,6 +80,7 @@ type
     procedure LoadFolders;
     procedure LoadSites;
     procedure LoadDatabases;
+    procedure LoadPorts;
     procedure ValidateHomesteadDir;
     procedure ValidateVagrantCmd;
     procedure ValidateTextEditorCmd;
@@ -122,7 +128,7 @@ begin
     LoadFolders;
     LoadSites;
     LoadDatabases;
-    //PathsLoaded := True;
+    LoadPorts;
   end;
 end;
 
@@ -134,7 +140,7 @@ begin
     Global.TextEditorCmd := TextEditorCmdSelector.Text;
     Global.HostsFileEditorCmd := HostsFileEditorCmdSelector.Text;
     Global.NewProjectPath := NewProjectPath.Text;
-    Global.Save(FolderData, SiteData, DatabaseData)
+    Global.Save(FolderData, SiteData, DatabaseData, PortData)
   except
     ModalResult := mrNone
   end;
@@ -192,6 +198,8 @@ begin
   SiteGrid.Columns[0].Width := 50;
   DatabaseGrid.Columns[0].SizePriority := 0;
   DatabaseGrid.Columns[0].Width := 50;
+  PortGrid.Columns[0].SizePriority := 0;
+  PortGrid.Columns[0].Width := 50;
   Label1.Hint := URL_HOMESTEAD;
   Label2.Hint := URL_VAGRANT;
   Label3.Hint := URL_NOTEPAD;
@@ -239,6 +247,12 @@ procedure TConfigDialog.LoadDatabases;
 begin
   DatabaseData.Clear(False);
   Global.LoadDatabases(DatabaseData);
+end;
+
+procedure TConfigDialog.LoadPorts;
+begin
+  PortData.Clear(False);
+  Global.LoadPorts(PortData);
 end;
 
 procedure TConfigDialog.HomesteadDirSelectorExit(Sender: TObject);

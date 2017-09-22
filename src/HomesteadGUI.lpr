@@ -15,7 +15,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   about,
   splash,
   yaris,
-  yaris_options, vagrantprocess { you can add units after this };
+  yaris_options,
+  vagrantprocess { you can add units after this };
 
 {$R *.res}
 
