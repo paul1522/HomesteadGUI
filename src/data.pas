@@ -5,7 +5,7 @@ unit Data;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, IniFiles, fpjson, jsonparser, memds;
+  Classes, SysUtils, FileUtil, IniFiles, fpjson, jsonparser, memds, DB;
 
 type
 
@@ -35,16 +35,19 @@ type
     procedure LoadDisabledSites(Sites: TMemDataset);
     procedure LoadEnabledDatabases(Databases: TMemDataset);
     procedure LoadDisabledDatabases(Databases: TMemDataset);
-    procedure LoadPaths(Folders: TMemDataset; Path: TJSONStringType; e: boolean);
-    procedure LoadStrings(Dataset: TMemDataset; Path: TJSONStringType; e: boolean);
+    procedure LoadEnabledPorts(Ports: TMemDataset);
+    procedure LoadDisabledPorts(Ports: TMemDataset);
+    procedure LoadObjects(Dataset: TMemDataset; Path: TJSONStringType; Enabled: boolean);
+    procedure LoadStrings(Dataset: TMemDataset; Path: TJSONStringType; Enabled: boolean);
     procedure SaveIni;
     procedure SaveJson(FolderData: TMemDataset; SiteData: TMemDataset;
-      DatabaseData: TMemDataset);
+      DatabaseData: TMemDataset; PortData: TMemDataset);
     procedure SaveJsonFolders(FolderData: TMemDataset);
     procedure SaveJsonSites(SiteData: TMemDataset);
     procedure SaveJsonDatabases(DatabaseData: TMemDataset);
-    procedure SaveJsonPaths(PathData: TMemDataset; EnabledPath, DisabledPath: string);
-    procedure SaveJsonStrings(StringData: TMemDataset;
+    procedure SaveJsonPorts(PortData: TMemDataset);
+    procedure SaveJsonObjects(Dataset: TMemDataset; EnabledPath, DisabledPath: string);
+    procedure SaveJsonStrings(Dataset: TMemDataset;
       EnabledPath, DisabledPath: string);
     procedure UpdateHostsFile(SiteData: TMemDataset; Addr: string);
   public
@@ -65,13 +68,14 @@ type
     procedure LoadFolders(Folders: TMemDataset);
     procedure LoadSites(Sites: TMemDataset);
     procedure LoadDatabases(Databases: TMemDataset);
+    procedure LoadPorts(Ports: TMemDataset);
     procedure Save(FolderData: TMemDataset; SiteData: TMemDataset;
-      DatabaseData: TMemDataset);
+      DatabaseData: TMemDataset; PortData: TMemDataset);
   end;
 
 const
   INI_FILE_NAME = 'HomesteadGUI.ini';
-  APP_VERSION = '1.4.2';
+  APP_VERSION = '1.5.0';
 
 var
   Global: TGlobal;
@@ -190,10 +194,10 @@ begin
 end;
 
 procedure TGlobal.Save(FolderData: TMemDataset; SiteData: TMemDataset;
-  DatabaseData: TMemDataset);
+  DatabaseData: TMemDataset; PortData: TMemDataset);
 begin
   SaveIni;
-  SaveJson(FolderData, SiteData, DatabaseData);
+  SaveJson(FolderData, SiteData, DatabaseData, PortData);
   UpdateHostsFile(SiteData, IpAddr);
   LoadIni;
 end;
@@ -272,24 +276,30 @@ begin
   LoadDisabledDatabases(Databases);
 end;
 
+procedure TGlobal.LoadPorts(Ports: TMemDataset);
+begin
+  LoadEnabledPorts(Ports);
+  LoadDisabledPorts(Ports);
+end;
+
 procedure TGlobal.LoadEnabledFolders(Folders: TMemDataset);
 begin
-  LoadPaths(Folders, 'folders', True);
+  LoadObjects(Folders, 'folders', True);
 end;
 
 procedure TGlobal.LoadDisabledFolders(Folders: TMemDataset);
 begin
-  LoadPaths(Folders, 'disabled-folders', False);
+  LoadObjects(Folders, 'disabled-folders', False);
 end;
 
 procedure TGlobal.LoadEnabledSites(Sites: TMemDataset);
 begin
-  LoadPaths(Sites, 'sites', True);
+  LoadObjects(Sites, 'sites', True);
 end;
 
 procedure TGlobal.LoadDisabledSites(Sites: TMemDataset);
 begin
-  LoadPaths(Sites, 'disabled-sites', False);
+  LoadObjects(Sites, 'disabled-sites', False);
 end;
 
 procedure TGlobal.LoadEnabledDatabases(Databases: TMemDataset);
@@ -302,30 +312,54 @@ begin
   LoadStrings(Databases, 'disabled-databases', False);
 end;
 
-procedure TGlobal.LoadPaths(Folders: TMemDataset; Path: TJSONStringType; e: boolean);
+procedure TGlobal.LoadEnabledPorts(Ports: TMemDataset);
+begin
+  LoadObjects(Ports, 'ports', True);
+end;
+
+procedure TGlobal.LoadDisabledPorts(Ports: TMemDataset);
+begin
+  LoadObjects(Ports, 'disabled-ports', False);
+end;
+
+procedure TGlobal.LoadObjects(Dataset: TMemDataset; Path: TJSONStringType;
+  Enabled: boolean);
 var
   JFolders: TJSONArray;
   JFolder: TJSONEnum;
-  mp, tp: string;
+  Keys: TStringList;
+  Key, Value: string;
 begin
-  //Folders.Clear(FALSE);
-  //Folders.Open;
   JFolders := TJSONArray(FJSONData.FindPath(Path));
   if JFolders = nil then
     exit;
+  Keys := TStringList.Create;
+  Dataset.Fields.GetFieldNames(Keys);
   for JFolder in JFolders do
   begin
-    mp := JFolder.Value.FindPath('map').AsString;
-    tp := JFolder.Value.FindPath('to').AsString;
-    Folders.Append;
-    Folders.FieldByName('Enabled').Value := e;
-    Folders.FieldByName('Map').Value := mp;
-    Folders.FieldByName('To').Value := tp;
-    Folders.Post;
+    Dataset.Append;
+    for Key in Keys do
+    begin
+      if Key = 'enabled' then
+      begin
+        Dataset.FieldByName(Key).Value := Enabled;
+      end
+      else
+      begin
+        try
+          Value := JFolder.Value.FindPath(Key).AsString;
+        except
+          Value := '';
+        end;
+        Dataset.FieldByName(Key).Value := Value;
+      end;
+    end;
+    Dataset.Post;
   end;
 end;
 
-procedure TGlobal.LoadStrings(Dataset: TMemDataset; Path: TJSONStringType; e: boolean);
+procedure TGlobal.LoadStrings(Dataset: TMemDataset; Path: TJSONStringType;
+  Enabled: boolean);
 var
   JFolders: TJSONArray;
   JFolder: TJSONEnum;
@@ -338,8 +372,8 @@ begin
   begin
     s := JFolder.Value.AsString;
     Dataset.Append;
-    Dataset.FieldByName('Enabled').Value := e;
-    Dataset.FieldByName('Database').Value := s;
+    Dataset.FieldByName('enabled').Value := Enabled;
+    Dataset.FieldByName('string').Value := s;
     Dataset.Post;
   end;
 end;
@@ -361,7 +395,7 @@ begin
 end;
 
 procedure TGlobal.SaveJson(FolderData: TMemDataset; SiteData: TMemDataset;
-  DatabaseData: TMemDataset);
+  DatabaseData: TMemDataset; PortData: TMemDataset);
 var
   Stream: TStream;
   s: UTF8String;
@@ -372,6 +406,7 @@ begin
   SaveJsonFolders(FolderData);
   SaveJsonSites(SiteData);
   SaveJsonDatabases(DatabaseData);
+  SaveJsonPorts(PortData);
   Stream := TFileStream.Create(FConfigFileName, fmCreate);
   try
     s := FJSONData.FormatJSON([], 4);
@@ -383,11 +418,13 @@ begin
   end;
 end;
 
-procedure TGlobal.SaveJsonPaths(PathData: TMemDataset;
+procedure TGlobal.SaveJsonObjects(Dataset: TMemDataset;
   EnabledPath, DisabledPath: string);
 var
   JEnabledFolders, JDisabledFolders: TJSONArray;
   JMap: TJSONObject;
+  Keys: TStringList;
+  Key, Value: string;
 begin
   JEnabledFolders := TJSONArray(FJSONData.FindPath(EnabledPath));
   if JEnabledFolders <> nil then
@@ -400,34 +437,42 @@ begin
 
   JDisabledFolders := TJSONArray(FJSONData.FindPath(DisabledPath));
   if JDisabledFolders <> nil then
-    JDisabledFolders.Clear
+  begin
+    JDisabledFolders.Clear;
+  end
   else
   begin
     JDisabledFolders := TJSONArray.Create;
     TJSONObject(FJSONData).Add(DisabledPath, JDisabledFolders);
   end;
-
-  PathData.First;
-  while not PathData.EOF do
+  Keys := TStringList.Create;
+  Dataset.Fields.GetFieldNames(Keys);
+  Dataset.First;
+  while not Dataset.EOF do
   begin
-    JMap := TJSONObject.Create(
-      ['map', PathData.FieldByName('Map').AsString, 'to',
-      PathData.FieldByName('To').AsString]);
-    if PathData.FieldByName('Enabled').AsBoolean then
+    JMap := TJSONObject.Create;
+    for Key in Keys do
+    begin
+      if Key <> 'enabled' then
+      begin
+        Value := Dataset.FieldByName(Key).AsString;
+        if Value <> '' then
+          JMap.Add(Key, Value);
+      end;
+    end;
+    if Dataset.FieldByName('Enabled').AsBoolean then
       JEnabledFolders.Add(JMap)
     else
       JDisabledFolders.Add(JMap);
-    PathData.Next;
+    Dataset.Next;
   end;
-
   if JEnabledFolders.Count = 0 then
     TJSONObject(FJSONData).Delete(EnabledPath);
   if JDisabledFolders.Count = 0 then
     TJSONObject(FJSONData).Delete(DisabledPath);
-
 end;
 
-procedure TGlobal.SaveJsonStrings(StringData: TMemDataset;
+procedure TGlobal.SaveJsonStrings(Dataset: TMemDataset;
   EnabledPath, DisabledPath: string);
 var
   JEnabledFolders, JDisabledFolders: TJSONArray;
@@ -451,15 +496,15 @@ begin
     TJSONObject(FJSONData).Add(DisabledPath, JDisabledFolders);
   end;
 
-  StringData.First;
-  while not StringData.EOF do
+  Dataset.First;
+  while not Dataset.EOF do
   begin
-    JMap := TJSONString.Create(StringData.FieldByName('Database').AsString);
-    if StringData.FieldByName('Enabled').AsBoolean then
+    JMap := TJSONString.Create(Dataset.FieldByName('string').AsString);
+    if Dataset.FieldByName('enabled').AsBoolean then
       JEnabledFolders.Add(JMap)
     else
       JDisabledFolders.Add(JMap);
-    StringData.Next;
+    Dataset.Next;
   end;
 
   if JEnabledFolders.Count = 0 then
@@ -471,17 +516,22 @@ end;
 
 procedure TGlobal.SaveJsonFolders(FolderData: TMemDataset);
 begin
-  SaveJsonPaths(FolderData, 'folders', 'disabled-folders');
+  SaveJsonObjects(FolderData, 'folders', 'disabled-folders');
 end;
 
 procedure TGlobal.SaveJsonSites(SiteData: TMemDataset);
 begin
-  SaveJsonPaths(SiteData, 'sites', 'disabled-sites');
+  SaveJsonObjects(SiteData, 'sites', 'disabled-sites');
 end;
 
 procedure TGlobal.SaveJsonDatabases(DatabaseData: TMemDataset);
 begin
   SaveJsonStrings(DatabaseData, 'databases', 'disabled-databases');
+end;
+
+procedure TGlobal.SaveJsonPorts(PortData: TMemDataset);
+begin
+  SaveJsonObjects(PortData, 'ports', 'disabled-ports');
 end;
 
 procedure TGlobal.UpdateHostsFile(SiteData: TMemDataset; Addr: string);

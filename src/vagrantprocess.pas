@@ -8,28 +8,27 @@ uses
   Classes, SysUtils, process, Pipes;
 
 type
-  TVagrantProcess = Class(TProcess)
+  TVagrantProcess = class(TProcess)
   private
-    Procedure FreeOutputStreams;
+    procedure FreeOutputStreams;
   protected
-    Procedure CreateStreams(InHandle,OutHandle,ErrHandle : Longint);virtual;
+    procedure CreateStreams(InHandle, OutHandle, ErrHandle: longint); virtual;
   end;
 
 implementation
 
-Procedure TVagrantProcess.CreateStreams(InHandle,OutHandle,ErrHandle : Longint);
+procedure TVagrantProcess.CreateStreams(InHandle, OutHandle, ErrHandle: longint);
 begin
   FreeOutputStreams;
-  FOutputStream:=TInputPipeStream.Create (OutHandle);
-  FStderrStream:=TInputPipeStream.Create(ErrHandle);
+  FOutputStream := TInputPipeStream.Create(OutHandle);
+  FStderrStream := TInputPipeStream.Create(ErrHandle);
 end;
 
-Procedure TVagrantProcess.FreeOutputStreams;
+procedure TVagrantProcess.FreeOutputStreams;
 begin
-  If FStderrStream<>FOutputStream then
+  if FStderrStream <> FOutputStream then
     FreeStream(THandleStream(FStderrStream));
   FreeStream(THandleStream(FOutputStream));
 end;
 
 end.
-
