@@ -121,6 +121,7 @@ begin
   TabSheet2.TabVisible := Global.ConfigIsJson;
   TabSheet3.TabVisible := Global.ConfigIsJson;
   TabSheet4.TabVisible := Global.ConfigIsJson;
+  TabSheet5.TabVisible := Global.ConfigIsJson;
   EditHomesteadYaml.Caption := 'Edit Homestead' + ExtractFileExt(Global.ConfigFileName);
   if Global.ConfigIsJson and not PathsLoaded then
   begin
