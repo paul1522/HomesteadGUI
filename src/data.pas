@@ -328,7 +328,8 @@ var
   JFolders: TJSONArray;
   JFolder: TJSONEnum;
   Keys: TStringList;
-  Key, Value: string;
+  Key: string;
+  Value: variant;
 begin
   JFolders := TJSONArray(FJSONData.FindPath(Path));
   if JFolders = nil then
@@ -349,7 +350,8 @@ begin
         try
           Value := JFolder.Value.FindPath(Key).AsString;
         except
-          Value := '';
+          if Key = 'schedule' then Value := 0
+          else Value := '';
         end;
         Dataset.FieldByName(Key).Value := Value;
       end;
@@ -456,7 +458,7 @@ begin
       if Key <> 'enabled' then
       begin
         Value := Dataset.FieldByName(Key).AsString;
-        if Value <> '' then
+        if ((Value = '1') and (Key = 'schedule')) or ((Key <> 'schedule') and (Value <> '')) then
           JMap.Add(Key, Value);
       end;
     end;

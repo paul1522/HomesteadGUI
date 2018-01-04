@@ -56,9 +56,9 @@ object ConfigDialog: TConfigDialog
     Height = 327
     Top = 48
     Width = 767
-    ActivePage = TabSheet5
+    ActivePage = TabSheet3
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 4
+    TabIndex = 2
     TabOrder = 6
     object TabSheet1: TTabSheet
       Caption = 'Paths'
@@ -303,14 +303,14 @@ object ConfigDialog: TConfigDialog
             MinSize = 300
             MaxSize = 2000
             Title.Caption = 'Map'
-            Width = 229
+            Width = 179
             FieldName = 'map'
           end        
           item
             MinSize = 300
             MaxSize = 2000
             Title.Caption = 'To'
-            Width = 229
+            Width = 179
             FieldName = 'to'
           end        
           item
@@ -322,11 +322,20 @@ object ConfigDialog: TConfigDialog
               '5.6'
               '7.0'
               '7.1'
+              '7.2'
             )
             SizePriority = 0
             Title.Caption = 'PHP Version'
             Width = 100
             FieldName = 'php'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            MaxSize = 10
+            SizePriority = 0
+            Title.Caption = 'Schedule'
+            Width = 100
+            FieldName = 'schedule'
           end>
         DataSource = SiteSource
         Scrollbars = ssAutoBoth
