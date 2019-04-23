@@ -5,4 +5,5 @@ object Global: TGlobal
   HorizontalOffset = 698
   VerticalOffset = 373
   Width = 320
+  PPI = 96
 end

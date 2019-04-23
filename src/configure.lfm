@@ -1,19 +1,19 @@
 object ConfigDialog: TConfigDialog
-  Left = 517
-  Height = 442
-  Top = 199
+  Left = 1538
+  Height = 450
+  Top = 451
   Width = 800
   Caption = 'Configure'
-  ClientHeight = 442
+  ClientHeight = 450
   ClientWidth = 800
   OnCreate = FormCreate
   OnShow = FormShow
   SessionProperties = 'Top;Left;Height;Width'
-  LCLVersion = '1.6.4.0'
+  LCLVersion = '2.0.2.0'
   object SaveButton: TButton
     Left = 628
     Height = 25
-    Top = 391
+    Top = 399
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Save'
@@ -25,7 +25,7 @@ object ConfigDialog: TConfigDialog
   object CancelButton: TButton
     Left = 708
     Height = 25
-    Top = 391
+    Top = 399
     Width = 75
     Anchors = [akRight, akBottom]
     Cancel = True
@@ -53,16 +53,16 @@ object ConfigDialog: TConfigDialog
   end
   object PageControl1: TPageControl
     Left = 16
-    Height = 327
+    Height = 335
     Top = 48
     Width = 767
-    ActivePage = TabSheet3
+    ActivePage = TabSheet6
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 2
+    TabIndex = 1
     TabOrder = 6
     object TabSheet1: TTabSheet
       Caption = 'Paths'
-      ClientHeight = 299
+      ClientHeight = 307
       ClientWidth = 759
       object VagrantCmdSelector: TFileNameEdit
         Left = 16
@@ -206,6 +206,73 @@ object ConfigDialog: TConfigDialog
         ParentColor = False
       end
     end
+    object TabSheet6: TTabSheet
+      Caption = 'Options'
+      ClientHeight = 307
+      ClientWidth = 759
+      object MariaDBCheckBox: TCheckBox
+        Left = 40
+        Height = 19
+        Top = 20
+        Width = 68
+        Caption = 'Maria DB'
+        TabOrder = 0
+      end
+      object MongoDBCheckBox: TCheckBox
+        Left = 40
+        Height = 19
+        Top = 50
+        Width = 77
+        Caption = 'Mongo DB'
+        TabOrder = 1
+      end
+      object ElasticsearchCheckBox: TCheckBox
+        Left = 40
+        Height = 19
+        Top = 80
+        Width = 132
+        Caption = 'Elasticsearch, Version'
+        TabOrder = 2
+      end
+      object Neo4jCheckBox: TCheckBox
+        Left = 40
+        Height = 19
+        Top = 110
+        Width = 51
+        Caption = 'Neo4j'
+        TabOrder = 4
+      end
+      object ElasticsearchVersionEdit: TComboBox
+        Left = 175
+        Height = 23
+        Top = 76
+        Width = 100
+        ItemHeight = 15
+        ItemIndex = 0
+        Items.Strings = (
+          '5.6'
+          '6.0'
+          '6.1'
+          '6.2'
+          '6.3'
+          '6.4'
+          '6.5'
+          '6.6'
+          '6.7'
+          '7.0'
+        )
+        TabOrder = 3
+        Text = '5.6'
+      end
+      object BackupCheckBox: TCheckBox
+        Left = 40
+        Height = 19
+        Top = 140
+        Width = 168
+        Caption = 'Backup database on destroy'
+        TabOrder = 5
+      end
+    end
     object TabSheet2: TTabSheet
       Caption = 'Folders'
       ClientHeight = 299
@@ -261,12 +328,12 @@ object ConfigDialog: TConfigDialog
     end
     object TabSheet3: TTabSheet
       Caption = 'Sites'
-      ClientHeight = 299
+      ClientHeight = 257
       ClientWidth = 759
       object SiteNavigator: TDBNavigator
         Left = 0
         Height = 25
-        Top = 274
+        Top = 232
         Width = 759
         Align = alBottom
         BevelOuter = bvNone
@@ -284,7 +351,7 @@ object ConfigDialog: TConfigDialog
       end
       object SiteGrid: TDBGrid
         Left = 0
-        Height = 274
+        Height = 232
         Top = 0
         Width = 759
         Align = alClient
@@ -303,15 +370,37 @@ object ConfigDialog: TConfigDialog
             MinSize = 300
             MaxSize = 2000
             Title.Caption = 'Map'
-            Width = 179
+            Width = 119
             FieldName = 'map'
           end        
           item
             MinSize = 300
             MaxSize = 2000
             Title.Caption = 'To'
-            Width = 179
+            Width = 119
             FieldName = 'to'
+          end        
+          item
+            ButtonStyle = cbsPickList
+            MinSize = 20
+            MaxSize = 20
+            PickList.Strings = (
+              ''
+              'apache'
+              'apigility'
+              'expressive'
+              'laravel'
+              'proxy'
+              'silverstripe'
+              'statamic'
+              'symfony2'
+              'symfony4'
+              'zf'
+            )
+            SizePriority = 0
+            Title.Caption = 'Site Type'
+            Width = 119
+            FieldName = 'type'
           end        
           item
             ButtonStyle = cbsPickList
@@ -323,6 +412,7 @@ object ConfigDialog: TConfigDialog
               '7.0'
               '7.1'
               '7.2'
+              '7.3'
             )
             SizePriority = 0
             Title.Caption = 'PHP Version'
@@ -473,8 +563,8 @@ object ConfigDialog: TConfigDialog
     TabOrder = 5
   end
   object ActionList1: TActionList
-    left = 712
-    top = 160
+    left = 608
+    top = 16
     object EditHomesteadYaml: TAction
       Caption = 'Edit Homestead.yaml'
       OnExecute = EditHomesteadYamlExecute
@@ -512,13 +602,13 @@ object ConfigDialog: TConfigDialog
         Size = 100
       end>
     OnNewRecord = NewRecord
-    left = 256
-    top = 224
+    left = 736
+    top = 88
   end
   object FolderSource: TDataSource
     DataSet = FolderData
-    left = 256
-    top = 160
+    left = 704
+    top = 88
   end
   object SiteData: TMemDataset
     Active = True
@@ -547,6 +637,7 @@ object ConfigDialog: TConfigDialog
       end    
       item
         Name = 'type'
+        Attributes = [faRequired]
         DataType = ftString
         Size = 10
       end    
@@ -556,13 +647,13 @@ object ConfigDialog: TConfigDialog
         Size = 10
       end>
     OnNewRecord = NewRecord
-    left = 376
-    top = 224
+    left = 736
+    top = 144
   end
   object SiteSource: TDataSource
     DataSet = SiteData
-    left = 376
-    top = 160
+    left = 704
+    top = 144
   end
   object DatabaseData: TMemDataset
     Active = True
@@ -578,20 +669,20 @@ object ConfigDialog: TConfigDialog
         Size = 100
       end>
     OnNewRecord = NewRecord
-    left = 488
-    top = 224
+    left = 736
+    top = 200
   end
   object DatabaseSource: TDataSource
     DataSet = DatabaseData
-    left = 488
-    top = 160
+    left = 704
+    top = 200
   end
   object IniPropStorage1: TIniPropStorage
     StoredValues = <>
     IniFileName = 'HomesteadGUI.ini'
     IniSection = 'ConfigDialog'
-    left = 136
-    top = 160
+    left = 704
+    top = 16
   end
   object PortData: TMemDataset
     Active = True
@@ -617,12 +708,12 @@ object ConfigDialog: TConfigDialog
         DataType = ftString
       end>
     OnNewRecord = NewRecord
-    left = 592
-    top = 224
+    left = 736
+    top = 256
   end
   object PortSource: TDataSource
     DataSet = PortData
-    left = 592
-    top = 160
+    left = 704
+    top = 256
   end
 end

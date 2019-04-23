@@ -1,4 +1,4 @@
-unit Data;
+unit data;
 
 {$mode objfpc}{$H+}
 
@@ -22,8 +22,13 @@ type
     FNewProjectPath: string;
     FJSONData: TJSONData;
     FYamlIsJson: boolean;
-    FConfigFileName, IpAddr: string;
+    FConfigFileName, FIpAddr: string;
     FConfigDir: string;
+    FMariaDB: boolean;
+    FMongoDB: boolean;
+    FElasticsearchVersion: string;
+    FNeo4j: boolean;
+    FBackupDatabase: boolean;
 
     procedure SetHomesteadDir(Val: string);
     procedure SetVagrantCmd(Val: string);
@@ -61,21 +66,29 @@ type
     property ConfigIsJson: boolean read FYamlIsJson;
     property ConfigFileName: string read FConfigFileName;
     property ConfigDir: string read FConfigDir;
+    property MariaDB: boolean read FMariaDB write FMariaDB;
+    property MongoDB: boolean read FMongoDB write FMongoDB;
+    property ElasticsearchVersion: string read FElasticsearchVersion write FElasticsearchVersion;
+    property Neo4j: boolean read FNeo4j write FNeo4j;
+    property BackupDatabase: boolean read FBackupDatabase write FBackupDatabase;
 
     procedure LoadIni;
     procedure LoadJson;
     function LoadValidConfig: boolean;
+    function LoadOption(Key: string): TJSONData;
     procedure LoadFolders(Folders: TMemDataset);
     procedure LoadSites(Sites: TMemDataset);
     procedure LoadDatabases(Databases: TMemDataset);
     procedure LoadPorts(Ports: TMemDataset);
     procedure Save(FolderData: TMemDataset; SiteData: TMemDataset;
       DatabaseData: TMemDataset; PortData: TMemDataset);
+    procedure EncodeJsonBoolean(Key: string; val: boolean);
+    procedure EncodeJsonString(Key: string; val: string);
   end;
 
 const
   INI_FILE_NAME = 'HomesteadGUI.ini';
-  APP_VERSION = '1.5.1';
+  APP_VERSION = '1.5.2';
 
 var
   Global: TGlobal;
@@ -198,7 +211,7 @@ procedure TGlobal.Save(FolderData: TMemDataset; SiteData: TMemDataset;
 begin
   SaveIni;
   SaveJson(FolderData, SiteData, DatabaseData, PortData);
-  UpdateHostsFile(SiteData, IpAddr);
+  UpdateHostsFile(SiteData, FIpAddr);
   LoadIni;
 end;
 
@@ -255,7 +268,12 @@ begin
   finally
     Stream.Free
   end;
-  IpAddr := FJSONData.FindPath('ip').AsString;
+  FIpAddr := FJSONData.FindPath('ip').AsString;
+end;
+
+function TGlobal.LoadOption(key: string) : TJSONData;
+begin
+  Result := FJSONData.FindPath(key)
 end;
 
 procedure TGlobal.LoadFolders(Folders: TMemDataset);
@@ -396,6 +414,34 @@ begin
   end;
 end;
 
+procedure TGlobal.EncodeJsonBoolean(Key: string; Val: boolean);
+begin
+  if (Val) then
+  begin
+    try
+      FJSONData.FindPath(Key).AsInteger := 1;
+    except
+      TJSONObject(FJSONData).Add(Key, 1);
+    end
+  end
+  else
+    TJSONObject(FJSONData).Delete(Key);
+end;
+
+procedure TGlobal.EncodeJsonString(Key: string; Val: string);
+begin
+  if (Val <> '') then
+  begin
+    try
+      FJSONData.FindPath(Key).AsString := Val
+    except
+      TJSONObject(FJSONData).Add(Key, Val);
+    end
+  end
+  else
+    TJSONObject(FJSONData).Delete(Key);
+end;
+
 procedure TGlobal.SaveJson(FolderData: TMemDataset; SiteData: TMemDataset;
   DatabaseData: TMemDataset; PortData: TMemDataset);
 var
@@ -404,7 +450,7 @@ var
 begin
   if not FYamlIsJson then
     exit;
-  LoadJson;
+  // LoadJson;
   SaveJsonFolders(FolderData);
   SaveJsonSites(SiteData);
   SaveJsonDatabases(DatabaseData);
@@ -544,6 +590,7 @@ begin
   while not SiteData.EOF do
   begin
     HostName := SiteData.FieldByName('Map').AsString;
+    // TODO: This would require run as administrator...
     // if SiteData.FieldByName('Enabled').AsBoolean then
     // uncomment or add host name to hosts file
     // else
