@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Menus, ActnList, ComCtrls, IniPropStorage, configure, homestead,
-  ComObj, LazFileUtils, Data, Windows, about, yaris, yaris_options;
+  ComObj, LazFileUtils, data, Windows, about, yaris, yaris_options;
 
 type
   TTrafficLightColor = (

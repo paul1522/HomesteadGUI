@@ -5,7 +5,7 @@ unit homestead;
 interface
 
 uses
-  Classes, SysUtils, process, VagrantProcess, Data, Forms,
+  Classes, SysUtils, process, VagrantProcess, data, Forms,
   StdCtrls, jwawinuser, yaris_options;
 
 type

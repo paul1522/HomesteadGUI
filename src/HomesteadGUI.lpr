@@ -2,8 +2,10 @@ program HomesteadGUI;
 
 {$mode objfpc}{$H+}
 
-uses {$IFDEF UNIX} {$IFDEF UseCThreads}
-  cthreads, {$ENDIF} {$ENDIF}
+uses
+  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  cthreads,
+  {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms,
   runtimetypeinfocontrols,
@@ -11,18 +13,20 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   admin,
   configure,
   homestead,
-  Data,
+  data,
   about,
   splash,
   yaris,
   yaris_options,
-  vagrantprocess { you can add units after this };
+  vagrantprocess
+  { you can add units after this };
 
 {$R *.res}
 
 begin
-  Application.Title := 'Homestead GUI';
+  Application.Title:='Homestead GUI';
   RequireDerivedFormResource := True;
+  Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(TAdminForm, AdminForm);
   Application.CreateForm(TConfigDialog, ConfigDialog);
@@ -32,3 +36,4 @@ begin
   Application.CreateForm(TYarisDialog, YarisDialog);
   Application.Run;
 end.
+

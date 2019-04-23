@@ -9,7 +9,7 @@ object AdminForm: TAdminForm
   OnCreate = FormCreate
   OnShow = FormShow
   SessionProperties = 'Height;Left;Top;Width'
-  LCLVersion = '1.6.4.0'
+  LCLVersion = '2.0.2.0'
   object StatusLabel: TLabel
     Left = 48
     Height = 15
@@ -95,7 +95,6 @@ object AdminForm: TAdminForm
       Left = 448
       Height = 22
       Top = 2
-      Width = 8
       Caption = 'ToolButton10'
       Style = tbsSeparator
     end
@@ -103,7 +102,6 @@ object AdminForm: TAdminForm
       Left = 258
       Height = 22
       Top = 2
-      Width = 8
       Caption = 'ToolButton11'
       Style = tbsSeparator
     end
@@ -111,7 +109,6 @@ object AdminForm: TAdminForm
       Left = 606
       Height = 22
       Top = 2
-      Width = 8
       Caption = 'ToolButton12'
       Style = tbsSeparator
     end
@@ -134,7 +131,6 @@ object AdminForm: TAdminForm
       Left = 360
       Height = 22
       Top = 2
-      Width = 8
       Caption = 'ToolButton17'
       Style = tbsSeparator
     end
@@ -152,7 +148,6 @@ object AdminForm: TAdminForm
       Left = 550
       Height = 22
       Top = 2
-      Width = 8
       Caption = 'ToolButton20'
       Style = tbsSeparator
     end
