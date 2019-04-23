@@ -1,5 +1,9 @@
 src/HomesteadGUI.ini
 src/958072.jpg
 src/958072.png
-
 *.lps
+src/\.vagrant/
+src/after\.sh
+src/aliases
+src/Homestead\.yaml
+src/Vagrantfile
