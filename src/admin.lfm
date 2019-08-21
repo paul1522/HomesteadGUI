@@ -1,32 +1,44 @@
 object AdminForm: TAdminForm
-  Left = 455
-  Height = 600
-  Top = 210
-  Width = 800
+  Left = 652
+  Height = 750
+  Top = 287
+  Width = 1000
   Caption = 'Homestead Control Panel'
-  ClientHeight = 600
-  ClientWidth = 800
+  ClientHeight = 750
+  ClientWidth = 1000
+  DesignTimePPI = 120
   OnCreate = FormCreate
   OnShow = FormShow
   SessionProperties = 'Height;Left;Top;Width'
-  LCLVersion = '2.0.2.0'
+  LCLVersion = '2.0.4.0'
   object StatusLabel: TLabel
-    Left = 48
-    Height = 15
-    Top = 32
-    Width = 32
+    Left = 60
+    Height = 20
+    Top = 40
+    Width = 40
     Caption = 'Status'
     ParentColor = False
+    ParentFont = False
   end
   object OutputMemo: TMemo
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = ToolBar1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
     Left = 10
-    Height = 531
-    Top = 56
-    Width = 778
+    Height = 710
+    Top = 30
+    Width = 980
     Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
+    BorderSpacing.Bottom = 10
     Color = clBlack
     Font.Color = 49151
-    Font.Height = -19
+    Font.Height = -24
     Font.Name = 'Courier New'
     Lines.Strings = (
       'Sample Output.'
@@ -37,11 +49,18 @@ object AdminForm: TAdminForm
     TabOrder = 0
   end
   object ToolBar1: TToolBar
-    Left = 0
-    Height = 24
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 10
+    Height = 30
     Top = 0
-    Width = 800
+    Width = 980
+    BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
     Caption = 'ToolBar1'
+    ParentFont = False
     ParentShowHint = False
     ShowCaptions = True
     ShowHint = True
@@ -52,121 +71,121 @@ object AdminForm: TAdminForm
       Action = UpAction
     end
     object ToolButton2: TToolButton
-      Left = 24
+      Left = 30
       Top = 2
       Action = HaltAction
     end
     object ToolButton3: TToolButton
-      Left = 54
+      Left = 66
       Top = 2
       Action = SuspendAction
     end
     object ToolButton4: TToolButton
-      Left = 107
+      Left = 130
       Top = 2
       Action = ResumeAction
     end
     object ToolButton5: TToolButton
-      Left = 157
+      Left = 190
       Top = 2
       Action = ProvisionAction
     end
     object ToolButton6: TToolButton
-      Left = 214
+      Left = 258
       Top = 2
       Action = ReloadAction
     end
     object ToolButton7: TToolButton
-      Left = 558
+      Left = 674
       Top = 2
       Action = DestroyAction
     end
     object ToolButton8: TToolButton
-      Left = 423
+      Left = 513
       Top = 2
       Action = SshAction
     end
     object ToolButton9: TToolButton
-      Left = 456
+      Left = 552
       Top = 2
       Action = ConfigureAction
     end
     object ToolButton10: TToolButton
-      Left = 448
-      Height = 22
+      Left = 542
+      Height = 28
       Top = 2
       Caption = 'ToolButton10'
       Style = tbsSeparator
     end
     object ToolButton11: TToolButton
-      Left = 258
-      Height = 22
+      Left = 313
+      Height = 28
       Top = 2
       Caption = 'ToolButton11'
       Style = tbsSeparator
     end
     object ToolButton12: TToolButton
-      Left = 606
-      Height = 22
+      Left = 733
+      Height = 28
       Top = 2
       Caption = 'ToolButton12'
       Style = tbsSeparator
     end
     object ToolButton13: TToolButton
-      Left = 391
+      Left = 476
       Top = 2
       Action = CmdAction
     end
     object ToolButton15: TToolButton
-      Left = 614
+      Left = 743
       Top = 2
       Action = AboutAction
     end
     object ToolButton16: TToolButton
-      Left = 368
+      Left = 447
       Top = 2
       Action = WindowsPowerShellAction
     end
     object ToolButton17: TToolButton
-      Left = 360
-      Height = 22
+      Left = 437
+      Height = 28
       Top = 2
       Caption = 'ToolButton17'
       Style = tbsSeparator
     end
     object ToolButton18: TToolButton
-      Left = 266
+      Left = 323
       Top = 2
       Action = BackupAction
     end
     object ToolButton19: TToolButton
-      Left = 313
+      Left = 379
       Top = 2
       Action = RestoreAction
     end
     object ToolButton20: TToolButton
-      Left = 550
-      Height = 22
+      Left = 664
+      Height = 28
       Top = 2
       Caption = 'ToolButton20'
       Style = tbsSeparator
     end
     object ToolButton14: TToolButton
-      Left = 517
+      Left = 625
       Top = 2
       Action = YarisAction
     end
   end
   object Image1: TImage
-    Left = 10
-    Height = 24
-    Top = 28
-    Width = 24
+    Left = 12
+    Height = 30
+    Top = 35
+    Width = 30
     Transparent = True
   end
   object ActionList1: TActionList
-    left = 312
-    top = 176
+    left = 390
+    top = 220
     object UpAction: TAction
       Category = 'Vagrant'
       Caption = 'Up'
@@ -257,8 +276,8 @@ object AdminForm: TAdminForm
   object ImageList1: TImageList
     Height = 24
     Width = 24
-    left = 392
-    top = 176
+    left = 490
+    top = 220
     Bitmap = {
       4C69040000001800000018000000000000000000000000000000000000000000
       0000000000000000000000A2004F00A2009F07A407CF0CA60CFF0CA60CFF0CA6
@@ -659,14 +678,14 @@ object AdminForm: TAdminForm
     }
     Hint = 'Homestead GUI'
     OnClick = TrayIcon1Click
-    left = 153
-    top = 176
+    left = 191
+    top = 220
   end
   object IniPropStorage1: TIniPropStorage
     StoredValues = <>
     IniFileName = 'HomesteadGUI.ini'
     IniSection = 'AdminForm'
-    left = 72
-    top = 176
+    left = 90
+    top = 220
   end
 end

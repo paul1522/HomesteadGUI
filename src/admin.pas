@@ -147,6 +147,7 @@ begin
   OutputMemo.Cursor := crHourGlass;
   StatusLabel.Caption := 'Vagrant is running. Please wait...';
   Application.ProcessMessages;
+  Output := '';
   case VagrantAction of
     vaUp: AHomestead.Up(Output, OutputMemo);
     vaDestroy: AHomestead.DestroyBox(Output, OutputMemo);
@@ -300,6 +301,7 @@ begin
   Cursor := crHourglass;
   StatusLabel.Caption := 'Checking Homestead status. Please wait...';
   Application.ProcessMessages;
+  Output := '';
   case AHomestead.Status(Output) of
     HomesteadUp: StateIsUp;
     HomesteadHalted: StateIsHalted;
