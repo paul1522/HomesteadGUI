@@ -14,13 +14,7 @@ type
   { TConfigDialog }
 
   TConfigDialog = class(TForm)
-    Button4: TButton;
-    MariaDBCheckBox: TCheckBox;
-    MongoDBCheckBox: TCheckBox;
-    ElasticsearchCheckBox: TCheckBox;
-    Neo4jCheckBox: TCheckBox;
-    BackupCheckBox: TCheckBox;
-    ElasticsearchVersionEdit: TComboBox;
+    EditAliasesButton: TButton;
     PortData: TMemDataset;
     DatabaseNavigator1: TDBNavigator;
     PortSource: TDataSource;
@@ -28,7 +22,7 @@ type
     NewProjectPath: TEdit;
     EditAfterSh: TAction;
     EditAliases: TAction;
-    Button3: TButton;
+    EditAfterButton: TButton;
     DatabaseGrid: TDBGrid;
     DatabaseNavigator: TDBNavigator;
     DatabaseData: TMemDataset;
@@ -44,8 +38,8 @@ type
     EditHomesteadYaml: TAction;
     EditHosts: TAction;
     ActionList1: TActionList;
-    Button1: TButton;
-    Button2: TButton;
+    EditHomesteadButton: TButton;
+    EditHostsButton: TButton;
     HomesteadDirSelector: TDirectoryEdit;
     HostsFileEditorCmdSelector: TFileNameEdit;
     Label1: TLabel;
@@ -63,6 +57,7 @@ type
     TabSheet4: TTabSheet;
     TabSheet5: TTabSheet;
     TabSheet6: TTabSheet;
+    TabSheet7: TTabSheet;
     TextEditorCmdSelector: TFileNameEdit;
     VagrantCmdSelector: TFileNameEdit;
     procedure EditAfterShExecute(Sender: TObject);
@@ -84,7 +79,6 @@ type
   private
     { private declarations }
     PathsLoaded: boolean;
-    procedure LoadOptions;
     procedure LoadFolders;
     procedure LoadSites;
     procedure LoadDatabases;
@@ -115,12 +109,12 @@ const
 procedure TConfigDialog.FormShow(Sender: TObject);
 begin
   Global.LoadIni;
-  if Global.ConfigFileName = '' then
-  begin
-    ShowMessage(
-      'Cannot find the Homestead configuration file in any of the usual places. Make sure homstead is properly installed.');
-    //Application.Terminate;
-  end;
+  //if Global.ConfigFileName = '' then
+  //begin
+  //  ShowMessage(
+  //    'Cannot find the Homestead configuration file in any of the usual places. Make sure homstead is properly installed.');
+  //  //Application.Terminate;
+  //end;
   HomesteadDirSelector.Text := Global.HomesteadDir;
   VagrantCmdSelector.Text := Global.VagrantCmd;
   TextEditorCmdSelector.Text := Global.TextEditorCmd;
@@ -130,11 +124,11 @@ begin
   TabSheet3.TabVisible := Global.ConfigIsJson;
   TabSheet4.TabVisible := Global.ConfigIsJson;
   TabSheet5.TabVisible := Global.ConfigIsJson;
+  //TabSheet6.TabVisible := Global.ConfigIsJson;
   EditHomesteadYaml.Caption := 'Edit Homestead' + ExtractFileExt(Global.ConfigFileName);
   if Global.ConfigIsJson and not PathsLoaded then
   begin
     Global.LoadJson;
-    LoadOptions;
     LoadFolders;
     LoadSites;
     LoadDatabases;
@@ -153,15 +147,6 @@ begin
     Global.HostsFileEditorCmd := HostsFileEditorCmdSelector.Text;
     Global.NewProjectPath := NewProjectPath.Text;
     Global.LoadJson;
-    if (ElasticsearchCheckBox.Checked) then
-      Elastic :=  ElasticsearchVersionEdit.Text
-    else
-      Elastic := '';
-    Global.EncodeJsonBoolean('mariadb', MariaDBCheckBox.Checked);
-    Global.EncodeJsonBoolean('mongodb', MongoDBCheckBox.Checked);
-    Global.EncodeJsonString('elasticsearch', Elastic);
-    Global.EncodeJsonBoolean('neo4j', Neo4jCheckBox.Checked);
-    Global.EncodeJsonBoolean('backup', BackupCheckBox.Checked);
     Global.Save(FolderData, SiteData, DatabaseData, PortData)
   except
     ModalResult := mrNone
@@ -251,37 +236,6 @@ end;
 procedure TConfigDialog.Label4Click(Sender: TObject);
 begin
   OpenURL(URL_HOSTS_FILE_EDITOR);
-end;
-
-procedure TConfigDialog.LoadOptions;
-begin
-  try
-    MariaDBCheckBox.Checked := Global.LoadOption('mariadb').AsBoolean;
-  except
-    MariaDBCheckbox.Checked := FALSE;
-  end;
-  try
-    MongoDBCheckBox.Checked := Global.LoadOption('mongodb').AsBoolean;
-  except
-    MongoDBCheckBox.Checked := FALSE;
-  end;
-  try
-    ElasticsearchVersionEdit.Text := Global.LoadOption('elasticsearch').AsString;
-    ElasticsearchCheckBox.Checked := TRUE;
-  except
-    ElasticsearchCheckBox.Checked := FALSE;
-    ElasticsearchVersionEdit.ItemIndex := 0;
-  end;
-  try
-    Neo4jCheckBox.Checked := Global.LoadOption('neo4j').AsBoolean;
-  except
-    Neo4jCheckBox.Checked := FALSE;
-  end;
-  try
-    BackupCheckBox.Checked := Global.LoadOption('backup').AsBoolean;
-  except
-    BackupCheckBox.Checked := FALSE;
-  end;
 end;
 
 procedure TConfigDialog.LoadFolders;

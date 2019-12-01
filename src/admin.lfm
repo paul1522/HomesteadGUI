@@ -1,37 +1,27 @@
 object AdminForm: TAdminForm
-  Left = 652
+  Left = 1031
   Height = 750
-  Top = 287
-  Width = 1000
+  Top = 310
+  Width = 1276
   Caption = 'Homestead Control Panel'
   ClientHeight = 750
-  ClientWidth = 1000
+  ClientWidth = 1276
   DesignTimePPI = 120
   OnCreate = FormCreate
   OnShow = FormShow
   SessionProperties = 'Height;Left;Top;Width'
-  LCLVersion = '2.0.4.0'
-  object StatusLabel: TLabel
-    Left = 60
-    Height = 20
-    Top = 40
-    Width = 40
-    Caption = 'Status'
-    ParentColor = False
-    ParentFont = False
-  end
+  LCLVersion = '2.0.6.0'
   object OutputMemo: TMemo
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = ToolBar1
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    AnchorSideBottom.Control = Owner
-    AnchorSideBottom.Side = asrBottom
+    AnchorSideBottom.Control = Image1
     Left = 10
-    Height = 710
+    Height = 680
     Top = 30
-    Width = 980
+    Width = 1256
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Left = 10
     BorderSpacing.Right = 10
@@ -56,7 +46,7 @@ object AdminForm: TAdminForm
     Left = 10
     Height = 30
     Top = 0
-    Width = 980
+    Width = 1256
     BorderSpacing.Left = 10
     BorderSpacing.Right = 10
     Caption = 'ToolBar1'
@@ -96,22 +86,22 @@ object AdminForm: TAdminForm
       Action = ReloadAction
     end
     object ToolButton7: TToolButton
-      Left = 674
+      Left = 666
       Top = 2
       Action = DestroyAction
     end
     object ToolButton8: TToolButton
-      Left = 513
+      Left = 509
       Top = 2
       Action = SshAction
     end
     object ToolButton9: TToolButton
-      Left = 552
+      Left = 546
       Top = 2
       Action = ConfigureAction
     end
     object ToolButton10: TToolButton
-      Left = 542
+      Left = 538
       Height = 28
       Top = 2
       Caption = 'ToolButton10'
@@ -125,63 +115,82 @@ object AdminForm: TAdminForm
       Style = tbsSeparator
     end
     object ToolButton12: TToolButton
-      Left = 733
+      Left = 725
       Height = 28
       Top = 2
       Caption = 'ToolButton12'
       Style = tbsSeparator
     end
     object ToolButton13: TToolButton
-      Left = 476
+      Left = 472
       Top = 2
       Action = CmdAction
     end
     object ToolButton15: TToolButton
-      Left = 743
+      Left = 733
       Top = 2
       Action = AboutAction
     end
     object ToolButton16: TToolButton
-      Left = 447
+      Left = 443
       Top = 2
       Action = WindowsPowerShellAction
     end
     object ToolButton17: TToolButton
-      Left = 437
+      Left = 435
       Height = 28
       Top = 2
       Caption = 'ToolButton17'
       Style = tbsSeparator
     end
     object ToolButton18: TToolButton
-      Left = 323
+      Left = 321
       Top = 2
       Action = BackupAction
     end
     object ToolButton19: TToolButton
-      Left = 379
+      Left = 377
       Top = 2
       Action = RestoreAction
     end
     object ToolButton20: TToolButton
-      Left = 664
+      Left = 658
       Height = 28
       Top = 2
       Caption = 'ToolButton20'
       Style = tbsSeparator
     end
     object ToolButton14: TToolButton
-      Left = 625
+      Left = 619
       Top = 2
       Action = YarisAction
     end
   end
   object Image1: TImage
-    Left = 12
+    AnchorSideLeft.Control = Owner
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 10
     Height = 30
-    Top = 35
+    Top = 720
     Width = 30
-    Transparent = True
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Left = 10
+  end
+  object StatusLabel: TLabel
+    AnchorSideLeft.Control = Image1
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 50
+    Height = 20
+    Top = 730
+    Width = 40
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Left = 10
+    Caption = 'Status'
+    ParentColor = False
+    ParentFont = False
   end
   object ActionList1: TActionList
     left = 390
