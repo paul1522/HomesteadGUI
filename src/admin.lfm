@@ -13,13 +13,14 @@ object AdminForm: TAdminForm
   LCLVersion = '2.0.6.0'
   object OutputMemo: TMemo
     AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = ToolBar1
+    AnchorSideTop.Control = Image1
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    AnchorSideBottom.Control = Image1
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
     Left = 10
-    Height = 680
+    Height = 710
     Top = 30
     Width = 1256
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -41,12 +42,13 @@ object AdminForm: TAdminForm
   object ToolBar1: TToolBar
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
-    AnchorSideRight.Side = asrBottom
+    AnchorSideRight.Control = StatusLabel
     Left = 10
     Height = 30
     Top = 0
-    Width = 1256
+    Width = 1166
+    Align = alNone
+    Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 10
     BorderSpacing.Right = 10
     Caption = 'ToolBar1'
@@ -168,26 +170,34 @@ object AdminForm: TAdminForm
   end
   object Image1: TImage
     AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
-    Left = 10
+    Left = 1236
     Height = 30
-    Top = 720
+    Top = 0
     Width = 30
-    Anchors = [akLeft, akBottom]
+    Anchors = [akTop, akRight]
     BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
   end
   object StatusLabel: TLabel
     AnchorSideLeft.Control = Image1
     AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = Image1
+    AnchorSideTop.Side = asrCenter
+    AnchorSideRight.Control = Image1
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
-    Left = 50
+    Left = 1186
     Height = 20
-    Top = 730
+    Top = 5
     Width = 40
-    Anchors = [akLeft, akBottom]
+    Anchors = [akTop, akRight]
     BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
     Caption = 'Status'
     ParentColor = False
     ParentFont = False
