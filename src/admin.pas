@@ -244,23 +244,21 @@ end;
 procedure TAdminForm.FormShow(Sender: TObject);
 var
   t: longint;
+  t2: boolean;
 begin
   if not FShown then
   begin
-    t := mrOk;
-    while (t = mrOk) and (not Global.LoadValidConfig) do
+    t2 := Global.LoadValidConfig;
+    if not t2 then
     begin
       t := ConfigDialog.ShowModal;
+      if t <> mrOk then
+      begin
+        Application.Terminate;
+      end
     end;
-    if t <> mrOk then
-    begin
-      Application.Terminate;
-    end
-    else
-    begin
-      RefreshStatus;
-      FShown := True;
-    end;
+    RefreshStatus;
+    FShown := True;
   end;
 end;
 
