@@ -20,7 +20,6 @@ A graphical manager for your homestead instances.
 #### Optional
 
 * [Hosts File Editor](https://scottlerch.github.io/HostsFileEditor/)
-* [Yaris](https://gist.github.com/paulgeneres/bfa6c8b10e5244912cfb179d0989050e)
 
 ### Installing
 
