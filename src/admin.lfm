@@ -1,7 +1,7 @@
 object AdminForm: TAdminForm
-  Left = 1031
+  Left = 888
   Height = 750
-  Top = 310
+  Top = 229
   Width = 1276
   Caption = 'Homestead Control Panel'
   ClientHeight = 750
@@ -10,7 +10,7 @@ object AdminForm: TAdminForm
   OnCreate = FormCreate
   OnShow = FormShow
   SessionProperties = 'Height;Left;Top;Width'
-  LCLVersion = '2.0.6.0'
+  LCLVersion = '2.0.10.0'
   object OutputMemo: TMemo
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Image1
@@ -166,6 +166,7 @@ object AdminForm: TAdminForm
       Left = 619
       Top = 2
       Action = YarisAction
+      Visible = False
     end
   end
   object Image1: TImage
@@ -203,8 +204,8 @@ object AdminForm: TAdminForm
     ParentFont = False
   end
   object ActionList1: TActionList
-    left = 390
-    top = 220
+    Left = 390
+    Top = 220
     object UpAction: TAction
       Category = 'Vagrant'
       Caption = 'Up'
@@ -295,8 +296,8 @@ object AdminForm: TAdminForm
   object ImageList1: TImageList
     Height = 24
     Width = 24
-    left = 490
-    top = 220
+    Left = 490
+    Top = 220
     Bitmap = {
       4C69040000001800000018000000000000000000000000000000000000000000
       0000000000000000000000A2004F00A2009F07A407CF0CA60CFF0CA60CFF0CA6
@@ -697,14 +698,14 @@ object AdminForm: TAdminForm
     }
     Hint = 'Homestead GUI'
     OnClick = TrayIcon1Click
-    left = 191
-    top = 220
+    Left = 191
+    Top = 220
   end
   object IniPropStorage1: TIniPropStorage
     StoredValues = <>
     IniFileName = 'HomesteadGUI.ini'
     IniSection = 'AdminForm'
-    left = 90
-    top = 220
+    Left = 90
+    Top = 220
   end
 end

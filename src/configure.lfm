@@ -1,7 +1,7 @@
 object ConfigDialog: TConfigDialog
-  Left = 427
+  Left = 926
   Height = 600
-  Top = 247
+  Top = 219
   Width = 1328
   Caption = 'Configure'
   ClientHeight = 600
@@ -10,7 +10,7 @@ object ConfigDialog: TConfigDialog
   OnCreate = FormCreate
   OnShow = FormShow
   SessionProperties = 'Top;Left;Height;Width'
-  LCLVersion = '2.0.6.0'
+  LCLVersion = '2.0.10.0'
   object PageControl1: TPageControl
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
@@ -22,14 +22,14 @@ object ConfigDialog: TConfigDialog
     Height = 500
     Top = 50
     Width = 1308
-    ActivePage = TabSheet7
+    ActivePage = TabSheet6
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Left = 10
     BorderSpacing.Top = 50
     BorderSpacing.Right = 10
     BorderSpacing.Bottom = 50
     ParentFont = False
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 6
     object TabSheet1: TTabSheet
       Caption = 'Paths'
@@ -198,6 +198,7 @@ object ConfigDialog: TConfigDialog
         BorderSpacing.Right = 10
         ParentFont = False
         TabOrder = 4
+        Visible = False
       end
       object Label5: TLabel
         Left = 20
@@ -207,6 +208,7 @@ object ConfigDialog: TConfigDialog
         Caption = 'New Project Path'
         ParentColor = False
         ParentFont = False
+        Visible = False
       end
     end
     object TabSheet7: TTabSheet
@@ -604,8 +606,8 @@ object ConfigDialog: TConfigDialog
     TabOrder = 5
   end
   object ActionList1: TActionList
-    left = 760
-    top = 20
+    Left = 760
+    Top = 20
     object EditHomesteadYaml: TAction
       Caption = 'Edit Homestead.yaml'
       OnExecute = EditHomesteadYamlExecute
@@ -643,13 +645,13 @@ object ConfigDialog: TConfigDialog
         Size = 100
       end>
     OnNewRecord = NewRecord
-    left = 1016
-    top = 112
+    Left = 1016
+    Top = 112
   end
   object FolderSource: TDataSource
     DataSet = FolderData
-    left = 880
-    top = 110
+    Left = 880
+    Top = 110
   end
   object SiteData: TMemDataset
     Active = True
@@ -688,13 +690,13 @@ object ConfigDialog: TConfigDialog
         Size = 10
       end>
     OnNewRecord = NewRecord
-    left = 1016
-    top = 182
+    Left = 1016
+    Top = 182
   end
   object SiteSource: TDataSource
     DataSet = SiteData
-    left = 880
-    top = 180
+    Left = 880
+    Top = 180
   end
   object DatabaseData: TMemDataset
     Active = True
@@ -710,20 +712,20 @@ object ConfigDialog: TConfigDialog
         Size = 100
       end>
     OnNewRecord = NewRecord
-    left = 1016
-    top = 252
+    Left = 1016
+    Top = 252
   end
   object DatabaseSource: TDataSource
     DataSet = DatabaseData
-    left = 880
-    top = 250
+    Left = 880
+    Top = 250
   end
   object IniPropStorage1: TIniPropStorage
     StoredValues = <>
     IniFileName = 'HomesteadGUI.ini'
     IniSection = 'ConfigDialog'
-    left = 880
-    top = 20
+    Left = 880
+    Top = 20
   end
   object PortData: TMemDataset
     Active = True
@@ -749,12 +751,12 @@ object ConfigDialog: TConfigDialog
         DataType = ftString
       end>
     OnNewRecord = NewRecord
-    left = 1016
-    top = 322
+    Left = 1016
+    Top = 322
   end
   object PortSource: TDataSource
     DataSet = PortData
-    left = 880
-    top = 320
+    Left = 880
+    Top = 320
   end
 end
