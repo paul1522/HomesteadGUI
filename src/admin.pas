@@ -62,7 +62,6 @@ type
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
     ToolButton9: TToolButton;
-    TrayIcon1: TTrayIcon;
     UpAction: TAction;
     HaltAction: TAction;
     SuspendAction: TAction;
@@ -88,7 +87,6 @@ type
     procedure ResumeActionExecute(Sender: TObject);
     procedure SshActionExecute(Sender: TObject);
     procedure SuspendActionExecute(Sender: TObject);
-    procedure TrayIcon1Click(Sender: TObject);
     procedure UpActionExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure WindowsPowerShellActionExecute(Sender: TObject);
@@ -180,7 +178,6 @@ begin
   OutputMemo.ScrollBars := ssAutoBoth;
   FHidden := False;
   FShown := False;
-  TrayIcon1.Show;
   SetEnvironmentVariable('VAGRANT_NO_COLOR', 'YES');
 
   // Workaround for "stdin is not a tty" bug present in Vagrant since version 1.9.7.
@@ -205,20 +202,6 @@ end;
 procedure TAdminForm.SuspendActionExecute(Sender: TObject);
 begin
   VagrantActionExecute(vaSuspend);
-end;
-
-procedure TAdminForm.TrayIcon1Click(Sender: TObject);
-begin
-  if FHidden then
-  begin
-    Show;
-    FHidden := False;
-  end
-  else
-  begin
-    Hide;
-    FHidden := True;
-  end;
 end;
 
 procedure TAdminForm.ResumeActionExecute(Sender: TObject);

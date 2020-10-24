@@ -88,7 +88,7 @@ type
 
 const
   INI_FILE_NAME = 'HomesteadGUI.ini';
-  APP_VERSION = '1.5.4';
+  APP_VERSION = '1.6.0';
 
 var
   Global: TGlobal;
